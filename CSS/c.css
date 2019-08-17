@@ -1,0 +1,102 @@
+body
+{
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../images/c.jpg);
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-color: black;
+}
+
+body
+{
+    font-family: monospace;
+}
+
+li{
+    font-size: 15px;
+}
+
+.navbar li:hover{
+    border: 1px solid white;
+}
+
+.collapsible{
+    font-family: "Courier New", sans-serif;
+    font-size: 20px;
+    background: none;
+    color: white;
+    padding: 5px 15px;
+    border: none;
+}
+
+.active, .collapsible:hover{
+    border: 1px solid white;
+}
+
+.look-code{
+    border: 1px solid white;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+.look-code:hover{
+    border: 1px dotted white;
+}
+
+.difficulty{
+    height: 600px;
+    overflow: scroll;
+}
+
+.easy{
+    display: none;
+}
+
+.intermediate{
+    display: none;
+}
+
+.projects li{
+    line-height: 1.5;
+}
+
+.projects{
+    color: white;
+}
+
+.project1{
+    
+}
+
+.code{
+    font-family: "Courier New", sans-serif;
+    padding: 10px;
+    background-color: white;
+    color: black;
+    line-height: 1.5;
+    margin-top: 20px;
+    display: none;
+}
+
+.code1{
+    
+}
+
+.code2{
+    height: 500px;
+    overflow: scroll;
+}
+
+.code3{
+    height: 500px;
+    overflow: scroll;
+}
+
+.icode1{
+    height: 500px;
+    overflow: scroll;
+}
+
+.icode2 pre{
+    border-bottom: 10px solid black;
+}

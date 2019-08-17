@@ -1,0 +1,2819 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Beam | C++ </title>
+        <link href="./CSS/cpp.css" rel="stylesheet" type="text/css">
+        <!-- boot strapcodes -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <div class="row justify-content-right">
+                    <nav class="navbar navbar-expand-lg">
+                        <ul class="navbar-nav">
+                            <li class="nav-item mr-lg-3"><a class="nav-link text-white" href="./index.html"> HOME </a></li>
+                            <li class="nav-item mr-lg-3"><a class="nav-link text-white" href="./experience.html"> EXPERIENCE </a></li>
+                            <li class="nav-item mr-lg-3"><a class="nav-link text-white" href="./cs.html"> CS </a></li>
+                            <li class="nav-item mr-lg-3"><a class="nav-link text-white" href="./golf.html"> GOLF </a></li>
+                            <li class="nav-item mr-lg-3"><a class="nav-link text-white" href="./contact.html"> CONTACT </a></li>    
+                        </ul>        
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <div class="container projects ml-2 mr-2 ml-lg-auto mr-lg-auto">
+            <div class="row">
+                <button class="collapsible level mb-3"> Difficulty Level: 1-2 hours </button>
+                <div class="difficulty intermediate">
+                    <div class="project1 mb-3">
+                        <h1> Rock Paper Scissor </h1>
+                        <li> Rock Paper Scissor game with AI</li>
+                        <li> Spring Quarter Freshman Year </li>
+                        <button class="collapsible look-code"> Main.cpp </button>
+                        <div class="code code1">
+                            <h4> main.cpp </h4>
+                            <pre>
+    #include &lt;iostream>
+    #include &lt;string&gt;
+    #include &lt;cctype&gt;
+    #include "RockPaperScisssors.h"
+
+    int main(int argc, char** argv) {
+        //if there is an input for the seed, we change the seed to whatever input
+        int i = 1;
+        int seed = std::stoi(argv[i]);
+        bool answerYes;
+        if (argc == 1){
+            seed = time(nullptr);
+        }
+        std::minstd_rand rand_num;
+        rand_num.seed(seed);
+        do {
+            //we keep asking for new user input and another random number
+            //as long as the user have yes as thier input
+            playGame(rand_num);
+            while(true){
+                std::cout &lt;&lt; "Would you like to replay the game?" &lt;&lt; std::endl;
+                std::cout &lt;&lt; "Enter (Y)es or (N)o: ";
+                std::string playAgain;
+                std::cin >> playAgain;
+                lowerInPlace(playAgain);
+                if (playAgain == "y" || playAgain == "(y)es" || playAgain == "yes"){
+                    char str[256];
+                    std::cin.getline(str,256);
+                    break;
+                } else{
+                    if (playAgain == "n" || playAgain == "(n)o" || playAgain == "no"){
+                        return 0;
+                    } else {
+                        char str[256];
+                        std::cin.getline(str,256);
+                        continue;
+                    }
+                }
+            }
+            answerYes = true;
+            } while (answerYes);
+        }
+                                </pre>
+                        </div>
+                        <button class="collapsible look-code">StringFunctions.cpp</button>
+                        <div class="code code1">
+                            <h4> StringFunctions.cpp </h4>
+                            <pre>
+    #include &lt;algorithm>
+    #include &lt;string>
+    #include "MoreStringFunctions.h"
+
+    void lowerInPlace(std::string&amp; string) {
+        for(auto&amp; letter : string){
+            letter = tolower(letter);
+        }
+    }
+
+    std::string lower(std::string string) {
+        lowerInPlace(string);
+        return string;
+    }
+
+    void stripInPlace(std::string&amp; string, const std::string&amp; charsToRemove) {
+        lstripInPlace(string, charsToRemove);
+        rstripInPlace(string, charsToRemove);
+    }
+
+    void lstripInPlace(std::string&amp; string, const std::string&amp; charsToRemove) {
+        auto itr = string.begin();
+        for(; itr != string.end(); ++itr){
+            if(!contains(charsToRemove, *itr)){
+                break;
+            }
+        }
+        string.erase(string.begin(), itr);
+    }
+
+    void rstripInPlace(std::string&amp; string, const std::string&amp; charsToRemove) {
+        auto itr = string.rbegin();
+        for (; itr != string.rend(); ++itr) {
+            if (!contains(charsToRemove, *itr)) {
+                break;
+            }
+        }
+        string.erase(itr.base(), string.end());
+    }
+
+
+    bool contains(const std::string&amp; string, char letter) {
+        return std::find(string.cbegin(), string.cend(), letter) != string.cend();
+    }
+
+                            </pre>
+                        </div>
+                        <button class="collapsible look-code">StringFunctions.h</button>
+                        <div class="code code1">
+                            <h4> StringFunctions.h </h4>
+                            <pre>
+    #include &lt;string>
+
+    #ifndef LECTURE_MORESTRINGFUNCTIONS_H
+    #define LECTURE_MORESTRINGFUNCTIONS_H
+
+    #include &lt;string>
+
+    void lowerInPlace(std::string&amp; string);
+    std::string lower(std::string string);
+    void stripInPlace(std::string&amp; string, const std::string&amp; charsToRemove = "\t\n ");
+    void lstripInPlace(std::string&amp; string, const std::string&amp; charsToRemove = "\t\n ");
+    void rstripInPlace(std::string&amp; string, const std::string&amp; charsToRemove = "\t\n ");
+
+    bool contains(const std::string&amp; string, char letter);
+
+    #endif //LECTURE_MORESTRINGFUNCTIONS_H
+                            </pre>
+                        </div>
+                        <button class="collapsible look-code">RockPaperScissors.cpp</button>
+                        <div class="code code1">
+                            <h4> RockPaperScissors.cpp </h4>
+                            <pre>
+    #include "RockPaperScisssors.h"
+
+    // Ask the user for an input
+    int player_input() {
+        while (true) {
+            std::cout &lt;&lt; "Enter (R)ock, (P)aper, or (S)cissors for your move: ";
+            std::string human_input;
+            std::getline(std::cin,human_input);
+            //read the whole line of the input then if it finds a tab
+            //we keep stripping tabs and spaces until it's only the letter or word
+            if (contains(human_input, '\t')){
+                while(contains(human_input, ' ') || contains(human_input, '\t')){
+                    stripInPlace(human_input, " ");
+                    stripInPlace(human_input, "\t");
+                }
+            }
+            //make the input to lowercase then check the input
+            //if the input is not valid then ask the user to input again
+            lowerInPlace(human_input);
+            if (human_input == "rock" || human_input == "(r)ock" || human_input == "r") {
+                return 0;
+            }
+            if (human_input == "paper" || human_input == "(p)aper" || human_input == "p") {
+                return 1;
+            }
+            if (human_input == "scissors" || human_input == "(s)cissors" || human_input == "s") {
+                return 2;
+            } else {
+                continue;
+                }
+            }
+        }
+
+    // Check the number from the random number generator
+    int com_input(int c_input){
+        if (c_input == 0){
+            std::cout &lt;&lt; "The ai played rock." &lt;&lt; std::endl;
+            return 0;
+        }
+        if (c_input == 1){
+            std::cout &lt;&lt; "The ai played paper." &lt;&lt; std::endl;
+            return 1;
+        }
+        if (c_input == 2){
+            std::cout &lt;&lt; "The ai played scissors." &lt;&lt; std::endl;
+            return 2;
+        }
+        return 0;
+    }
+
+    //compare the results then print the result
+
+    void compare(int player, int computer) {
+        if (player == 0 &amp;&amp; computer == 1){
+            std::cout &lt;&lt; "The AI wins :(" &lt;&lt; std::endl;
+        } else {
+            if (player == 0 &amp;&amp; computer == 2){
+                std::cout &lt;&lt; "You win!" &lt;&lt; std::endl;
+            } else {
+                if (player == 1 &amp;&amp; computer == 0){
+                    std::cout &lt;&lt; "You win!" &lt;&lt; std::endl;
+                } else {
+                    if (player == 1 &amp;&amp; computer == 2){
+                        std::cout &lt;&lt; "The AI wins :(" &lt;&lt; std::endl;
+                    } else {
+                        if (player == 2 &amp;&amp; computer == 0){
+                            std::cout &lt;&lt; "The AI wins :(" &lt;&lt; std::endl;
+                        } else {
+                            if (player == 2 &amp;&amp; computer == 1){
+                                std::cout &lt;&lt; "You win!" &lt;&lt; std::endl;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //start playing the game and have number generator as our argument
+    void playGame(std::minstd_rand&amp; rand_num) {
+        int player;
+        int computer;
+        bool inputIsSame;
+        std::uniform_int_distribution&lt;&gt; dis(0,2);
+        //keep asking for new user input as long as the input from both user
+        //and computer are the same
+        do {
+            int num = dis(rand_num);
+            player = player_input();
+            computer = com_input(num);
+            inputIsSame = player == computer;
+            if (player == 0 &amp;&amp; computer == 0){
+                std::cout &lt;&lt; "You and the AI both played rock." &lt;&lt; std::endl;
+                std::cout &lt;&lt; "Keep playing until someone wins." &lt;&lt; std::endl;
+            } else{
+                if(player == 1 &amp;&amp; computer == 1){
+                    std::cout &lt;&lt; "You and the AI both played paper." &lt;&lt; std::endl;
+                    std::cout &lt;&lt; "Keep playing until someone wins." &lt;&lt; std::endl;
+                } else {
+                    if(player == 2 &amp;&amp; computer == 2){
+                        std::cout &lt;&lt; "You and the AI both played scissors." &lt;&lt; std::endl;
+                        std::cout &lt;&lt; "Keep playing until someone wins." &lt;&lt; std::endl;
+                    }
+                }
+            }
+        } while (inputIsSame);
+        //once they are different, we compare for the results
+        compare(player, computer);
+    }
+                            </pre>
+                        </div>
+                        <button class="collapsible look-code">RockPaperScissors.h</button>
+                        <div class="code code1">
+                            <h4> RockPaperScissors.h </h4>
+                            <pre>
+    #ifndef ROCKPAPERSCISSORS_ROCKPAPERSCISSSORS_H
+    #define ROCKPAPERSCISSORS_ROCKPAPERSCISSSORS_H
+
+    #include &lt;iostream>
+    #include &lt;random>
+    #include &lt;cctype>
+    #include "MoreStringFunctions.h"
+
+    int player_input();
+
+    int com_input(int num);
+
+    void playGame(std::minstd_rand&amp; rand_num);
+
+    void compare(int player, int computer);
+
+
+    #endif //ROCKPAPERSCISSORS_ROCKPAPERSCISSSORS_H
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="project2 mb-3">
+                        <h1> Top Common Words </h1>
+                        <li> Count and sort the top common words in the file </li>
+                        <li> Spring Quarter Freshman Year </li>
+                        <button class="collapsible look-code"> Main.cpp </button>
+                        <div class="code code2">
+                            <h4> Main.cpp </h4>
+                            <pre>
+    #include &lt;iostream>
+    #include "TopCommonWords.h"
+    #include "MoreStringFunctions.h"
+
+
+    int main(int argc, char** argv) {
+        //if there is no argument - set the default number of line as 10
+        //if there is an argument - set to whatever the argument says
+        int numtimes = 10;
+        if(argc == 3){
+            numtimes = std::stoi(argv[2]);
+        }
+        std::ifstream inFile(argv[1]);
+        std::string word;
+        WordMap wordMap;
+        listWord notinterested{"a","an","and","in","is","it","the"};
+        //read all the words in the file and if the word is in the not
+        //interested list - we skip them, then create a map
+        while (inFile >> word){
+            lowerInPlace(word);
+            lstripInPlace(word, ",.:;\"|\\!@#$%^&amp;*()_+-=[]{}&lt;>?/~`'");
+            rstripInPlace(word, ",.:;\"|\\!@#$%^&amp;*()_+-=[]{}&lt;>?/~`'");
+            if (std::find(notinterested.begin(), notinterested.end(), word) != notinterested.end()) {
+                continue;
+            }
+            addWords(wordMap, word);
+        }
+
+        // turning map to vector then sort them by numbers in decending order
+        VecPair wordVector;
+        std::copy(wordMap.begin(), wordMap.end(), std::back_inserter&lt;VecPair>(wordVector));
+        std::sort(wordVector.begin(), wordVector.end(),
+                [](const pair&amp; left, const pair&amp; right){
+            if(left.second != right.second){
+                return left.second > right.second;
+            }
+            return left.first &lt; right.first;
+        });
+
+        printOutSorted(wordVector, numtimes);
+    }
+                            </pre>
+                        </div>
+                        <button class="collapsible look-code">StringFunctions.cpp</button>
+                        <div class="code code2">
+                            <h4> StringFunctions.cpp </h4>
+                            <pre>
+    #include &lt;algorithm>
+    #include &lt;string>
+    #include "MoreStringFunctions.h"
+
+    void lowerInPlace(std::string&amp; string) {
+        for(auto&amp; letter : string){
+            letter = tolower(letter);
+        }
+    }
+
+    std::string lower(std::string string) {
+        lowerInPlace(string);
+        return string;
+    }
+
+    void stripInPlace(std::string&amp; string, const std::string&amp; charsToRemove) {
+        lstripInPlace(string, charsToRemove);
+        rstripInPlace(string, charsToRemove);
+    }
+
+    void lstripInPlace(std::string&amp; string, const std::string&amp; charsToRemove) {
+        auto itr = string.begin();
+        for(; itr != string.end(); ++itr){
+            if(!contains(charsToRemove, *itr)){
+                break;
+            }
+        }
+        string.erase(string.begin(), itr);
+    }
+
+    void rstripInPlace(std::string&amp; string, const std::string&amp; charsToRemove) {
+        auto itr = string.rbegin();
+        for (; itr != string.rend(); ++itr) {
+            if (!contains(charsToRemove, *itr)) {
+                break;
+            }
+        }
+        string.erase(itr.base(), string.end());
+    }
+
+
+    bool contains(const std::string&amp; string, char letter) {
+        return std::find(string.cbegin(), string.cend(), letter) != string.cend();
+    }
+
+                            </pre>
+                        </div>
+                        <button class="collapsible look-code">StringFunctions.h</button>
+                        <div class="code code2">
+                            <h4> StringFunctions.h </h4>
+                            <pre>
+    #include &lt;string>
+
+    #ifndef LECTURE_MORESTRINGFUNCTIONS_H
+    #define LECTURE_MORESTRINGFUNCTIONS_H
+
+    #include &lt;string>
+
+    void lowerInPlace(std::string&amp; string);
+    std::string lower(std::string string);
+    void stripInPlace(std::string&amp; string, const std::string&amp; charsToRemove = "\t\n ");
+    void lstripInPlace(std::string&amp; string, const std::string&amp; charsToRemove = "\t\n ");
+    void rstripInPlace(std::string&amp; string, const std::string&amp; charsToRemove = "\t\n ");
+
+    bool contains(const std::string&amp; string, char letter);
+
+    #endif //LECTURE_MORESTRINGFUNCTIONS_H
+                            </pre>
+                        </div>
+                        <button class="collapsible look-code">TopCommonWords.cpp</button>
+                        <div class="code code2">
+                            <h4> TopCommonWords.cpp </h4>
+                            <pre>
+    #include "TopCommonWords.h"
+
+    //Create map here
+    //if the word is not in the map, we set that word to one
+    //if it is already in the map, we iterate that word by 1
+    void addWords(WordMap &amp;wordMap, const std::string &amp;word) {
+        if (wordMap[word] == 0){
+            wordMap[word] = 1;
+        } else {
+            if (wordMap[word] >= 1){
+                wordMap[word] = wordMap[word]+1;
+            }
+        }
+
+    }
+
+    //Print the Output here
+    //have two loops going through the vector - make i as an iterator for the number of lines
+    // and make j go through all the words
+    void printOutSorted(VecPair &amp;wordVector, int numtimes = 10) {
+        int j = -1;
+        for (int i = 0; i &lt; numtimes; ++i) {
+            ++j;
+            //check if j is already the last word in the vector
+            //if it is already the last word -> exit
+            if (j > wordVector.size()-1){
+                return;
+            }
+            const auto &amp;word = wordVector[j].first;
+            const auto &amp;count = wordVector[j].second;
+            std::cout &lt;&lt; i + 1 &lt;&lt; ".) ";
+            std::cout &lt;&lt; "These words appeared " &lt;&lt; count &lt;&lt; " times: {" &lt;&lt; word;
+            //if the count is not the same as the count of the word next to it
+            //then end the line
+            if (wordVector[j].second != wordVector[j + 1].second) {
+                std::cout &lt;&lt; "}" &lt;&lt; std::endl;
+            }
+            //if the count is the same as the one next to it then print the word
+            // next to it then iterate the j loop and keep checking if the next count
+            // is still the same
+            if (wordVector[j].second == wordVector[j + 1].second) {
+                while (wordVector[j].second == wordVector[j + 1].second) {
+                    if (wordVector[j + 1].first.empty()) {
+                        break;
+                    }
+                    ++j;
+                    std::cout &lt;&lt; ", " &lt;&lt; wordVector[j].first;
+                }
+                std::cout &lt;&lt; "}" &lt;&lt; std::endl;
+            }
+
+        }
+    }
+                            </pre>
+                        </div>
+                        <button class="collapsible look-code">TopCommonWords.h</button>
+                        <div class="code code2">
+                            <h4> TopCommonWords.h </h4>
+                            <pre>
+    #ifndef TOPCOMMONWORDS_TOPCOMMONWORDS_H
+    #define TOPCOMMONWORDS_TOPCOMMONWORDS_H
+
+    #include &lt;iostream>
+    #include &lt;map>
+    #include &lt;string>
+    #include &lt;fstream>
+    #include &lt;vector>
+    #include &lt;algorithm>
+
+    using WordMap = std::map&lt;std::string, int>;
+    using listWord = std::vector&lt;std::string>;
+    typedef std::pair&lt;std::string, int> pair;
+    using VecPair = std::vector&lt;pair>;
+
+    void addWords (WordMap&amp; wordMap, const std::string&amp; word);
+    //void printOutput (WordMap&amp; wordMap);
+    void printOutSorted (VecPair&amp; wordVector, int numtimes);
+
+    #endif //TOPCOMMONWORDS_TOPCOMMONWORDS_H
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="project3 mb-3">
+                        <h1> Matrix </h1>
+                        <li> Program that calculates vectors and matrices </li>
+                        <li> Spring Quarter Freshman Year </li>
+                        <button class="collapsible look-code">Matrix.cpp</button>
+                        <div class="code code3">
+                            <h4> Matrix.cpp </h4>
+                            <pre>
+    #include "Matrix.h"
+
+    //create an identity matrix by create a matrix with all 0
+    //then start change 0 to 1 diagonally
+    Matrix::Matrix Matrix::Matrix::ident(Matrix::SizeType dim) {
+        std::vector&lt;std::vector&lt;double>> identity(dim, std::vector&lt;double>(dim, 0));
+        for (int j = 0; j &lt; dim ; ++j) {
+            identity[j][j] = 1;
+        }
+        return identity;
+    }
+
+    //initialize all the elements in the matrix to a value
+    Matrix::Matrix::Matrix(Matrix::SizeType numRows, Matrix::SizeType numCols, const Matrix::ValueType &amp;val) : contents(numRows, Vector(numCols, val)) {
+
+    }
+
+    //initialize all the elements in the matrix to 0
+    Matrix::Matrix::Matrix(Matrix::SizeType numRows, Matrix::SizeType numCols) : contents(numRows, Vector(numCols, 0)) {
+
+    }
+
+    //create a matrix with std::vector&lt;Vector> as an argument
+    Matrix::Matrix::Matrix(const std::vector&lt;Vector> &amp;contents) : contents(contents){
+
+    }
+
+    //create a matrix with std::vector&lt;std::vector&lt;ValueType>> as an argument
+    Matrix::Matrix::Matrix(const std::vector&lt;std::vector&lt;ValueType>> &amp;contents) : contents() {
+        for(const auto&amp; row : contents){
+            this->contents.emplace_back(row);
+        }
+    }
+
+    //return the size of row
+    Matrix::SizeType Matrix::Matrix::getNumRows() const {
+        return contents.size();
+    }
+
+    //return the size of column
+    Matrix::SizeType Matrix::Matrix::getNumCols() const {
+        return contents.at(0).size();
+    }
+
+    //return the vector at the specified row
+    Matrix::Vector &amp;Matrix::Matrix::at(int row) {
+        return contents[row];
+    }
+
+    //return the vector at the specified row
+    const Matrix::Vector &amp;Matrix::Matrix::at(int row) const {
+        return contents[row];
+    }
+
+    //return the vector at the specified row
+    Matrix::Vector &amp;Matrix::Matrix::operator[](int row) {
+        return contents.at(row);
+    }
+
+    //return the vector at the specified row
+    const Matrix::Vector &amp;Matrix::Matrix::operator[](int row) const {
+        return contents.at(row);
+    }
+
+    //return the value at the specified position
+    Matrix::ValueType &amp;Matrix::Matrix::at(int row, int col) {
+        return contents.at(row).at(col);
+    }
+
+    //return the value at the specified position
+    const Matrix::ValueType &amp;Matrix::Matrix::at(int row, int col) const {
+        return contents.at(row).at(col);
+    }
+
+    //create a transpose matrix by creating a new matrix
+    //then rearrange the matrix in a transpose matter
+    Matrix::Matrix Matrix::Matrix::transpose() const {
+        std::vector&lt;std::vector&lt;ValueType>> transposeMatrix;
+        for (int col = 0; col &lt; getNumCols() ; ++col) {
+            transposeMatrix.emplace_back(std::vector&lt;ValueType>());
+            for (int row = 0; row &lt; getNumRows(); ++row) {
+                transposeMatrix.at(col).emplace_back(contents.at(row).at(col));
+            }
+        }
+        return transposeMatrix;
+    }
+
+
+    std::ostream &amp;Matrix::operator&lt;&lt;(std::ostream &amp;out, const Matrix &amp;matrix) {
+        for (int row = 0; row &lt; matrix.getNumRows(); ++row) {
+            for (int col = 0; col &lt; matrix.getNumCols(); ++col) {
+                out &lt;&lt; matrix.at(row,col) &lt;&lt; ' ';
+            }
+        }
+        return out;
+    }
+
+    std::istream &amp;Matrix::operator>>(std::istream &amp;in, Matrix &amp;matrix) {
+        for (int row = 0; row &lt; matrix.getNumRows(); ++row) {
+            for (int col = 0; col &lt; matrix.getNumCols(); ++col) {
+                in >> matrix.at(row,col);
+            }
+        }
+        return in;
+    }
+
+    //go through every element in the matrix and negate them
+    Matrix::Matrix Matrix::operator-(const Matrix &amp;self) {
+        Matrix negative(self);
+        for(auto&amp; elems : negative){
+            for(auto&amp; vars : elems){
+                vars = -vars;
+            }
+        }
+        return negative;
+    }
+
+    //go to every element in the matrix and add them with a scalar value
+    Matrix::Matrix &amp;Matrix::operator+=(Matrix &amp;matrix, const Matrix::ValueType &amp;scalar) {
+        for(auto&amp; elems : matrix){
+            for (auto&amp; vars : elems){
+                vars = vars + scalar;
+            }
+        }
+        return matrix;
+    }
+
+    //go to every element in the matrix and add them with a scalar value
+    Matrix::Matrix Matrix::operator+(const Matrix &amp;matrix, const Matrix::ValueType &amp;scalar) {
+        Matrix copy(matrix);
+        copy += scalar;
+        return copy;
+    }
+
+    //go to every element in the matrix and add them with a scalar value
+    Matrix::Matrix Matrix::operator+(const Matrix::ValueType &amp;scalar, const Matrix &amp;matrix) {
+        Matrix copy(matrix);
+        copy += scalar;
+        return copy;
+    }
+
+    //go to every element in the matrix and subtract them with a scalar value
+    Matrix::Matrix &amp;Matrix::operator-=(Matrix &amp;matrix, const Matrix::ValueType &amp;scalar) {
+        matrix += -scalar;
+        return matrix;
+    }
+
+    //go to every element in the matrix and subtract them with a scalar value
+    Matrix::Matrix Matrix::operator-(const Matrix &amp;matrix, const Matrix::ValueType &amp;scalar) {
+        Matrix copy(matrix);
+        copy -= scalar;
+        return copy;
+    }
+
+    //go to every element in the matrix and subtract them with a scalar value
+    Matrix::Matrix Matrix::operator-(const Matrix::ValueType &amp;scalar, const Matrix &amp;matrix) {
+        Matrix copy(matrix);
+        for(auto&amp; elems : copy){
+            for (auto&amp; vars : elems){
+                vars = scalar-vars;
+            }
+        }
+        return copy;
+    }
+
+    //go to every element in the matrix and multiply them with a scalar value
+    Matrix::Matrix &amp;Matrix::operator*=(Matrix &amp;matrix, const Matrix::ValueType &amp;scalar) {
+        for (auto&amp; elems : matrix){
+            for(auto&amp; vars : elems){
+                vars = vars * scalar;
+            }
+        }
+        return matrix;
+    }
+
+    //go to every element in the matrix and multiply them with a scalar value
+    Matrix::Matrix Matrix::operator*(const Matrix &amp;matrix, const Matrix::ValueType &amp;scalar) {
+        Matrix copy(matrix);
+        copy *= scalar;
+        return copy;
+    }
+
+    //go to every element in the matrix and multiply them with a scalar value
+    Matrix::Matrix Matrix::operator*(const Matrix::ValueType &amp;scalar, const Matrix &amp;matrix) {
+        Matrix copy(matrix);
+        copy *= scalar;
+        return copy;
+    }
+
+    //go to every element in the matrix and divide them with a scalar value
+    Matrix::Matrix &amp;Matrix::operator/=(Matrix &amp;matrix, const Matrix::ValueType &amp;scalar) {
+        matrix *= (1/scalar);
+        return matrix;
+    }
+
+    //go to every element in the matrix and divide them with a scalar value
+    Matrix::Matrix Matrix::operator/(const Matrix &amp;matrix, const Matrix::ValueType &amp;scalar) {
+        Matrix copy(matrix);
+        copy *= (1/scalar);
+        return copy;
+    }
+
+    //go through every element in the both matrices and add them together
+    Matrix::Matrix &amp;Matrix::operator+=(Matrix &amp;lhs, const Matrix &amp;rhs) {
+        for (int row = 0; row &lt; lhs.getNumRows() ; ++row) {
+            for (int col = 0; col &lt; lhs.getNumCols() ; ++col) {
+                lhs.at(row,col) = lhs.at(row,col) + rhs.at(row,col);
+            }
+        }
+        return lhs;
+    }
+
+    //go through every element in the both matrices and add them together
+    Matrix::Matrix Matrix::operator+(const Matrix &amp;lhs, const Matrix &amp;rhs) {
+        Matrix copy(lhs);
+        copy += rhs;
+        return copy;
+    }
+
+    //go through every element in the both matrices and subtract them together
+    Matrix::Matrix &amp;Matrix::operator-=(Matrix &amp;lhs, const Matrix &amp;rhs) {
+        lhs += -rhs;
+        return lhs;
+    }
+
+    //go through every element in the both matrices and subtract them together
+    Matrix::Matrix Matrix::operator-(const Matrix &amp;lhs, const Matrix &amp;rhs) {
+        Matrix copy(lhs);
+        copy += -rhs;
+        return copy;
+    }
+
+    //go through every element in the both matrices and multiply them together then add everything together
+    Matrix::Matrix &amp;Matrix::operator*=(Matrix &amp;lhs, const Matrix &amp;rhs) {
+        std::vector&lt;std::vector&lt;ValueType>> multiMatrix;
+        for (int lRow = 0; lRow &lt; lhs.getNumRows() ; ++lRow) {
+            std::vector&lt;ValueType> multiVec;
+            for (int rCol = 0; rCol &lt; rhs.getNumCols() ; ++rCol) {
+                ValueType total = 0;
+                for (int pair = 0; pair &lt; lhs.getNumRows() ; ++pair) {
+                    total += lhs.at(lRow,pair) * rhs.at(pair,rCol);
+                }
+                multiVec.emplace_back(total);
+            }
+            multiMatrix.emplace_back(multiVec);
+        }
+        Matrix copy(multiMatrix);
+        for (auto&amp; elems : lhs){
+           elems.resize(rhs.getNumCols());
+        }
+        int matrixRow = multiMatrix.size();
+        int matrixCol = multiMatrix.at(0).size();
+        for (int row = 0; row &lt; matrixRow ; ++row) {
+            for (int col = 0; col &lt; matrixCol ; ++col) {
+                lhs.at(row, col) = copy.at(row, col);
+            }
+        }
+        return lhs;
+    }
+
+    //go through every element in the both matrices and multiply them together then add everything together
+    Matrix::Matrix Matrix::operator*(const Matrix &amp;lhs, const Matrix &amp;rhs) {
+        Matrix copy(lhs);
+        copy *= rhs;
+        return copy;
+    }
+
+    //have begin() and end() so we could use the for(elem : list) loop
+    Matrix::Matrix::iterator Matrix::Matrix::begin() {
+        return contents.begin();
+    }
+
+    Matrix::Matrix::iterator Matrix::Matrix::end() {
+        return contents.end();
+    }
+                            </pre>
+                        </div>
+                        <button class="collapsible look-code">Matrix.h</button>
+                        <div class="code code3">
+                            <h4> Matrix.h </h4>
+                            <pre>
+    #ifndef MATRIX_MATRIX_H
+    #define MATRIX_MATRIX_H
+    #include &lt;vector>
+    #include &lt;iostream>
+    #include &lt;string>
+    #include "Vector.h"
+    #include "MatrixTypeDefs.h"
+
+    namespace Matrix {
+      class Matrix {
+       public:
+        using ValueType = ::Matrix::ValueType;
+        using SizeType = ::Matrix::SizeType;
+        using iterator = std::vector&lt;Vector>::iterator;
+
+        //create an identity matrix: https://en.wikipedia.org/wiki/Identity_matrix
+        //that is a dim X dim matrix with 1's on the main diagonal
+        static Matrix ident(SizeType dim);
+
+        //constructors
+        //create a numRows X numCols matrix where all of the elements
+        //are set to value
+        Matrix(SizeType numRows, SizeType numCols, const ValueType&amp; val);
+
+        //create a numRows X numCols matrix where all of the elements
+        //are set to 0
+        Matrix(SizeType numRows, SizeType numCols);
+
+        //create a matrix with the specified contents
+        Matrix(const std::vector&lt;Vector>&amp; contents);
+        Matrix(const std::vector&lt;std::vector&lt;ValueType>>&amp; contents);
+
+        //copy constructor
+        Matrix(const Matrix&amp; orig) = default;
+        virtual ~Matrix() = default;
+
+        SizeType getNumRows() const;
+        SizeType getNumCols() const;
+
+        //element access
+
+        //return the vector at the specified row
+        Vector&amp; at(int row);
+        const Vector&amp; at(int row) const;
+        Vector&amp; operator[](int row);
+        const Vector&amp; operator[](int row) const;
+
+        //return the value at the specified position
+        ValueType&amp; at(int row, int col);
+        const ValueType&amp; at(int row, int col) const;
+
+        //return a transpose of the matrix
+        //https://chortle.ccsu.edu/VectorLessons/vmch13/vmch13_14.html
+        Matrix transpose() const;
+
+        iterator begin();
+        iterator end();
+
+       private:
+        //the contents of the matrix
+        std::vector&lt;Vector> contents;
+      };
+
+      //write the matrix to out
+      //one row per line
+      //one space between each element on a row
+      std::ostream&amp; operator&lt;&lt;(std::ostream&amp; out, const Matrix&amp; matrix);
+
+      //read the next matrix.getRows() X matrix.getCols()
+      //values from in and store them in matrix
+      std::istream&amp; operator>>(std::istream&amp; in, Matrix&amp; matrix);
+
+      //matrix negation
+      //negate each value in self
+      Matrix operator-(const Matrix&amp; self);
+
+      //scalar and matrix operations
+
+      //scalar and matrix addition
+      //scalar and Matrix addition isn't formally defined in mathematics
+      //but we are going to do it anyway
+
+      //add scalar to each element in matrix
+      Matrix&amp; operator+=(Matrix&amp; matrix, const Matrix::ValueType&amp; scalar);
+      Matrix operator+(const Matrix&amp; matrix, const Matrix::ValueType&amp; scalar);
+      Matrix operator+(const Matrix::ValueType&amp; scalar, const Matrix&amp; matrix);
+
+      //scalar and matrix subtraction
+      //scalar and Matrix subtraction isn't formally defined in mathematics
+      //but we are going to do it anyway
+
+      //subtract scalar from every element of matrix
+      Matrix&amp; operator-=(Matrix&amp; matrix, const Matrix::ValueType&amp; scalar);
+      Matrix operator-(const Matrix&amp; matrix, const Matrix::ValueType&amp; scalar);
+
+      //treat scalar as a matrix with the same dimension as rhs
+      //but all elements are set to scalar
+      Matrix operator-(const Matrix::ValueType&amp; scalar, const Matrix&amp; matrix);
+
+      //scalar and matrix multiplication
+      //multiply every element in matrix by scalar
+      Matrix&amp; operator*=(Matrix&amp; matrix, const Matrix::ValueType&amp; scalar);
+      Matrix operator*(const Matrix&amp; matrix, const Matrix::ValueType&amp; scalar);
+      Matrix operator*(const Matrix::ValueType&amp; scalar, const Matrix&amp; matrix);
+
+      //scalar matrix division
+      //divide every element in matrix by scalar
+      Matrix&amp; operator/=(Matrix&amp; matrix, const Matrix::ValueType&amp; scalar);
+      Matrix operator/(const Matrix&amp; matrix, const Matrix::ValueType&amp; scalar);
+      //scalar divided by a matrix isn't well defined so we aren't implementing it
+
+      //matrix operators
+
+      //matrix addition: https://www.purplemath.com/modules/mtrxadd.htm
+      Matrix&amp; operator+=(Matrix&amp; lhs, const Matrix&amp; rhs);
+      Matrix operator+(const Matrix&amp; lhs, const Matrix&amp; rhs);
+
+      //matrix subtraction: https://www.purplemath.com/modules/mtrxadd.htm
+      Matrix&amp; operator-=(Matrix&amp; lhs, const Matrix&amp; rhs);
+      Matrix operator-(const Matrix&amp; lhs, const Matrix&amp; rhs);
+
+      //matrix multiplication: https://www.purplemath.com/modules/mtrxmult.htm
+      Matrix&amp; operator*=(Matrix&amp; lhs, const Matrix&amp; rhs);
+      Matrix operator*(const Matrix&amp; lhs, const Matrix&amp; rhs);
+
+    }
+    #endif //MATRIX_MATRIX_H
+                            </pre>
+                        </div>
+                        <button class="collapsible look-code">Vector.cpp</button>
+                        <div class="code code3">
+                            <h4> Vector.cpp </h4>
+                            <pre>
+    #include "Vector.h"
+    #include "Matrix.h"
+
+    //create a vector the same size as contents with the same values
+    Matrix::Vector::Vector(const std::vector&lt;Matrix::ValueType> &amp;contents) : contents(contents) {
+
+    }
+
+    //create a vector numElements big where the elements are all initialized to value
+    Matrix::Vector::Vector(const Matrix::SizeType &amp;numElements, const Matrix::ValueType &amp;value) : contents(numElements, value){
+
+    }
+
+    //create a vector numElements big where the elements are all initialized to 0
+    Matrix::Vector::Vector(const Matrix::SizeType &amp;numElements) : contents(numElements, 0) {
+
+    }
+
+    //return the size of the vector
+    Matrix::SizeType Matrix::Vector::size() const {
+        return contents.size();
+    }
+
+    //turn the vector into the row of a matrix
+    Matrix::Matrix Matrix::Vector::asRowMatrix() const {
+        std::vector&lt;std::vector&lt;ValueType>> rowMatrix;
+        rowMatrix.push_back(contents);
+        return rowMatrix;
+    }
+
+    //turn the vector into the column of a matrix
+    Matrix::Matrix Matrix::Vector::asColMatrix() const {
+        std::vector&lt;std::vector&lt;ValueType>> colMatrix;
+        for (const auto&amp; elems : contents) {
+            colMatrix.emplace_back(std::vector&lt;ValueType>(1, elems));
+        }
+        return colMatrix;
+    }
+
+    //return the vector as a row of a matrix
+    Matrix::Vector::operator Matrix() const {
+        return asRowMatrix();
+    }
+
+    //return the element at the specific location of the vector
+    const Matrix::ValueType &amp;Matrix::Vector::at(int index) const {
+        return contents.at(index);
+    }
+
+    //return the element at the specific location of the vector
+    Matrix::ValueType &amp;Matrix::Vector::at(int index) {
+        return contents.at(index);
+    }
+
+    //return the element at the specific location of the vector
+    const Matrix::ValueType &amp;Matrix::Vector::operator[](int index) const {
+        return at(index);
+    }
+
+    //return the element at the specific location of the vector
+    Matrix::ValueType&amp; Matrix::Vector::operator[](int index) {
+        return at(index);
+    }
+
+    std::ostream &amp;Matrix::operator&lt;&lt;(std::ostream &amp;out, const Vector &amp;vec) {
+        for(const auto&amp; elem : vec){
+            out &lt;&lt; elem &lt;&lt; ' ';
+        }
+        return out;
+    }
+
+    std::istream &amp;Matrix::operator>>(std::istream &amp;in, Vector &amp;vec) {
+        for(auto&amp; elem : vec){
+            in >> elem;
+        }
+        return in;
+    }
+
+    //go through every element in the vector and negate them
+    Matrix::Vector Matrix::operator-(const Vector &amp;self) {
+        Vector negative(self);
+        for(auto&amp; elems : negative){
+            elems = -elems;
+        }
+        return negative;
+    }
+
+    //go to every element in the vector and add them with a scalar value
+    Matrix::Vector &amp;Matrix::operator+=(Vector &amp;vector, const Vector::ValueType &amp;scalar) {
+        for(auto&amp; elems : vector){
+            elems += scalar;
+        }
+        return vector;
+    }
+
+    //go to every element in the vector and add them with a scalar value
+    Matrix::Vector Matrix::operator+(const Vector &amp;vector, const Vector::ValueType &amp;scalar) {
+        Vector copy(vector);
+        copy += scalar;
+        return copy;
+    }
+
+    //go to every element in the vector and add them with a scalar value
+    Matrix::Vector Matrix::operator+(const Vector::ValueType &amp;scalar, const Vector &amp;vector) {
+        Vector copy(vector);
+        copy += scalar;
+        return copy;
+    }
+
+    //go to every element in the vector and subtract them with a scalar value
+    Matrix::Vector &amp;Matrix::operator-=(Vector &amp;vector, const Vector::ValueType &amp;scalar) {
+        vector += -scalar;
+        return vector;
+    }
+
+    //go to every element in the vector and subtract them with a scalar value
+    Matrix::Vector Matrix::operator-(const Vector &amp;vector, const Vector::ValueType &amp;scalar) {
+        Vector copy(vector);
+        copy -= scalar;
+        return copy;
+    }
+
+    //go to every element in the vector and subtract them with a scalar value
+    Matrix::Vector Matrix::operator-(const Vector::ValueType &amp;scalar, const Vector &amp;vector) {
+        Vector copy(vector);
+        for(auto&amp; elems : copy){
+            elems = scalar-elems;
+        }
+        return copy;
+    }
+
+    //go to every element in the vector and multiply them with a scalar value
+    Matrix::Vector &amp;Matrix::operator*=(Vector &amp;vector, const Vector::ValueType &amp;scalar) {
+        for (auto&amp; elems : vector){
+            elems *= scalar;
+        }
+        return vector;
+    }
+
+    //go to every element in the vector and multiply them with a scalar value
+    Matrix::Vector Matrix::operator*(const Vector &amp;vector, const Vector::ValueType &amp;scalar) {
+        Vector copy(vector);
+        copy *= scalar;
+        return copy;
+    }
+
+    //go to every element in the vector and multiply them with a scalar value
+    Matrix::Vector Matrix::operator*(const Vector::ValueType &amp;scalar, const Vector &amp;vector) {
+        Vector copy(vector);
+        copy *= scalar;
+        return copy;
+    }
+
+    //go to every element in the vector and divide them with a scalar value
+    Matrix::Vector &amp;Matrix::operator/=(Vector &amp;vector, const Vector::ValueType &amp;scalar) {
+        vector *= (1/scalar);
+        return vector;
+    }
+
+    //go to every element in the vector and divide them with a scalar value
+    Matrix::Vector Matrix::operator/(const Vector &amp;vector, const Vector::ValueType &amp;scalar) {
+        Vector copy(vector);
+        copy *= (1/scalar);
+        return copy;
+    }
+
+    //go through every elements in the both vectors and add them together
+    Matrix::Vector &amp;Matrix::operator+=(Vector &amp;lhs, const Vector &amp;rhs) {
+       for (int i = 0; i &lt; lhs.size(); ++i) {
+           lhs[i] = lhs[i] + rhs[i];
+       }
+        return lhs;
+    }
+
+    //go through every elements in the both vectors and add them together
+    Matrix::Vector Matrix::operator+(const Vector &amp;lhs, const Vector &amp;rhs) {
+        Vector copy(lhs);
+        copy += rhs;
+        return copy;
+    }
+
+    //go through every elements in the both vectors and subtract them together
+    Matrix::Vector &amp;Matrix::operator-=(Vector &amp;lhs, const Vector &amp;rhs) {
+        for (int i = 0; i &lt; lhs.size() ; ++i) {
+            lhs.at(i) = lhs.at(i) - rhs.at(i);
+        }
+        return lhs;
+    }
+
+    //go through every elements in the both vectors and subtract them together
+    Matrix::Vector Matrix::operator-(const Vector &amp;lhs, const Vector &amp;rhs) {
+        Vector copy(lhs);
+        copy -= rhs;
+        return copy;
+    }
+
+    //go through every elements in the both vectors and multiply them together
+    //then add everything up together
+    Matrix::Vector::ValueType Matrix::operator*=(Vector &amp;lhs, const Vector &amp;rhs) {
+        for (int i = 0; i &lt; lhs.size() ; ++i) {
+            lhs[i] = lhs[i] * rhs[i];
+        }
+        double total = 0;
+        for (int j = 0; j &lt; lhs.size() ; ++j) {
+            total += lhs[j];
+        }
+
+        lhs = Vector(1, total);
+        return total;
+    }
+
+    //go through every elements in the both vectors and multiply them together
+    //then add everything up together
+    Matrix::Vector::ValueType Matrix::operator*(const Vector &amp;lhs, const Vector &amp;rhs) {
+        Vector copy(lhs);
+        for (int i = 0; i &lt; copy.size() ; ++i) {
+            copy[i] = copy[i] * rhs[i];
+        }
+        double total = 0;
+        for (int j = 0; j &lt; copy.size() ; ++j) {
+            total += copy[j];
+        }
+        return total;
+    }
+
+    //we have begin and end so we could use the for loops
+    Matrix::Vector::const_iterator Matrix::Vector::begin() const {
+        return contents.begin();
+    }
+
+    Matrix::Vector::const_iterator Matrix::Vector::end() const {
+        return contents.end();
+    }
+
+    Matrix::Vector::iterator Matrix::Vector::begin() {
+        return contents.begin();
+    }
+
+    Matrix::Vector::iterator Matrix::Vector::end() {
+        return contents.end();
+    }
+
+    //resize the vector to the new size
+    void Matrix::Vector::resize(double size) {
+        contents.resize(size);
+    }
+                            </pre>
+                        </div>
+                        <button class="collapsible look-code">Vector.h</button>
+                        <div class="code code3">
+                            <h4> Vector.h </h4>
+                            <pre>
+    #ifndef MATRIX_VECTOR_H
+    #define MATRIX_VECTOR_H
+    #include &lt;vector>
+    #include &lt;iostream>
+    #include &lt;string>
+    #include "MatrixTypeDefs.h"
+
+
+    namespace Matrix {
+      class Matrix; //forward declaration
+
+      class Vector {
+       public:
+        using ValueType = ::Matrix::ValueType;
+        using SizeType = ::Matrix::SizeType;
+        using iterator = std::vector&lt;ValueType>::iterator;
+        using const_iterator = std::vector&lt;ValueType>::const_iterator;
+
+    //    friend std::ostream&amp; operator&lt;&lt;(std::ostream&amp; out, const Vector&amp; vec);
+    //    friend std::istream&amp; operator>>(std::istream&amp; in, Vector&amp; vec);
+    //    friend Vector operator-(const Vector&amp; self);
+    //    friend Vector&amp; operator+=(Vector&amp; vector, const Vector::ValueType&amp; scalar);
+    //    friend Vector&amp; operator*=(Vector&amp; vector, const Vector::ValueType&amp; scalar);
+
+        //constructors
+
+        //create a vector the same size as contents with the same values
+        Vector(const std::vector&lt;ValueType>&amp; contents);
+
+        //create a vector numElements big where the elements are all initialized to value
+        Vector(const SizeType&amp; numElements, const ValueType&amp; value);
+
+        //create a vector numElements big where the elements are all initialized to 0
+        Vector(const SizeType&amp; numElements);
+
+        //copy constructor
+        Vector(const Vector&amp; orig) = default;
+        virtual ~Vector() = default;
+
+        SizeType size() const;
+
+        //conversion to matrix functions
+
+        //convert this vector to a 1 X N vector
+        Matrix asRowMatrix() const;
+
+        //convert this vector to an N X 1 vector
+        Matrix asColMatrix() const;
+
+        //convert this vector to a 1 X N vector
+        operator Matrix() const;
+
+        //element access
+        //return the element at the specified index
+        //it will always be in bounds
+        const ValueType&amp; at(int index) const;
+        ValueType&amp; at(int index);
+
+        const ValueType&amp; operator[](int index) const;
+        ValueType&amp; operator[](int index);
+
+        void resize(double size);
+
+
+
+        const_iterator begin() const;
+        const_iterator end() const;
+        iterator begin();
+        iterator end();
+
+
+       private:
+        std::vector&lt;ValueType> contents;
+      };
+
+      //print the elements of vec out with a space between each element
+      std::ostream&amp; operator&lt;&lt;(std::ostream&amp; out, const Vector&amp; vec);
+
+      //read the next vec.size() values from in, into vec
+      std::istream&amp; operator>>(std::istream&amp; in, Vector&amp; vec);
+
+      //negation
+      //return a new vector with all elements of self negated
+      Vector operator-(const Vector&amp; self);
+
+      //scalar and vector operations
+
+      //scalar and vector addition
+      //scalar and vector addition isn't formally defined in mathematics
+      //but we are going to do it anyway
+      //add the scalar value to each of the elements in the Vector
+      Vector&amp; operator+=(Vector&amp; vector, const Vector::ValueType&amp; scalar);
+      Vector operator+(const Vector&amp; vector, const Vector::ValueType&amp; scalar);
+      Vector operator+(const Vector::ValueType&amp; scalar, const Vector&amp; vector);
+
+      //scalar and vector subtraction
+      //scalar and vector subtraction isn't formally defined in mathematics
+      //but we are going to do it anyway
+
+      //subtract the scalar from vector each element of Vector
+      Vector&amp; operator-=(Vector&amp; vector, const Vector::ValueType&amp; scalar);
+      Vector operator-(const Vector&amp; vector, const Vector::ValueType&amp; scalar);
+
+      //treat scalar as a Vector the same size as vector for this operation
+      //then it will just be like the vector addition below
+      Vector operator-(const Vector::ValueType&amp; scalar, const Vector&amp; vector);
+
+      //scalar and vector multiplication
+      //multiply each element in vector by the scalar
+      Vector&amp; operator*=(Vector&amp; vector, const Vector::ValueType&amp; scalar);
+      Vector operator*(const Vector&amp; vector, const Vector::ValueType&amp; scalar);
+      Vector operator*(const Vector::ValueType&amp; scalar, const Vector&amp; vector);
+
+      //scalar and division subtraction
+      //divide each element in vector by the scalar
+      Vector&amp; operator/=(Vector&amp; vector, const Vector::ValueType&amp; scalar);
+      Vector operator/(const Vector&amp; vector, const Vector::ValueType&amp; scalar);
+      //division of a scalar by a vector isn't very well defined so we aren't implementing it
+
+
+      //vector and vector operations
+
+      //vector addition: https://www.varsitytutors.com/hotmath/hotmath_help/topics/adding-and-subtracting-vectors
+      //add together the elements in both vectors at the same positions together
+      //the vectors will have the same size
+      Vector&amp; operator+=(Vector&amp; lhs, const Vector&amp; rhs);
+      Vector operator+(const Vector&amp; lhs, const Vector&amp; rhs);
+
+      //vector subtraction: https://www.varsitytutors.com/hotmath/hotmath_help/topics/adding-and-subtracting-vectors
+      //subtract from each vector the elements at the same position
+      //the vectors will have the same size
+      Vector&amp; operator-=(Vector&amp; lhs, const Vector&amp; rhs);
+      Vector operator-(const Vector&amp; lhs, const Vector&amp; rhs);
+
+      //dot product: https://www.mathsisfun.com/algebra/vectors-dot-product.html
+      //multiply the elements in the same positions together and then add
+      //all of the products together. Note the return types of both
+      //functions are ValueType as opposed to Vector because
+      //we end up with only a single element
+
+      //this will change lhs into a 1 X 1 vector
+      Vector::ValueType operator*=(Vector&amp; lhs, const Vector&amp; rhs);
+
+      //lhs isn't modified in this function
+      Vector::ValueType operator*(const Vector&amp; lhs, const Vector&amp; rhs);
+    }
+
+    #endif //MATRIX_VECTOR_H
+                            </pre>
+                        </div>
+                        <button class="collapsible look-code">MatrixTypeDef.h</button>
+                        <div class="code code3">
+                            <h4> MatrixTypeDef.h </h4>
+                            <pre>
+    #ifndef MATRIX_MATRIXTYPEDEFS_H
+    #define MATRIX_MATRIXTYPEDEFS_H
+    namespace Matrix{
+      using ValueType = double;
+      using SizeType = int;
+    }
+
+    #endif //MATRIX_MATRIXTYPEDEFS_H
+
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="project4 mb-3">
+                        <h1> Doubly Linked List </h1>
+                        <li> Spring Quarter Freshman Year </li>
+                        <button class="collapsible look-code">ConstDoublyLinkedListIterator.h</button>
+                        <div class="code code4">
+                            <h4> ConstDoublyLinkedListIterator.h </h4>
+                            <pre>
+    #ifndef TESTDOUBLELINKEDLIST_CONSTDOUBLYLINKEDLISTITERATOR_H
+    #define TESTDOUBLELINKEDLIST_CONSTDOUBLYLINKEDLISTITERATOR_H
+
+    template&lt;typename T>
+    class ConstDoublyLinkedListIterator {
+    //you must implement at least the methods below
+      //you are free to add (and will likely need to add)
+      //more members and methods
+
+     public:
+      ConstDoublyLinkedListIterator(const ConstDoublyLinkedListIterator&amp; orig);
+
+      ConstDoublyLinkedListIterator(DoubleLinkedNode&lt;T>* curPointer);
+      //are the two iterators equal?
+      //they are if they are over the same doubly linked list
+      //and (they are referring to the same element in the list
+      //or they are out of bounds)
+      bool operator==(const ConstDoublyLinkedListIterator&lt;T>&amp; rhs) const;
+
+      //are the two iterators different?
+      bool operator!=(const ConstDoublyLinkedListIterator&lt;T>&amp; rhs) const;
+
+      //is the iterator safe to dereference?
+      operator bool() const;
+
+      //go to the next element
+      ConstDoublyLinkedListIterator&lt;T>&amp; operator++(); //pre
+      const ConstDoublyLinkedListIterator&lt;T> operator++(int);//post
+
+      //go to the previous element
+      ConstDoublyLinkedListIterator&lt;T>&amp; operator--(); //pre
+      const ConstDoublyLinkedListIterator&lt;T> operator--(int); //post
+
+      //get a const reference to the value
+      const T&amp; operator*() const;
+
+    private:
+        //create a pointer to point at the current node
+        DoubleLinkedNode&lt;T>* curPointer;
+
+    };
+
+    //initialize the pointer as the pointer of the original iterator
+    template&lt;typename T>
+    ConstDoublyLinkedListIterator&lt;T>::ConstDoublyLinkedListIterator(const ConstDoublyLinkedListIterator &amp;orig) : curPointer(orig.curPointer) {
+
+    }
+
+    //initialize the pointer as the current pointer
+    template&lt;typename T>
+    ConstDoublyLinkedListIterator&lt;T>::ConstDoublyLinkedListIterator(DoubleLinkedNode&lt;T>* curPointer) : curPointer(curPointer){
+
+    }
+
+    //check if the current pointer is pointing at the same node as the iterator
+    template&lt;typename T>
+    bool ConstDoublyLinkedListIterator&lt;T>::operator==(const ConstDoublyLinkedListIterator&lt;T> &amp;rhs) const {
+        return curPointer == rhs.curPointer;
+    }
+
+    //check if the current pointer is not pointing at the same node as the iterator
+    template&lt;typename T>
+    bool ConstDoublyLinkedListIterator&lt;T>::operator!=(const ConstDoublyLinkedListIterator&lt;T> &amp;rhs) const {
+        return curPointer != rhs.curPointer;
+    }
+
+    template&lt;typename T>
+    ConstDoublyLinkedListIterator&lt;T>::operator bool() const {
+        return curPointer != nullptr;
+    }
+
+    //move the current pointer to the next node
+    template&lt;typename T>
+    ConstDoublyLinkedListIterator&lt;T> &amp;ConstDoublyLinkedListIterator&lt;T>::operator++() {
+        curPointer = curPointer->next;
+        return *this;
+    }
+
+    //move the current pointer to the next node
+    template&lt;typename T>
+    const ConstDoublyLinkedListIterator&lt;T> ConstDoublyLinkedListIterator&lt;T>::operator++(int) {
+        ConstDoublyLinkedListIterator constIterator = *this;
+        ++*this;
+        return constIterator;
+    }
+
+    //move the current node to the previous node
+    template&lt;typename T>
+    ConstDoublyLinkedListIterator&lt;T> &amp;ConstDoublyLinkedListIterator&lt;T>::operator--() {
+        curPointer = curPointer->prev;
+        return *this;
+    }
+
+    //move the current node to the previous node
+    template&lt;typename T>
+    const ConstDoublyLinkedListIterator&lt;T> ConstDoublyLinkedListIterator&lt;T>::operator--(int) {
+        ConstDoublyLinkedListIterator constIterator = *this;
+        --*this;
+        return constIterator;
+    }
+
+    //dereference the node to get the value
+    template&lt;typename T>
+    const T &amp;ConstDoublyLinkedListIterator&lt;T>::operator*() const {
+        return curPointer->value;
+    }
+
+
+    #endif //TESTDOUBLELINKEDLIST_CONSTDOUBLYLINKEDLISTITERATOR_H
+                            </pre>
+                        </div>
+                        <button class="collapsible look-code">ConstReverseDoublyLinkedListIterator.h</button>
+                        <div class="code code4">
+                            <h4>ConstReverseDoublyLinkedListIterator.h</h4>
+                            <pre>
+    #ifndef TESTDOUBLELINKEDLIST_CONSTREVERSEDOUBLYLINKEDLISTITERATOR_H
+    #define TESTDOUBLELINKEDLIST_CONSTREVERSEDOUBLYLINKEDLISTITERATOR_H
+
+    template&lt;typename T>
+    class ConstReverseDoublyLinkedListIterator {
+    //you must implement at least the methods below
+      //you are free to add (and will likely need to add)
+      //more members and methods
+
+      //copy constructor
+    public:
+      ConstReverseDoublyLinkedListIterator(const ConstReverseDoublyLinkedListIterator&amp; orig);
+
+      ConstReverseDoublyLinkedListIterator(DoubleLinkedNode&lt;T>* curPointer);
+
+
+        //are the two iterators equal?
+      //they are if they are over the same doubly linked list
+      //and (they are referring to the same element in the list
+      //or they are out of bounds)
+      bool operator==(const ConstReverseDoublyLinkedListIterator&lt;T>&amp; rhs) const;
+
+      //are the two iterators different?
+      bool operator!=(ConstReverseDoublyLinkedListIterator&lt;T>&amp; rhs) const;
+
+      //is the iterator safe to dereference?
+      operator bool() const;
+
+      //go to the next element
+      ConstReverseDoublyLinkedListIterator&lt;T>&amp; operator++(); //pre
+      const ConstReverseDoublyLinkedListIterator&lt;T> operator++(int);//post
+
+      //go to the previous element
+      ConstReverseDoublyLinkedListIterator&lt;T>&amp; operator--(); //pre
+      const ConstReverseDoublyLinkedListIterator&lt;T> operator--(int);//post
+
+      //get a const reference to the value
+      const T&amp; operator*() const;
+
+    private:
+        //create a pointer to point at the current node
+        DoubleLinkedNode&lt;T>* curPointer;
+    };
+
+    //initialize the pointer as the pointer of the original iterator
+    template&lt;typename T>
+    ConstReverseDoublyLinkedListIterator&lt;T>::ConstReverseDoublyLinkedListIterator(const ConstReverseDoublyLinkedListIterator &amp;orig) : curPointer(orig.curPointer ) {
+
+    }
+
+    //initialize the pointer as the current pointer
+    template&lt;typename T>
+    ConstReverseDoublyLinkedListIterator&lt;T>::ConstReverseDoublyLinkedListIterator(DoubleLinkedNode&lt;T> *curPointer) : curPointer(curPointer) {
+
+    }
+
+    //check if the current pointer is pointing at the same node as the iterator
+    template&lt;typename T>
+    bool ConstReverseDoublyLinkedListIterator&lt;T>::operator==(const ConstReverseDoublyLinkedListIterator&lt;T> &amp;rhs) const {
+        return curPointer == rhs.curPointer;
+    }
+
+    //check if the current pointer is not pointing at the same node as the iterator
+    template&lt;typename T>
+    bool ConstReverseDoublyLinkedListIterator&lt;T>::operator!=(ConstReverseDoublyLinkedListIterator&lt;T> &amp;rhs) const {
+        return curPointer != rhs.curPointer;
+    }
+
+    template&lt;typename T>
+    ConstReverseDoublyLinkedListIterator&lt;T>::operator bool() const {
+        return curPointer != nullptr;
+    }
+
+    //move the current node to the previous node
+    template&lt;typename T>
+    ConstReverseDoublyLinkedListIterator&lt;T> &amp;ConstReverseDoublyLinkedListIterator&lt;T>::operator++() {
+        curPointer = curPointer->prev;
+        return *this;
+    }
+
+    //move the current node to the previous node
+    template&lt;typename T>
+    const ConstReverseDoublyLinkedListIterator&lt;T> ConstReverseDoublyLinkedListIterator&lt;T>::operator++(int) {
+        ConstReverseDoublyLinkedListIterator constReverseIterator = *this;
+        ++*this;
+        return constReverseIterator;
+    }
+
+    //move the current pointer to the next node
+    template&lt;typename T>
+    ConstReverseDoublyLinkedListIterator&lt;T> &amp;ConstReverseDoublyLinkedListIterator&lt;T>::operator--() {
+        curPointer = curPointer->next;
+        return *this;
+    }
+
+    //move the current pointer to the next node
+    template&lt;typename T>
+    const ConstReverseDoublyLinkedListIterator&lt;T> ConstReverseDoublyLinkedListIterator&lt;T>::operator--(int) {
+        ConstReverseDoublyLinkedListIterator constReverseIterator = *this;
+        --*this;
+        return constReverseIterator;
+    }
+
+    //dereference the node to get the value
+    template&lt;typename T>
+    const T &amp;ConstReverseDoublyLinkedListIterator&lt;T>::operator*() const {
+        return curPointer->value;
+    }
+
+
+    #endif //TESTDOUBLELINKEDLIST_CONSTREVERSEDOUBLYLINKEDLISTITERATOR_H
+                            </pre>
+                        </div>
+                        <button class="collapsible look-code">DoubleLinkedNode.h</button>
+                        <div class="code code4">
+                            <h4>DoubleLinkedNode.h</h4>
+                            <pre>
+    #ifndef LINKEDLIST_DOUBLELINKEDNODE_H
+    #define LINKEDLIST_DOUBLELINKEDNODE_H
+    #include &lt;iostream>
+
+    template&lt;typename T>
+    class DoubleLinkedNode {
+    public:
+        //create two node that points to previous and next elements
+        T value;
+        DoubleLinkedNode&lt;T> *prev;
+        DoubleLinkedNode&lt;T> *next;
+    };
+
+
+    #endif //LINKEDLIST_DOUBLELINKEDNODE_H
+                            </pre>
+                        </div>
+                        <button class="collapsible look-code">DoublyLinkedList.h</button>
+                        <div class="code code4">
+                            <h4>DoublyLinkedList.h</h4>
+                            <pre>
+    #ifndef LINKEDLIST_DOUBLYLINKEDLIST_H
+    #define LINKEDLIST_DOUBLYLINKEDLIST_H
+
+    #include &lt;vector>
+    #include &lt;memory>
+    #include "DoubleLinkedNode.h"
+    #include "DoublyLinkedListIterator.h"
+    #include "ReverseDoublyLinkedListIterator.h"
+    #include "ConstDoublyLinkedListIterator.h"
+    #include "ConstReverseDoublyLinkedListIterator.h"
+
+    template&lt;typename T>
+    class DoublyLinkedList {
+     public:
+      using Node_Ptr = DoubleLinkedNode&lt;T>*;
+
+      using iterator = DoublyLinkedListIterator&lt;T>;
+      using const_iterator = ConstDoublyLinkedListIterator&lt;T>;
+      using reverse_iterator = ReverseDoublyLinkedListIterator&lt;T>;
+      using const_reverse_iterator = ConstReverseDoublyLinkedListIterator&lt;T>;
+
+      //create a Doubly Linked List that has the same values
+      //as in the vector and in the same order
+      explicit DoublyLinkedList(const std::vector&lt;T>&amp; values);
+
+      //create an empty DoublyLinkedList
+      DoublyLinkedList();
+
+      //destructor
+      virtual ~DoublyLinkedList();
+
+      //remove all of the elements from your list
+      void clear();
+
+      //get a reference to the front element in the list
+      const T&amp; front() const;
+      T&amp; front();
+
+      //get a reference to the last element in the list
+      const T&amp; back() const;
+      T&amp; back();
+
+      //add a value to the front of the list
+      void push_front(const T&amp; value);
+
+      //add a value to the back of the list
+      void push_back(const T&amp; value);
+
+      //is the list empty?
+      bool empty() const;
+
+      //return the number of elements in the list
+      int size() const;
+
+      //return a constant bidirectional iterator to the front of the list
+      const_iterator begin() const;
+      const_iterator end() const;
+
+      //return a nonconstant bidirectional iterator to the front of the list
+      iterator begin();
+      iterator end();
+
+      const_reverse_iterator crbegin() const;
+      const_reverse_iterator crend() const;
+
+      reverse_iterator rbegin();
+      reverse_iterator rend();
+
+      //insert the value at the position in the list
+      //I promise not to use the iterator again after the insertion is done
+      //An example if we had the list 1 &lt;-> 9 &lt;-> 17
+      //And the iterator was pointing to the 9 and we wanted to
+      //insert -22 the result would be
+      //1 &lt;-> 22 &lt;-> 9 &lt;-> 17
+      void insert(iterator&amp; position, const T&amp; value);
+
+      //remove the element at the position pointed to
+      //by the iterator.
+      //I promise not to use the iterator again after the erase is done
+      //An example if we had the list 1 &lt;-> 9 &lt;-> 17
+      //And when the wanted to erase the iterator was at the 9
+      //1 &lt;-> 17
+      void erase(iterator&amp; position);
+
+     private:
+      Node_Ptr head;
+      Node_Ptr tail;
+      int len;
+    };
+
+
+    //create a linked list from the given vector
+    template&lt;typename T>
+    DoublyLinkedList&lt;T>::DoublyLinkedList(const std::vector&lt;T> &amp;values) : head(nullptr), tail(nullptr), len(0){
+        int vecSize = values.size();
+        for (int i = 0; i &lt; vecSize ; ++i) {
+            push_back(values[i]);
+        }
+    }
+
+    //create an empty linked list
+    template&lt;typename T>
+    DoublyLinkedList&lt;T>::DoublyLinkedList() : head(nullptr), tail(nullptr), len(0) {
+
+    }
+
+    //destructor for the doubly linked list
+    template&lt;typename T>
+    DoublyLinkedList&lt;T>::~DoublyLinkedList() {
+     clear();
+    }
+
+    //remove all elements in the linked list
+    template&lt;typename T>
+    void DoublyLinkedList&lt;T>::clear() {
+        DoubleLinkedNode&lt;T>* curPointer = nullptr;
+        while (head != nullptr) {
+            curPointer = head;
+            head = head->next;
+            delete curPointer;
+        }
+        tail = nullptr;
+        len = 0;
+    }
+
+    //return the value of the head node
+    template&lt;typename T>
+    const T &amp;DoublyLinkedList&lt;T>::front() const {
+        return head->value;
+    }
+
+    //return the value of the head node
+    template&lt;typename T>
+    T &amp;DoublyLinkedList&lt;T>::front() {
+        return head->value;
+    }
+
+    //return the value of the tail node
+    template&lt;typename T>
+    const T &amp;DoublyLinkedList&lt;T>::back() const {
+        return tail->value;
+    }
+
+    //return the value of the tail node
+    template&lt;typename T>
+    T &amp;DoublyLinkedList&lt;T>::back() {
+        return tail->value;
+    }
+
+    //push a new element to the front of the linked list
+    template&lt;typename T>
+    void DoublyLinkedList&lt;T>::push_front(const T &amp;value) {
+        //if there is nothing in the list initially then we can just push back the value
+        if (len == 0){
+            DoubleLinkedNode&lt;T>* tempPointer = new DoubleLinkedNode&lt;T>;
+            tempPointer->value = value;
+            tempPointer->prev = nullptr;
+            tempPointer->next = nullptr;
+            head = tempPointer;
+            tail = tempPointer;
+            ++len;
+        } else {
+            DoubleLinkedNode&lt;T>* tempPointer = new DoubleLinkedNode&lt;T>;
+            tempPointer->prev = nullptr;
+            tempPointer->value = value;
+            tempPointer->next = head;
+            head->prev = tempPointer;
+            head = tempPointer;
+            ++len;
+        }
+    }
+
+    //push a new element to the back of the list
+    template&lt;typename T>
+    void DoublyLinkedList&lt;T>::push_back(const T &amp;value) {
+        //if there is nothing in the list initially we can just create a new list
+        if (len == 0) {
+            DoubleLinkedNode&lt;T> *tempPointer = new DoubleLinkedNode&lt;T>;
+            tempPointer->value = value;
+            tempPointer->prev = nullptr;
+            tempPointer->next = nullptr;
+            head = tempPointer;
+            tail = tempPointer;
+            ++len;
+        } else {
+            DoubleLinkedNode&lt;T> *tempPointer = new DoubleLinkedNode&lt;T>;
+            tempPointer->prev = tail;
+            tempPointer->value = value;
+            tempPointer->next = nullptr;
+            tail->next = tempPointer;
+            tail = tempPointer;
+            ++len;
+        }
+    }
+
+    //check if the linked list if empty by checking if both the head and the tail are pointing at nullptr
+    // and if len is equal to 0
+    template&lt;typename T>
+    bool DoublyLinkedList&lt;T>::empty() const {
+        return (head == nullptr &amp;&amp; tail == nullptr &amp;&amp; len == 0);
+    }
+
+    //return the size of the linked list
+    template&lt;typename T>
+    int DoublyLinkedList&lt;T>::size() const {
+        return len;
+    }
+
+    //return the head of the forward iterator
+    template&lt;typename T>
+    typename DoublyLinkedList&lt;T>::const_iterator DoublyLinkedList&lt;T>::begin() const {
+        return ConstDoublyLinkedListIterator&lt;T>(head);
+    }
+
+    //return the end of the forward iterator which is nullptr
+    template&lt;typename T>
+    typename DoublyLinkedList&lt;T>::const_iterator DoublyLinkedList&lt;T>::end() const {
+        return ConstDoublyLinkedListIterator&lt;T>(nullptr);
+    }
+
+    //return the head of the forward iterator
+    template&lt;typename T>
+    typename DoublyLinkedList&lt;T>::iterator DoublyLinkedList&lt;T>::begin() {
+        return DoublyLinkedListIterator&lt;T>(head);
+    }
+
+    //return the end of the forward iterator which is nullptr
+    template&lt;typename T>
+    typename DoublyLinkedList&lt;T>::iterator DoublyLinkedList&lt;T>::end() {
+        return DoublyLinkedListIterator&lt;T>(nullptr);
+    }
+
+    //return the beginning of the reverse iterator which is the tail
+    template&lt;typename T>
+    typename DoublyLinkedList&lt;T>::const_reverse_iterator DoublyLinkedList&lt;T>::crbegin() const {
+        return ConstReverseDoublyLinkedListIterator&lt;T>(tail);
+    }
+
+    //return the end of the reverse iterator which is nullptr
+    template&lt;typename T>
+    typename DoublyLinkedList&lt;T>::const_reverse_iterator DoublyLinkedList&lt;T>::crend() const {
+        return ConstReverseDoublyLinkedListIterator&lt;T>(nullptr);
+    }
+
+    //return the beginning of the reverse iterator which is the tail
+    template&lt;typename T>
+    typename DoublyLinkedList&lt;T>::reverse_iterator DoublyLinkedList&lt;T>::rbegin() {
+        return ReverseDoublyLinkedListIterator&lt;T>(tail);
+    }
+
+    //return the end of the reverse iterator which is nullptr
+    template&lt;typename T>
+    typename DoublyLinkedList&lt;T>::reverse_iterator DoublyLinkedList&lt;T>::rend() {
+        return ReverseDoublyLinkedListIterator&lt;T>(nullptr);
+
+    }
+
+    //insert a new element into the doubly linked list
+    template&lt;typename T>
+    void DoublyLinkedList&lt;T>::insert(DoublyLinkedList::iterator &amp;position, const T &amp;value) {
+        DoubleLinkedNode&lt;T>* prevPointer = new DoubleLinkedNode&lt;T>;
+        DoubleLinkedNode&lt;T>* curPointer = nullptr;
+        DoubleLinkedNode&lt;T>* tempPointer = new DoubleLinkedNode&lt;T>;
+        curPointer = head;
+        //if there is nothing in the linked list initially then create a linked list
+        if (len == 0){
+            push_back(value);
+            //algorithm to insert at the first element of the list
+        } else if (position == head){
+            tempPointer->value = value;
+            tempPointer->prev = nullptr;
+            tempPointer->next = head;
+            head->prev = tempPointer;
+            head = tempPointer;
+            ++len;
+            //algorithm to insert at the last element of the list
+        } else if (position == tail){
+            prevPointer = tail->prev;
+            tempPointer->value = value;
+            tempPointer->next = tail;
+            tempPointer->prev = prevPointer;
+            prevPointer->next = tempPointer;
+            tail->prev = tempPointer;
+            ++len;
+            //algorithm to insert randomly anywhere in the list that is not head or tail
+        } else {
+            while (position != curPointer) {
+                prevPointer = curPointer;
+                curPointer = curPointer->next;
+            }
+            tempPointer->value = value;
+            prevPointer->next = tempPointer;
+            tempPointer->prev = prevPointer;
+            tempPointer->next = curPointer;
+            curPointer->prev = tempPointer;
+            ++len;
+        }
+    }
+
+    //function that erase an element from the linked list
+    template&lt;typename T>
+    void DoublyLinkedList&lt;T>::erase(DoublyLinkedList::iterator &amp;position) {
+        DoubleLinkedNode&lt;T>* prevPointer = new DoubleLinkedNode&lt;T>;
+        DoubleLinkedNode&lt;T>* curPointer = nullptr;
+        //if there is only one element in the list
+        //just make the head and the tail to nullptr and minus len by 1
+        if (len == 1){
+            head = nullptr;
+            tail = nullptr;
+            --len;
+            //algorithm to remove the element from the head
+        } else if (position == head){
+            curPointer = head;
+            head = head->next;
+            head->prev = nullptr;
+            delete curPointer;
+            --len;
+            //algorithm to remove the element from the tail
+        } else if (position == tail){
+            curPointer = tail;
+            tail = tail->prev;
+            delete curPointer;
+            tail->next = nullptr;
+            --len;
+            //algorithm to remove the element anywhere randomly in the list
+        } else {
+            curPointer = head;
+            while (position != curPointer) {
+                prevPointer = curPointer;
+                curPointer = curPointer->next;
+            }
+            curPointer = curPointer->next;
+            prevPointer->next = curPointer;
+            curPointer->prev = prevPointer;
+            --len;
+        }
+    }
+
+    //write to the stream each element in the list in order
+    //with a space in between them
+    template&lt;typename T>
+    std::ostream&amp; operator&lt;&lt;(std::ostream&amp; out, const DoublyLinkedList&lt;T>&amp; doublyLinkedList);
+
+    template&lt;typename T>
+    std::ostream &amp;operator&lt;&lt;(std::ostream &amp;out, const DoublyLinkedList&lt;T> &amp;doublyLinkedList) {
+        DoubleLinkedNode&lt;T>* tempPointer = nullptr;
+        tempPointer = doublyLinkedList.head;
+        while (tempPointer != nullptr){
+            out &lt;&lt; tempPointer->value &lt;&lt; " ";
+            tempPointer = tempPointer->next;
+        }
+        return out;
+    }
+
+
+    //read elements from the stream as long as it is good
+    // or until a newline (\n) is encountered
+    //if a newline is encontered it should be consumed
+    template&lt;typename T>
+    std::istream&amp; operator>>(std::istream&amp; in, DoublyLinkedList&lt;T>&amp; doublyLinkedList);
+
+    template&lt;typename T>
+    std::istream &amp;operator>>(std::istream &amp;in, DoublyLinkedList&lt;T> &amp;doublyLinkedList) {
+        DoubleLinkedNode&lt;T>* tempPointer = nullptr;
+        tempPointer = doublyLinkedList.head;
+        while (tempPointer != nullptr){
+            if (tempPointer->value == \n){
+                break;
+            } else {
+                in >> doublyLinkedList;
+            }
+            tempPointer = tempPointer->next;
+        }
+        return in;
+    }
+
+    #endif //LINKEDLIST_DOUBLYLINKEDLIST_H
+                            </pre>
+                        </div>
+                        <button class="collapsible look-code">DoublyLinkedListIterator.h</button>
+                        <div class="code code4">
+                            <h4>DoublyLinkedListIterator.h</h4>
+                            <pre>
+    #ifndef LINKEDLIST_GENERICDOUBLYLINKEDLISTITERATOR_H
+    #define LINKEDLIST_GENERICDOUBLYLINKEDLISTITERATOR_H
+
+    template&lt;typename T>
+    class DoublyLinkedListIterator {
+      //you must implement at least the methods below
+      //you are free to add (and will likely need to add)
+      //more members and methods
+
+     public:
+      DoublyLinkedListIterator(const DoublyLinkedListIterator&amp; orig);
+
+      DoublyLinkedListIterator(DoubleLinkedNode&lt;T>* curPointer);
+
+      //are the two iterators equal?
+      //they are if they are over the same doubly linked list
+      //and (they are referring to the same element in the list
+      //or they are out of bounds)
+      bool operator==(const DoublyLinkedListIterator&lt;T>&amp; rhs) const;
+
+      //are the two iterators different?
+      bool operator!=(const DoublyLinkedListIterator&lt;T>&amp; rhs) const;
+
+      //is the iterator safe to dereference?
+      operator bool() const;
+
+      //go to the next element
+      DoublyLinkedListIterator&lt;T>&amp; operator++(); //pre
+      const DoublyLinkedListIterator&lt;T> operator++(int);//post
+
+      //go to the previous element
+      DoublyLinkedListIterator&lt;T>&amp; operator--(); //pre
+      const DoublyLinkedListIterator&lt;T> operator--(int); //post
+
+      //get a const reference to the value
+      const T&amp; operator*() const;
+
+      //get a non const iterator
+      T&amp; operator*();
+
+    private:
+        //create a pointer to point at the current node
+        DoubleLinkedNode&lt;T>* curPointer;
+
+    };
+
+    //initialize the pointer as the pointer of the original iterator
+    template&lt;typename T>
+    DoublyLinkedListIterator&lt;T>::DoublyLinkedListIterator(const DoublyLinkedListIterator &amp;orig) : curPointer(orig.curPointer) {
+
+    }
+
+    //initialize the pointer as the current pointer
+    template&lt;typename T>
+    DoublyLinkedListIterator&lt;T>::DoublyLinkedListIterator(DoubleLinkedNode&lt;T>* curPointer) : curPointer(curPointer){
+
+    }
+
+    //check if the current pointer is pointing at the same node as the iterator
+    template&lt;typename T>
+    bool DoublyLinkedListIterator&lt;T>::operator==(const DoublyLinkedListIterator&lt;T> &amp;rhs) const {
+        return curPointer == rhs.curPointer;
+    }
+
+    //check if the current pointer is not pointing at the same node as the iterator
+    template&lt;typename T>
+    bool DoublyLinkedListIterator&lt;T>::operator!=(const DoublyLinkedListIterator&lt;T> &amp;rhs) const {
+        return curPointer != rhs.curPointer;
+    }
+
+    template&lt;typename T>
+    DoublyLinkedListIterator&lt;T>::operator bool() const {
+        return curPointer != nullptr;
+    }
+
+    //move the current pointer to the next node
+    template&lt;typename T>
+    DoublyLinkedListIterator&lt;T> &amp;DoublyLinkedListIterator&lt;T>::operator++() {
+        curPointer = curPointer->next;
+        return *this;
+    }
+
+    //same thing as the one before
+    template&lt;typename T>
+    const DoublyLinkedListIterator&lt;T> DoublyLinkedListIterator&lt;T>::operator++(int) {
+        DoublyLinkedListIterator iterator = *this;
+        ++*this;
+        return iterator;
+    }
+
+    //move the current node to the previous node
+    template&lt;typename T>
+    DoublyLinkedListIterator&lt;T> &amp;DoublyLinkedListIterator&lt;T>::operator--() {
+        curPointer = curPointer->prev;
+        return *this;
+    }
+
+    //same thing as the one before
+    template&lt;typename T>
+    const DoublyLinkedListIterator&lt;T> DoublyLinkedListIterator&lt;T>::operator--(int) {
+        DoublyLinkedListIterator iterator = *this;
+        --*this;
+        return iterator;
+    }
+
+    //dereference the node to get the value
+    template&lt;typename T>
+    const T &amp;DoublyLinkedListIterator&lt;T>::operator*() const {
+        return curPointer->value;
+    }
+
+    //dereference the node to get the value
+    template&lt;typename T>
+    T &amp;DoublyLinkedListIterator&lt;T>::operator*() {
+        return curPointer->value;
+    }
+
+    #endif //LINKEDLIST_GENERICDOUBLYLINKEDLISTITERATOR_H
+                            </pre>
+                        </div>
+                        <button class="collapsible look-code">ReverseDoublyLinkedListIterator.h</button>
+                        <div class="code code4">
+                            <h4>ReverseDoublyLinkedListIterator.h</h4>
+                            <pre>
+    #ifndef LINKEDLIST_GENERICREVERSEDOUBLYLINKEDLISTITERATOR_H
+    #define LINKEDLIST_GENERICREVERSEDOUBLYLINKEDLISTITERATOR_H
+
+    template&lt;typename T>
+    class ReverseDoublyLinkedListIterator {
+     public:
+      //you must implement at least the methods below
+      //you are free to add (and will likely need to add)
+      //more members and methods
+
+      //copy constructor
+      ReverseDoublyLinkedListIterator(const ReverseDoublyLinkedListIterator&amp; orig);
+
+      ReverseDoublyLinkedListIterator(DoubleLinkedNode&lt;T>* curPointer);
+
+      //are the two iterators equal?
+      //they are if they are over the same doubly linked list
+      //and (they are referring to the same element in the list
+      //or they are out of bounds)
+      bool operator==(const ReverseDoublyLinkedListIterator&lt;T>&amp; rhs) const;
+
+      //are the two iterators different?
+      bool operator!=(ReverseDoublyLinkedListIterator&lt;T>&amp; rhs) const;
+
+      //is the iterator safe to dereference?
+      operator bool() const;
+
+      //go to the next element
+      ReverseDoublyLinkedListIterator&lt;T>&amp; operator++(); //pre
+      const ReverseDoublyLinkedListIterator&lt;T> operator++(int);//post
+
+      //go to the previous element
+      ReverseDoublyLinkedListIterator&lt;T>&amp; operator--(); //pre
+      const ReverseDoublyLinkedListIterator&lt;T> operator--(int);//post
+
+      //get a const reference to the value
+      const T&amp; operator*() const;
+
+      //get a non-const reference to the value
+      T&amp; operator*();
+
+    private:
+        //create a pointer to point at the current node
+        DoubleLinkedNode&lt;T>* curPointer;
+
+    };
+
+    //initialize the pointer as the pointer of the original iterator
+    template&lt;typename T>
+    ReverseDoublyLinkedListIterator&lt;T>::ReverseDoublyLinkedListIterator(const ReverseDoublyLinkedListIterator &amp;orig) : curPointer(orig.curPointer) {
+
+    }
+
+    //initialize the pointer as the current pointer
+    template&lt;typename T>
+    ReverseDoublyLinkedListIterator&lt;T>::ReverseDoublyLinkedListIterator(DoubleLinkedNode&lt;T> *curPointer) : curPointer(curPointer) {
+
+    }
+
+    //check if the current pointer is pointing at the same node as the iterator
+    template&lt;typename T>
+    bool ReverseDoublyLinkedListIterator&lt;T>::operator==(const ReverseDoublyLinkedListIterator&lt;T> &amp;rhs) const {
+        return curPointer == rhs.curPointer;
+    }
+
+    //check if the current pointer is not pointing at the same node as the iterator
+    template&lt;typename T>
+    bool ReverseDoublyLinkedListIterator&lt;T>::operator!=(ReverseDoublyLinkedListIterator&lt;T> &amp;rhs) const {
+        return curPointer != rhs.curPointer;
+    }
+
+    template&lt;typename T>
+    ReverseDoublyLinkedListIterator&lt;T>::operator bool() const {
+        return curPointer != nullptr;
+    }
+
+    //move the current node to the previous node
+    template&lt;typename T>
+    ReverseDoublyLinkedListIterator&lt;T> &amp;ReverseDoublyLinkedListIterator&lt;T>::operator++() {
+        curPointer = curPointer->prev;
+        return *this;
+    }
+
+    //move the current node to the previous node
+    template&lt;typename T>
+    const ReverseDoublyLinkedListIterator&lt;T> ReverseDoublyLinkedListIterator&lt;T>::operator++(int) {
+        ReverseDoublyLinkedListIterator reverseIterator = *this;
+        ++*this;
+        return reverseIterator;
+    }
+
+    //move the current pointer to the next node
+    template&lt;typename T>
+    ReverseDoublyLinkedListIterator&lt;T> &amp;ReverseDoublyLinkedListIterator&lt;T>::operator--() {
+        curPointer = curPointer->next;
+        return *this;
+    }
+
+    //move the current pointer to the next node
+    template&lt;typename T>
+    const ReverseDoublyLinkedListIterator&lt;T> ReverseDoublyLinkedListIterator&lt;T>::operator--(int) {
+        ReverseDoublyLinkedListIterator reverseIterator = *this;
+        --*this;
+        return reverseIterator;
+    }
+
+    //dereference the node to get the value
+    template&lt;typename T>
+    const T &amp;ReverseDoublyLinkedListIterator&lt;T>::operator*() const {
+        return curPointer->value;
+    }
+
+    //dereference the node to get the value
+    template&lt;typename T>
+    T &amp;ReverseDoublyLinkedListIterator&lt;T>::operator*() {
+        return curPointer->value;
+    }
+
+    #endif //LINKEDLIST_GENERICREVERSEDOUBLYLINKEDLISTITERATOR_H
+                            </pre>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+<!--            new level-->
+            <div class="row">
+                <button class="collapsible level mb-3"> Difficulty Level: 5-8 hours </button>
+                <div class="difficulty hard">
+                    <div class="project5 mb-3">
+                        <h1> ConnectN </h1>
+                        <li> This is basically an adaption of Connect4 game. But we can do more than just 4 rows for this game!</li>
+                        <li> Spring Quarter Freshman Year </li>
+                        <button class="collapsible look-code">Board.cpp</button>
+                        <div class="code code5">
+                            <h4> Board.cpp </h4>
+                            <pre>
+    #include &lt;iostream>
+    #include "Board.h"
+
+    ConnectNGame::Board::Board(int boardRow, int boardColumn, char starChar) : boardState(boardRow, std::string(boardColumn, starChar)), starChar(starChar){
+
+    }
+
+    //this function returns the number of row of the table
+    int ConnectNGame::Board::getSize() const {
+        return boardState.size();
+    }
+
+    //this function returns the number of column of the table
+    int ConnectNGame::Board::getColumnSize() const {
+        return boardState.at(0).size();
+    }
+
+    //this function prints out the current status of the board
+    void ConnectNGame::Board::display() const {
+        std::cout &lt;&lt; "  ";
+        for (int i = 0; i &lt; boardState.at(0).size() ; ++i) {
+            std::cout &lt;&lt; i &lt;&lt; ' ';
+        }
+        std::cout &lt;&lt; std::endl;
+
+        int rowIndex = getSize()-1;
+        for(const auto&amp; row : boardState){
+            std::cout &lt;&lt; rowIndex &lt;&lt; ' ';
+            for (const auto&amp; elem : row) {
+                std::cout &lt;&lt; elem &lt;&lt; ' ';
+            }
+            rowIndex--;
+            std::cout &lt;&lt; std::endl;
+        }
+
+    }
+
+    //this function checks whether the move is in bound or not
+    bool ConnectNGame::Board::isInBounds(int col) const{
+        return isBetween(col, 0, boardState.at(0).size()-1);
+    }
+
+
+    bool ConnectNGame::Board::isBetween(int val, int lower, int upper) {
+        return val >= lower &amp;&amp; val &lt;= upper;
+    }
+
+    //this function checks if the specific column and row is a blank space or not
+    bool ConnectNGame::Board::isBlankSpace(int col) const {
+        for(int row = getSize()-1; row >= 0 ; --row){
+            if (boardState.at(row).at(col) == starChar){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //this function returns the row that has blank space
+    int ConnectNGame::Board::rowOfBlankSpace(int col) {
+        for(int row = getSize()-1; row >= 0 ; --row){
+            if (boardState.at(row).at(col) == starChar){
+                return row;
+            }
+        }
+        return 0;
+    }
+
+    //this function change the specific part if the string to the piece that the user enter
+    void ConnectNGame::Board::set(int row, int col, char val) {
+        boardState.at(row).at(col) = val;
+
+    }
+
+    const char &amp;ConnectNGame::Board::at(int row, int col) const {
+        return boardState.at(row).at(col);
+    }
+
+    //this function check if the board is full or not
+    bool ConnectNGame::Board::full() const {
+        for (int col = 0; col &lt; getColumnSize() ; ++col) {
+            if(isBlankSpace(col)){
+                return false;
+            }
+        }
+        return true;
+    }   
+                            </pre>
+                        </div>
+                        <button class="collapsible look-code">Board.h</button>
+                        <div class="code code5">
+                            <h4> Board.h </h4>
+                            <pre>
+    #ifndef CONNECTN_BOARD_H
+    #define CONNECTN_BOARD_H
+
+    #include &lt;vector>
+    #include &lt;string>
+
+    namespace ConnectNGame {
+        class Board {
+        public:
+            using iterator = std::vector&lt;std::string>::iterator;
+            using const_iterator = std::vector&lt;std::string>::const_iterator;
+
+            explicit Board(int boardRow, int boardColumn, char starChar);
+            int getSize() const;
+            int getColumnSize() const;
+            void display() const;
+            bool isInBounds(int col) const;
+            bool isBlankSpace(int col) const;
+            int rowOfBlankSpace(int col);
+            void set(int row, int col, char val);
+
+            const char&amp; at(int row, int col) const;
+
+            bool full() const;
+
+        private:
+            std::vector&lt;std::string> boardState;
+            static bool isBetween(int val, int lower, int upper);
+            const char starChar;
+        };
+    }
+
+    #endif //CONNECTN_BOARD_H
+                            </pre>
+                        </div>
+                        <button class="collapsible look-code">ConnectN.cpp</button>
+                        <div class="code code5">
+                            <h4> ConnectN.cpp </h4>
+                            <pre>#include &lt;iostream>
+    #include &lt;sstream>
+    #include &lt;algorithm>
+    #include "Move.h"
+    #include "ConnectN.h"
+
+    ConnectNGame::ConnectN::ConnectN(int boardRow, int boardColumn) : board(boardRow, boardColumn, '*'), playerTurn(-1) {
+        players.emplace_back(1,players);
+        players.emplace_back(2, players);
+    }
+
+    void ConnectNGame::ConnectN::play(int connectNWin) {
+        getStartingPlayer(); //call the first player
+        while (true) {
+            board.display(); //show the game state
+
+            Move move = getValidMove(); //get move
+
+            move.make(board); //make move
+
+            if(gameOver(connectNWin)){
+                break;
+            }
+
+            switchTurn(); //switch turn
+        }
+        board.display(); //display the result after the game is over
+
+        declareResults(connectNWin); //declare the result
+    }
+
+    void ConnectNGame::ConnectN::getStartingPlayer() {
+        playerTurn = 0;
+    }
+
+    //this function keeps asking for a move until it is valid
+    ConnectNGame::Move ConnectNGame::ConnectN::getValidMove() const {
+         Move playerMove(getCurrentPlayer());
+         do{
+             std::cout &lt;&lt; getCurrentPlayer().getName() &lt;&lt; ", please enter a column to play in: ";
+             std::string line;
+             std::getline(std::cin, line);
+             std::stringstream userIn(line);
+             playerMove.parseInput(userIn);
+         } while (!playerMove.isValid(board));
+        return playerMove;
+    }
+
+    //this function returns the current player
+    const ConnectNGame::Player &amp;ConnectNGame::ConnectN::getCurrentPlayer() const {
+        return players.at(playerTurn);
+    }
+
+    //to determine whether the game is over -> it has to be either a win or a tie
+    bool ConnectNGame::ConnectN::gameOver(int connectNWin) const {
+        return win(connectNWin) || tie(connectNWin);
+    }
+
+    //there are three ways to win -> hortizontally, vertically, and diagonally
+    bool ConnectNGame::ConnectN::win(int connectNWin) const {
+        return horzWin(connectNWin) || vertWin(connectNWin) || diagWin(connectNWin);
+    }
+
+    //for horizontal win -> all the pieces have to be in the same row
+    bool ConnectNGame::ConnectN::horzWin(int connectNWin) const {
+        for(int row = board.getSize()-1; row >= 0; --row){
+            int charCounter = 0;
+            for(int col = 0; col &lt; board.getColumnSize(); ++col){
+                //if the next character is the same as the previous character
+                //add the counter by 1
+                if(board.at(row, col) == getCurrentPlayer().getPiece()){
+                    charCounter++;
+                } else { //if the next character is not the same as the previous character
+                    //set the counter back to 0
+                    charCounter = 0;
+                }
+                if(charCounter == connectNWin){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    //for vertical win, all the pieces have to be in the same column
+    bool ConnectNGame::ConnectN::vertWin(int connectNWin) const {
+        for(int col=0; col &lt;= board.getColumnSize()-1; ++col){
+            int charCounter = 0;
+            for (int row = board.getSize()-1; row >= 0; --row){
+                //if the next character is the same as the previous character
+                //add the counter by 1
+                if(board.at(row, col) == getCurrentPlayer().getPiece()){
+                    charCounter++;
+                } else { //if the next character is not the same as the previous character
+                    //set the counter back to 0
+                    charCounter = 0;
+                }
+                if(charCounter == connectNWin){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    //there are two ways to win diagonally -> left and right diagonal
+    bool ConnectNGame::ConnectN::diagWin(int connectNWin) const {
+        return leftDiagWin(connectNWin) || rightDiagWin(connectNWin);
+    }
+
+    //for left diagonal - we start the piece off with being at the bottom right of the board
+    //the we keep check the piece one up and one to the left
+    bool ConnectNGame::ConnectN::leftDiagWin(int connectNWin) const {
+        for(auto bottomRight = board.getColumnSize()-1; bottomRight >= 0; --bottomRight){
+            int charCounter = 0;
+            for(int i = 0; i &lt;= bottomRight ; ++i) {
+                //if the checker is about to go out of bound -> stop it
+                if(board.getSize()-1-i &lt; 0 || bottomRight-i &lt; 0){
+                    break;
+                }
+                //if the next character is the same as the previous character
+                //add the counter by 1
+                if(board.at(board.getSize()-1-i,bottomRight-i) == getCurrentPlayer().getPiece()){
+                    charCounter++;
+                } else { //if the next character is not the same as the previous character
+                    //set the counter back to 0
+                    charCounter = 0;
+                }
+                if(charCounter == connectNWin){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    //for right diagonal - we start the piece off with being at the bottom left of the board
+    //the we keep check the piece one up and one to the right
+    bool ConnectNGame::ConnectN::rightDiagWin(int connectNWin) const {
+        int end;
+        if (board.getColumnSize() > board.getSize()){
+            end = board.getSize();
+        } else {
+            end = board.getColumnSize();
+        }
+        for (auto bottomLeft = 0; bottomLeft &lt; board.getColumnSize(); ++bottomLeft) {
+            int charCounter = 0;
+            for (int i = 0; i &lt;= end; ++i) {
+                //if the checker is about to go out of bound -> stop it
+                if(board.getSize()-1-i &lt; 0 || bottomLeft+i > board.getColumnSize()-1){
+                    break;
+                }
+                //if the next character is the same as the previous character
+                //add the counter by 1
+                if (board.at(board.getSize()-1-i, bottomLeft + i) == getCurrentPlayer().getPiece()) {
+                    charCounter++;
+                } else { //if the next character is not the same as the previous character
+                    //set the counter back to 0
+                    charCounter = 0;
+                }
+                if (charCounter == connectNWin) {
+                    return true;
+                }
+            }
+
+        }
+        return false;
+    }
+
+    //if the game is tie then that means nobody won or the board is already full
+    bool ConnectNGame::ConnectN::tie(int connectNWin) const {
+        return !win(connectNWin) &amp;&amp; board.full();
+    }
+
+
+    void ConnectNGame::ConnectN::switchTurn() {
+     playerTurn = (playerTurn + 1) % players.size();
+    }
+
+    //so if the game is tied -> print out tie game
+    //if somebody won -> print out that person's name and the statement
+    void ConnectNGame::ConnectN::declareResults(int connectNWin) const {
+        if(tie(connectNWin)){
+            std::cout &lt;&lt; "Tie game." &lt;&lt; std::endl;
+        } else {
+            std::cout &lt;&lt; getCurrentPlayer().getName() &lt;&lt; " won the game!" &lt;&lt; std::endl;
+
+        }
+    }</pre>
+                        </div>
+                        <button class="collapsible look-code">ConnectN.h</button>
+                        <div class="code code5">
+                            <h4> ConnectN.h </h4>
+                            <pre>#ifndef CONNECTN_CONNECTN_H
+    #define CONNECTN_CONNECTN_H
+
+    #include &lt;vector>
+    #include "Board.h"
+    #include "Player.h"
+    #include "Move.h"
+
+    namespace ConnectNGame {
+        class ConnectN {
+        public:
+            ConnectN(int boardRow, int boardColumn);
+            virtual ~ConnectN() = default;
+            void play(int connectNWin);
+            void getStartingPlayer();
+            Move getValidMove() const;
+
+            const Player&amp; getCurrentPlayer() const;
+
+            bool gameOver(int connectNWin) const;
+            bool win(int connectNWin) const;
+            bool horzWin(int connectNWin) const;
+            bool vertWin(int connectNWin) const;
+            bool diagWin(int connectNWin) const;
+            bool leftDiagWin(int connectNWin) const;
+            bool rightDiagWin(int connectNWin) const;
+            bool tie(int connectNWin) const ;
+
+            void switchTurn();
+
+            void declareResults(int connectNWin) const;
+
+        private:
+            Board board;
+            std::vector&lt;Player> players;
+            int playerTurn;
+        };
+    }</pre>
+                        </div>
+                        <button class="collapsible look-code">Main.cpp</button>
+                        <div class="code code5">
+                            <h4> Main.cpp </h4>
+                            <pre>#include &lt;iostream>
+    #include "ConnectN.h"
+
+    int main(int argc, char** argv) {
+        int rowLength = std::stoi(argv[1]);
+        int columnLength = std::stoi(argv[2]);
+        int connectNWin = std::stoi(argv[3]);
+        ConnectNGame::ConnectN game(rowLength, columnLength);
+        game.play(connectNWin);
+        return 0;
+    }</pre>
+                        </div>
+                        <button class="collapsible look-code">Move.cpp</button>
+                        <div class="code code5">
+                            <h4> Move.cpp </h4>
+                            <pre>#include "Move.h"
+    #include "Board.h"
+
+    ConnectNGame::Move::Move(const ConnectNGame::Player &amp;maker) : maker(maker), col(-99), parsedSuccess(false) {
+
+    }
+
+    void ConnectNGame::Move::parseInput(std::stringstream&amp; input) {
+        parsedSuccess = static_cast&lt;bool>(input); //input must start off valid
+        input >> col;
+        std::string leftover;
+        input >> leftover;
+        parsedSuccess = parsedSuccess &amp;&amp; !input; //must not read anything after that
+
+
+    }
+
+    //if the input is valid then that means it is parsed succesfully, the move is in bound, and it has a blank space
+    bool ConnectNGame::Move::isValid(const Board &amp;board) const {
+        return parsedSuccess &amp;&amp; board.isInBounds(col) &amp;&amp; board.isBlankSpace(col);
+    }
+
+    //call set function from Board to make a move
+    void ConnectNGame::Move::make(ConnectNGame::Board &amp;board) {
+        int row = board.rowOfBlankSpace(col);
+        board.set(row, col, maker.getPiece());
+    }</pre>
+                        </div>
+                        <button class="collapsible look-code">Move.h</button>
+                        <div class="code code5">
+                            <h4> Move.h </h4>
+                            <pre>#ifndef CONNECTN_MOVE_H
+    #define CONNECTN_MOVE_H
+
+    #include &lt;sstream>
+    #include "Player.h"
+    #include "Board.h"
+
+    namespace ConnectNGame {
+        class Move {
+        public:
+            Move(const Player&amp; maker);
+            void parseInput(std::stringstream&amp; input);
+            bool isValid(const Board &amp;board) const;
+            void make(Board&amp; board);
+
+        private:
+            const Player&amp; maker;
+            int col;
+            bool parsedSuccess;
+        };
+    }
+
+    #endif //CONNECTN_MOVE_H</pre>
+                        </div>
+                        <button class="collapsible look-code">Player.cpp</button>
+                        <div class="code code5">
+                            <h4> Player.cpp </h4>
+                            <pre>#include "Player.h"
+    #include "ConnectN.h"
+    #include &lt;iostream>
+    #include &lt;string>
+    #include &lt;algorithm>
+
+    //this function asks for the user input
+    ConnectNGame::Player::Player(int playerNumber, const std::vector&lt;Player>&amp; players) {
+        //it will keep asking for the name until the user puts in a valid name
+        do{
+            std::cout &lt;&lt; "Player " &lt;&lt; playerNumber &lt;&lt; ", please enter your name: ";
+            std::getline(std::cin, name);
+        } while (nameIsNotWord(name) || nameIsSame(players));
+
+        //it will keep asking for the piece until the user put in a valid piece
+        do{
+            std::cout &lt;&lt; name &lt;&lt; ", please enter the character you want to use for your piece: ";
+            std::getline(std::cin, maybePiece);
+        } while (!pieceIsChar()||pieceIsSame(players));
+        piece = maybePiece.at(0);
+        //    std::string extra;
+    //    std::getline(std::cin, extra);
+    }
+
+    //this function returns name
+    const std::string &amp;ConnectNGame::Player::getName() const {
+        return name;
+    }
+
+    //this funciton returns the piece
+    char ConnectNGame::Player::getPiece() const {
+        return piece;
+    }
+
+    //this function is to check whether the input for piece is a char or not
+    bool ConnectNGame::Player::pieceIsChar() {
+        return maybePiece.size() == 1;
+    }
+
+    //this function checks if the input is a word or not
+    bool ConnectNGame::Player::nameIsNotWord(std::string name) {
+        return std::find(name.cbegin(), name.cend(), ' ') != name.cend();
+    }
+
+    bool ConnectNGame::Player::nameIsSame(const std::vector&lt;Player>&amp; players) {
+        for(const auto&amp; player : players){
+            if(player.getName() == name){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    bool ConnectNGame::Player::pieceIsSame(const std::vector&lt;Player>&amp; players) {
+        for(const auto&amp; player : players){
+            if(player.getPiece() == maybePiece[0]){
+                return true;
+            }
+        }
+        return false;
+    }</pre>
+                        </div>
+                        <button class="collapsible look-code">Player.h</button>
+                        <div class="code code5">
+                            <h4> Player.h </h4>
+                            <pre>#ifndef CONNECTN_PLAYER_H
+    #define CONNECTN_PLAYER_H
+
+    #include &lt;string>
+    #include &lt;vector>
+
+    namespace ConnectNGame {
+        class Player {
+        public:
+            Player(int playerNumber, const std::vector&lt;Player>&amp; players);
+            const std::string&amp; getName() const;
+            char getPiece() const;
+            bool pieceIsChar();
+            bool nameIsNotWord(std::string name);
+            bool nameIsSame(const std::vector&lt;Player>&amp; players);
+            bool pieceIsSame(const std::vector&lt;Player>&amp; players);
+
+        private:
+            std::string name;
+            std::string maybePiece;
+            char piece;
+        };
+    }
+
+    #endif //CONNECTN_PLAYER_H</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+<!--            new level-->
+            <div class="row">
+                <button class="collapsible level mb-3"> Difficulty Level: 15-20 hours </button>
+                <div class="difficulty wtf">
+                    <div class="project6 mb-3">
+                        <h1> Battleship </h1>
+                        <li> The classic Battleship game with 3 AIs that I've created my own. Cheating AI, Hunt Destroy AI, and Random AI</li>
+                        <li> Spring Quarter Freshman Year (Final Exam Project) </li>
+                        <button class="collapsible look-code">Board.cpp</button>
+                        <div class="code code6">
+                            <h4> Board.cpp </h4>
+                            <pre></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+          coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+              content.style.display = "none";
+            } else {
+              content.style.display = "block";
+            }
+          });
+        }
+        </script>
+    </body>
+</html>

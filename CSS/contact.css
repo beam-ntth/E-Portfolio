@@ -1,0 +1,28 @@
+body{
+    background-color: black !important;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.navbar li:hover{
+    border: 1px solid white;
+}
+
+.contact-info
+{
+    font-family: "Roboto", sans-serif;
+}
+
+h1
+{
+    color: white;
+    text-transform: uppercase;
+    font-family: "Courier New";
+}
+
+p{
+    color: white;
+    text-align: left;
+    font-family: "Courier New";
+}

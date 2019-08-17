@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Beam | PYTHON </title>
+        <link href="./CSS/py.css" rel="stylesheet" type="text/css">
+        <!-- boot strapcodes -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <div class="row justify-content-right">
+                    <nav class="navbar navbar-expand-lg">
+                        <ul class="navbar-nav">
+                            <li class="nav-item mr-lg-3"><a class="nav-link text-white" href="./index.html"> HOME </a></li>
+                            <li class="nav-item mr-lg-3"><a class="nav-link text-white" href="./experience.html"> EXPERIENCE </a></li>
+                            <li class="nav-item mr-lg-3"><a class="nav-link text-white" href="./cs.html"> CS </a></li>
+                            <li class="nav-item mr-lg-3"><a class="nav-link text-white" href="./golf.html"> GOLF </a></li>
+                            <li class="nav-item mr-lg-3"><a class="nav-link text-white" href="./contact.html"> CONTACT </a></li>    
+                        </ul>        
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <div class="container projects">
+            <button class="collapsible level text-left mb-3"> Difficulty Level: Easy </button>
+            <div class="difficulty easy">
+                <div class="project1 mb-3">
+                    <h1> Convert from Celcius to Ferenheit </h1>
+                    <li> Program that accepts an input from the user and convert it to either celcius or farenheit</li>
+                    <li> First Quarter Freshman Year</li>
+                    <button class="collapsible look-code">Look at Code</button>
+                    <div class="code code1">
+                        <pre>#cel2far.py
+celsius = 32
+fahrenheit = (celsius*(9.0 / 5.0))+32
+print(celsius, "Celsius is", fahrenheit, "Fahrenheit.")
+
+#far2cel.py
+fahrenheit = 0
+celsius = (fahrenheit - 32.0) * 5.0 / 9.0
+print(fahrenheit, "Fahrenheit is", celsius, "Celsius.")</pre>
+                    </div>
+                </div>
+                <div class="project2 mb-3">
+                    <h1> Trivial Questions </h1>
+                    <li> Shows the questions, take the answers from the user and show the user's score when the game ends </li>
+                    <li> First Quarter Freshman Year</li>
+                    <button class="collapsible look-code">Look at Code</button>
+                    <div class="code code2">
+                        <pre>
+print ("Trivial Pursuit 12 Questions""\n""")
+score = 0
+print ("ART AND LITERATURE: Who painted the Mona Lisa?"
+       "\n""a. Vincent van Gogh"
+       "\n""b. Michelangelo"
+       "\n""c. Leonardo da Vinci")
+a,b,c = ("a","b","c")
+answer = input("Enter your choice:")
+if answer == c:
+    print ("Correct!")
+    score += 1
+else:
+    print ("The correct answer was c")
+
+#################################
+
+print ("ART AND LITERATURE: What did the 7 dwarves do for a job?"
+       "\n""a. construction workers"
+       "\n""b. miners"
+       "\n""c. fishers")
+a,b,c = ("a","b","c")
+answer2 = input("Enter your choice:")
+if answer2 == b:
+    print ("Correct!")
+    score += 1
+else:
+    print ("The correct answer was b")
+
+#################################
+
+print ('ENTERTAINMENT: Who sang "My Way"?'
+       "\n""a. Gordon Jenkins"
+       "\n""b. Louis Armstrong"
+       "\n""c. Frank Sinatra")
+a,b,c = ("a","b","c")
+answer3 = input("Enter your choice:")
+
+if answer3 == c:
+    print ("Correct!")
+    score += 1
+else:
+    print ("The correct answer was c")
+
+#################################
+
+print ("ENTERTAINMENT: How many oscars did Alfred Hitchcock win?"
+       "\n""a. 0"
+       "\n""b. 1"
+       "\n""c. 2")
+a,b,c = ("a","b","c")
+answer4 = input("Enter your choice:")
+if answer4 == a:
+    print ("Correct!")
+    score += 1
+else:
+    print ("The correct answer was a")
+
+#################################
+
+print ("GEOGRAPHY: Which is the largest ocean?"
+       "\n""a. Pacific"
+       "\n""b. Atlantic"
+       "\n""c. Indian")
+a,b,c = ("a","b","c")
+answer5 = input("Enter your choice:")
+if answer5 == a:
+    print ("Correct!")
+    score += 1
+else:
+    print ("The correct answer was a")
+
+#################################
+
+print ("GEOGRAPHY: Which river goes through London?"
+       "\n""a. River Severn"
+       "\n""b. River Tyne"
+       "\n""c. River Thames")
+a,b,c = ("a","b","c")
+answer6 = input("Enter your choice:")
+if answer6 == c:
+    print ("Correct!")
+    score += 1
+else:
+    print ("The correct answer was c")
+
+#################################
+
+print ("HISTORY: What year did the Spanish Civil War end?"
+       "\n""a. 1937"
+       "\n""b. 1939"
+       "\n""c. 1945")
+a,b,c = ("a","b","c")
+answer7 = input("Enter your choice:")
+if answer7 == b:
+    print ("Correct!")
+    score += 1
+else:
+    print ("The correct answer was b")
+
+#################################
+
+print ("HISTORY: Who was the first president of America?"
+       "\n""a. Washington"
+       "\n""b. Lincoln"
+       "\n""c. Jefferson")
+a,b,c = ("a","b","c")
+answer8 = input("Enter your choice:")
+if answer8 == a:
+    print ("Correct!")
+    score += 1
+else:
+    print ("The correct answer was a")
+
+#################################
+
+print ("SCIENCE AND NATURE: Who invented the telephone?"
+       "\n""a. Bell"
+       "\n""b. Edison"
+       "\n""c. Tesla")
+a,b,c = ("a","b","c")
+answer9 = input("Enter your choice:")
+if answer9 == a:
+    print ("Correct!")
+    score += 1
+else:
+    print ("The correct answer was a")
+
+#################################
+
+print ("SCIENCE AND NATURE: Where is the smallest bone in the body?"
+       "\n""a. Ear"
+       "\n""b. Nose"
+       "\n""c. Finger")
+a,b,c = ("a","b","c")
+answer10 = input("Enter your choice:")
+if answer10 == a:
+    print ("Correct!")
+    score += 1
+else:
+    print ("The correct answer was a")
+
+#################################
+
+print ("SPORT AND LEISURE: What is the first letter on a typewriter?"
+       "\n""a. Z"
+       "\n""b. A"
+       "\n""c. Q")
+a,b,c = ("a","b","c")
+answer11 = input("Enter your choice:")
+if answer11 == c:
+    print ("Correct!")
+    score += 1
+else:
+    print ("The correct answer was c")
+#################################
+
+print ("SPORT AND LEISURE: How many months have 31 days?"
+       "\n""a. 5"
+       "\n""b. 6"
+       "\n""c. 7")
+a,b,c = ("a","b","c")
+answer12 = input("Enter your choice:")
+if answer12 == c:
+    print ("Correct!")
+    score += 1
+else:
+    print ("The correct answer was c")
+
+print ("Your final score is",score,"out of 12")
+
+if score &lt; 5:
+    print ("You were unlucky!")
+elif score &lt;= 8:
+    print ("You did better than chance!")
+elif score &lt;= 11:
+    print ("You are a trivia star!")
+else:
+    print ("Perfect!")</pre>
+                    </div>
+                </div>
+                <div class="project3 mb-3">
+                    <h1> Debt Calculator </h1>
+                    <li> Calculate Debt and Interest Rate </li>
+                    <li> First Quarter Freshman Year</li>
+                    <button class="collapsible look-code">Look at Code</button>
+                    <div class="code code3">
+                        <pre>
+    #Calculate the amount of debt or interest rate
+
+    from inputCheck import canBeFloat #from module inputCheck import function canBeFloat
+
+    debt = input("Enter amount of debt:") #string, ask user to input number
+    if canBeFloat (debt): #if statement, check if user actually puts in number
+        debt = float(debt) #convert to float if user puts in number
+    else: #else, print the following below
+        print ("Bad input, enter a number next time") #print string
+        print ("Press enter to exit") #print string
+        exit () #exit out of program
+    rate = input("Enter % interest rate:") #string, ask user to input number
+    if canBeFloat (rate): #if statement, check if user actually puts in number
+        rate = float(rate) #convert to float if user puts in number
+    else: #else, print the following below
+        print ("Bad input, enter a number next time") #print string
+        print ("Press enter to exit") #print string
+        exit () #exit out of program
+    pay = input("Enter monthly payment:") #string, ask user to input number
+    if canBeFloat (pay): #if statement, check if user actually puts in number
+        pay = float(pay) #convert to float if user puts in number
+    else: #else, print the following below
+        print ("Bad input, enter a number next time.") #print string
+        print ("Press enter to exit") #print string
+        exit () #exit out of program
+    if pay &lt;= (rate*100): #if statement, check if the user will pay off the debt eventually
+        print ("You will need to make bigger payments."
+               "\nAt this rate you will never pay off the debt."
+               "\nPress enter to exit") #print string
+        exit () #exit out of program
+
+    totalpay = 0 #integer, state the amount of total payment as 0
+    interest = (rate/1200)*debt #float, calculate interest
+    n = 1 #integer, state that month starts at 1
+    balance = debt+interest-pay #float, calculate balance
+    while True: #start infinite loop
+        totalpay += pay #float, adding monthly payment to total payment
+        print ("Month =", n) #print string and float
+        print ("Interest this month = %0.2f" %interest) #print string and float
+        print ("Balance going forward = %0.2f" %balance) #print string and float
+        print ("Total payments = %0.2f" %totalpay) #print string and float
+        n += 1 #integer, indicating that month will increase by one every loop
+        interest = (rate/1200)*balance #float, equation to calculate new interest for every
+        if balance &lt; pay: #if statement, find out once balance is less than monthly payment
+            newbalance = balance-balance #float, make balance = 0
+            print ("Month =", n) #print string and float
+            print ("Interest this month = %0.2f" %interest) #print string and float
+            print ("Balance going forward = %0.2f" %newbalance) #print string and float
+            balance += interest #float, add interest for final month to balance in final
+            totalpay += (balance) #float, add payment for final month to total payment
+            print ("Total payments = %0.2f" %totalpay) #print string and float
+            break #loop done   
+        balance = balance+interest-pay #float, equation to calculate new balance for every month
+    print ("Press enter to exit") #print string
+    exit #exit out of program
+                        </pre>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+            <button class="collapsible level text-left mb-3"> Difficulty Level: Intermediate </button>
+            <div class="difficulty intermediate">
+                <div class="projecti1 mb-3">
+                    <h1>Trivial Questions (Edited)</h1>
+                    <li>Reduce the codes from 179 lines of code to 72 lines using Dictionary to store the questions and answers</li>
+                    <li>Dictionary is the best method to use in this problem since it stores everything in hash numbers, so the time complexity is almost O(1) when accessing questions or answers </li>
+                    <li> Summer Freshman Year </li>
+                    <button class="collapsible look-code">Look at Code</button>
+                    <div class="code icode1">
+                        <pre>
+questions_and_answer = {"ART AND LITERATURE: Who painted the Mona Lisa?"
+                        "\n""a. Vincent van Gogh"
+                        "\n""b. Michelangelo"
+                        "\n""c. Leonardo da Vinci" : "c",
+                        "ART AND LITERATURE: What did the 7 dwarves do for a job?"
+                        "\n""a. construction workers"
+                        "\n""b. miners"
+                        "\n""c. fishers" : "b",
+                        'ENTERTAINMENT: Who sang "My Way"?'
+                        "\n""a. Gordon Jenkins"
+                        "\n""b. Louis Armstrong"
+                        "\n""c. Frank Sinatra" : "c",
+                        "ENTERTAINMENT: How many oscars did Alfred Hitchcock win?"
+                        "\n""a. 0"
+                        "\n""b. 1"
+                        "\n""c. 2" : "a",
+                        "GEOGRAPHY: Which is the largest ocean?"
+                        "\n""a. Pacific"
+                        "\n""b. Atlantic"
+                        "\n""c. Indian" : "a",
+                        "GEOGRAPHY: Which river goes through London?"
+                        "\n""a. River Severn"
+                        "\n""b. River Tyne"
+                        "\n""c. River Thames" : "c",
+                        "HISTORY: What year did the Spanish Civil War end?"
+                        "\n""a. 1937"
+                        "\n""b. 1939"
+                        "\n""c. 1945" : "b",
+                        "HISTORY: Who was the first president of America?"
+                        "\n""a. Washington"
+                        "\n""b. Lincoln"
+                        "\n""c. Jefferson" : "a",
+                        "SCIENCE AND NATURE: Who invented the telephone?"
+                        "\n""a. Bell"
+                        "\n""b. Edison"
+                        "\n""c. Tesla" : "a",
+                        "SCIENCE AND NATURE: Where is the smallest bone in the body?"
+                        "\n""a. Ear"
+                        "\n""b. Nose"
+                        "\n""c. Finger" : "a",
+                        "SPORT AND LEISURE: What is the first letter on a typewriter?"
+                        "\n""a. Z"
+                        "\n""b. A"
+                        "\n""c. Q": "c",
+                        "SPORT AND LEISURE: How many months have 31 days?"
+                        "\n""a. 5"
+                        "\n""b. 6"
+                        "\n""c. 7": "c"}
+score = 0
+
+print ("Trivial Pursuit 12 Questions\n")
+
+for question, answer in questions_and_answer.items():
+    print(question)
+    a = input("Answer: ")
+    if a == answer:
+        print("Correct!\n")
+        score += 1
+    else:
+        print ("The correct answer was", answer, "\n")
+
+print ("Your final score is",score,"out of 12\n")
+
+if score &lt; 5:
+    print ("You were unlucky!")
+elif score &lt;= 8:
+    print ("You did better than chance!")
+elif score &lt;= 11:
+    print ("You are a trivia star!")
+else:
+    print ("Perfect!")</pre>
+                    </div>
+                </div>
+                
+                <div class="projecti2 mb-3">
+                    <h1>Top Common Words</h1>
+                    <li> Count and ranked the top common words in a file </li>
+                    <button class="collapsible look-code">Look at Code</button>
+                    <div class="code icode2">
+                        <h4>#main.py</h4>
+                        <pre>
+from wordle import wordleFromObject
+from cleanWord import clean
+
+# the Count class.  The wordleFromObject function takes a Count object as
+# input, and calls its getTopWords method. 
+class Count:
+        # dictionary of word counts
+        wordCounts = None
+
+        # method to initialize any data structures, such as a dictionary to
+        # hold the counts for each word, and a list of stop words
+        def __init__(self):
+                print("Initializing Word Counter")
+                # set the attrbute wordCounts to an empty dictionary
+                self.wordCounts = {}
+                self.stopWords = []
+                #add stop words into dictionary
+                stopFile = open("stopWords.txt")
+                for line in stopFile:
+                        line = line.strip()
+                        self.stopWords.append(line)
+
+        # method to add one to the count for a word in the dictionary.
+        # if the word is not yet in the dictionary, we'll need to add a
+        # record for the word, with a count of one. 
+        def incCount(self,word):
+                word = clean(word)
+                # IF these strings are in the file then make it 0
+                if word in self.stopWords:
+                        return 0       
+                # Do not add the empty string to the dictionary
+                if word == "":
+                        return
+                # Add code here to update the dictionary
+                if word in self.wordCounts:
+                        self.wordCounts[word] = self.wordCounts[word]+1
+                if word not in self.wordCounts:
+                        self.wordCounts[word] = 1
+                return
+
+        # method to look up the count for a word
+        def lookUpCount(self,word):
+                if word not in self.wordCounts:
+                        self.wordCounts[word] = 0
+                return self.wordCounts[word]
+
+        # method to get the most frequent words out of the dictionary.
+        # The argument "num" indicates how many words to return. 
+        def getTopWords(self,num):
+                turnToList = list(self.wordCounts.items())
+                wordCountsList = []
+                for key, value in turnToList:
+                        wordCountsList.append((value, key))
+                wordCountsList.sort (reverse=True)
+                finalList = []
+                for i in range(num):
+                        finalList.append(wordCountsList[i])
+                return finalList
+
+
+# The main program 
+def main():
+
+        # Make a new counter object 
+        # the counter holds the counts for all the words
+        counter = Count()
+        # open the file
+        infile = open("Alice.txt","r")
+
+        # put a loop here that extracts all words and
+        # inserts each word into the counter object by calling
+        # the counter.incCount() method
+        for line in infile:
+                line = line.split()
+                for word in line:
+                        counter.incCount(word)
+
+        infile.close()
+        #print(counter.lookUpCount("alice"))
+        #print(counter.lookUpCount("rabbit"))
+        #print(counter.lookUpCount("and"))
+        #print(counter.lookUpCount("she"))
+
+        # test code for getTopLines.  Uncomment in Part 4.
+        topTen = counter.getTopWords(10)
+        print(topTen)
+
+        # Finally, uncomment the call to the wordle function! 
+        wordleFromObject(counter,30)
+
+
+# run the main program
+main()
+                    </pre>
+                    <h4>#wordle.py</h4>
+                    <pre>
+from tkinter import *
+from tkinter.font import *
+import math
+from random import triangular
+
+# class for input words
+class WordRecord:
+  def __init__(self, text, size, vert):
+        self.text = text
+        self.size = size
+        self.vert = vert 
+
+# a position vector that knows how to move in a spiral
+class spiralInc:
+
+  def __init__(self,size):
+    self.stepSize = size
+
+  def initialize(self,x,y):
+    self.x = triangular(x-x/4, x+x/4, x)
+    self.y = triangular(y-y/4, y+y/4, y)
+    self.initialX = self.x
+    self.initialY = self.y
+
+
+  def update(self,w):
+    x = self.x-self.initialX
+    y = self.y-self.initialY
+    length = math.sqrt(x**2 + y**2)
+    # very near the origin
+    if length &lt; 1:
+      self.x += self.stepSize
+      return
+    # vector pointing out towards current position, gets smaller linearly with length
+    outX = x/(length**2)
+    outY = y/(length**2)
+    # unit vector perpendicular to vector to current position
+    dirX = -y/length
+    dirY = x/length
+    self.x += self.stepSize*(outX + dirX)
+    self.y += self.stepSize*(outY + dirY)
+
+
+# takes a word object and a place object as input
+# adds the word to the wordle at the given place
+def addToWordle(word, place, fonts, w):
+        fontObj = fonts[word.size]
+        if word.vert:
+            ang = 90
+        else:
+            ang = 0
+        # actually draw it
+        m = w.create_text(place.x, place.y,
+              text=word.text, angle=ang, font=fontObj)
+        return m
+
+
+def makeWordle(wordList):
+
+  # the window
+  master = Tk()
+  #the canvas
+  canvas_width = 500
+  canvas_height = 300
+  w = Canvas(master, 
+           width=canvas_width,
+           height=canvas_height)
+  w.pack()
+  w.update()
+
+  # the fonts
+  # for now, default font
+  # choices are Courier, Helvetica, and Times
+  # ought to modify font on fly, instead of making this array...
+  # helv36 = Font(family='Helvetica', size=36, weight='bold')
+  fonts = [
+          Font(family='Times', size=18, weight='bold'),
+          Font(family='Times', size=24, weight='bold'),
+          Font(family='Times', size=30, weight='bold'),
+          Font(family='Times', size=36, weight='bold')
+          ]
+
+
+  # place words!
+  # starting near the center, try to place word; if it hits something else,
+  # move in a spiral trying to find a free location
+
+
+
+  # make a new spiralInc object
+  place = spiralInc(1)
+
+  for word in wordList:
+    place.initialize(canvas_width/2, canvas_height/2)
+    while True:
+      m = addToWordle(word, place, fonts, w)
+      bb = w.bbox(m)
+      # the * syntax replaces the tuple with its contents
+      # find_overlapping returns the objects overlapping the bounding box
+      # an item always overlaps its own bounding box, so if there is
+      # just one thing, then it's a non-overlapping placement
+      if len(w.find_overlapping(*bb)) == 1:
+        break
+      # overlaps something....
+      # maybe move instead of delete and re-add...
+      w.delete(m)
+      place.update(w)
+
+
+##def wordleFromFreqs(inputObj):
+##  freqList = inputObj.get
+##  horizontal = False
+##  vertical = True
+##  minFreq = freqlist[-1][0]
+##  maxFreq = freqlist[0][0]
+##  wordlist = []
+##  orientation = horizontal 
+##  for i in range(len(freqlist)):
+##    size = (freqlist[i][0] - minFreq)*4 // (maxFreq+1-minFreq)
+##    assert (0 &lt;= size) &amp; (3 >= size)
+##    wordlist.append(WordRecord(freqlist[i][1], size, orientation))
+##    if alternate:
+##      orientation = not orientation
+##  makeWordle(wordlist)
+##
+def wordleFromObject(inputObject, numberOfWords):
+  freqlist = inputObject.getTopWords(numberOfWords)
+  alternate = True
+  horizontal = False
+  vertical = True
+  minFreq = freqlist[-1][0]
+  maxFreq = freqlist[0][0]
+  wordlist = []
+  orientation = horizontal 
+  for i in range(len(freqlist)):
+    size = (freqlist[i][0] - minFreq)*4 // (maxFreq+1-minFreq)
+    assert (0 &lt;= size) &amp; (3 &gt;= size)
+    wordlist.append(WordRecord(freqlist[i][1], size, orientation))
+    if alternate:
+      orientation = not orientation
+  makeWordle(wordlist)
+
+
+# demo function, run only when worldle.py is run from command line
+def showDemo():
+  # For the demo we define a very simple version of the Counts class,
+  # just used to test the wordle code.  The Counts class you will write
+  # has to get real data, so it does a lot more than this one does. 
+  # This simple version has has one property, a sorted list of words and
+  # frequencies, and one method, called getTopWords, which returns the
+  # list. 
+  class Counts:
+
+    # the object holds a list of words, each one with an integer representing
+    # its frequence.
+    def __init__(self):
+      self.objFreqlist = [
+          (20,"Kristian"),
+          (20,"Prem"),
+          (5,"Nina"),
+          (1,"Gabriel"),
+          (1, "Minqiang"),
+          (1, "Matt"),
+          (1, "Shivani"),
+          (1, "Jerry"),
+          (1, "Michael"),
+          (1, "Muwei")
+          ]
+
+    # the object has a method which returns the list, if the caller requests
+    # a list of 10 words.  Otherwise it returns nothing. 
+    def getTopWords(self, numberOfWords):
+        if numberOfWords != 10:
+          return  # return nothing unless you want my list of 10 words 
+        return self.objFreqlist
+
+  # make a new object, of type "Counts" 
+  demoObject = Counts()
+
+  # Call the wordle function!  The wordle function wants, as input, an object
+  # which has a method called getTopWords.  The getTopWords method takes an
+  # integer as its input argument, and returns a list of (frequency, word)
+  # tuples. 
+  wordleFromObject(demoObject, 10)
+
+
+if __name__ == "__main__":
+  showDemo()
+                    </pre>
+                    <h4>#clean.py</h4>
+                    <pre>
+# module to remove extra characters from words that show up in typical English text.
+import string
+
+def clean(word):
+        # convert whole word to lower case
+        word = word.lower()
+        # trim off punctuation at the end and beginning
+        word = word.strip(string.punctuation)
+        return word</pre>
+                    </div>
+                </div>
+                
+                <div class="projecti3 mb-3">
+                    <h1> Monty Carlo </h1>
+                    <li> Calculates the probability of the famous Monty Carlo game to see whether always, never, or randomly switch the door will have the best chance of winning the game </li>
+                    <li> First GUI project using turtle to draw the graph </li>
+                    <li> Winter Quarter Freshman Year </li>
+                    <button class="collapsible look-code">Look at Code</button>
+                    <div class="code icode3">
+                        <pre>import sys
+import random
+import turtle
+
+def main():
+    j = 0
+    k = 0
+    l = 0
+    try:    #check if the input is an integer
+        n = int(input("Number of games to play: "))     
+    except:
+        print("Please enter a positive integer")
+        sys.exit()
+
+    if n&lt;=0:    #if the input is negative -> exit
+        print("Please enter a positive integer")
+        sys.exit()
+    for i in range (n):
+        n1 = montyalways()  #counter for the amount of Trues we get
+        if n1 == True:      #from montyalways
+            j += 1
+        n2 = montynever()   #counter for the amount of Trues we get
+        if n2 == True:      #from montynever
+            k += 1
+        n3 = montyrandom()  #counter for the amount of Trues we get
+        if n3 == True:      #from montyrandom
+            l += 1
+
+    print ("Out of",n,"games:")
+    print ("Always switching wins: %.7f" %(j/n), "(%.f games)" %j)
+    print ("Never switching wins: %.7f" %(k/n), "(%.f games)" %k)
+    print ("Randomly switching wins: %.7f" %(l/n), "(%.f games)" %l)
+
+    histogram(j,k,l,n)
+
+def montyalways():
+    prize = random.randint(1,3) # random # of the door that has a prize in it
+    door1 = random.randint(1,3) # random # of the door that contestants select
+    if prize == door1:
+        return False
+    if prize != door1:
+        return True
+
+def montynever():
+    prize = random.randint(1,3)
+    door1 = random.randint(1,3)
+    if prize == door1:
+        return True
+    if prize != door1:
+        return False
+
+def montyrandom():
+    mr = random.randint(1,2)
+    if mr == 1:
+        n1 = montyalways()
+        return n1
+    else:
+        n1 = montynever()
+        return n1
+
+def histogram(j,k,l,n): #draw a histogram for the results
+    turtle.ht()         #hide pen
+    turtle.penup()      #every number has already been scaled by 2
+    turtle.goto(-195,-120)
+    turtle.pendown()
+    turtle.fd(380)
+    turtle.goto(-175,-120)
+    turtle.begin_fill()
+    # use (j/n)*100 to make sure the height doesn't go over 200
+    # draw first rectangle
+    turtle.lt(90)
+    turtle.fd((j/n)*200)
+    turtle.rt(90)
+    turtle.fd(80)
+    turtle.rt(90)
+    turtle.fd((j/n)*200)
+    turtle.lt(90)
+    turtle.fd(50)
+    # draw second triangle
+    turtle.lt(90)
+    turtle.fd((k/n)*200)
+    turtle.rt(90)
+    turtle.fd(80)
+    turtle.rt(90)
+    turtle.fd((k/n)*200)
+    turtle.lt(90)
+    turtle.fd(50)
+    # draw third triangle
+    turtle.lt(90)
+    turtle.fd((l/n)*200)
+    turtle.rt(90)
+    turtle.fd(80)
+    turtle.rt(90)
+    turtle.fd((l/n)*200)
+    turtle.end_fill()   #fill the rectangles with black color
+    turtle.penup()
+    # caption each rectangles
+    turtle.goto(-135,((j/n)*200)-120)
+    turtle.write("%.7f" %(j/n), False, "center", ("Arial", 10, "normal"))
+    turtle.goto(-5,((k/n)*200)-120)
+    turtle.write("%.7f" %(k/n), False, "center", ("Arial", 10, "normal"))
+    turtle.goto(125,((l/n)*200)-120)
+    turtle.write("%.7f" %(l/n), False, "center", ("Arial", 10, "normal"))
+    turtle.goto(-135,-136)
+    turtle.write("Always", False, "center", ("Arial", 10, "normal"))
+    turtle.goto(-5, -136)
+    turtle.write("Never", False, "center", ("Arial", 10, "normal"))
+    turtle.goto(125,-136)
+    turtle.write("Randomly", False, "center", ("Arial", 10, "normal"))
+    turtle.goto(0,-150)
+    turtle.write(
+        "The Monty Hall Problem: %.f games" %n,
+        False, "center", ("Arial", 10, "normal")
+        )
+    turtle.goto(0,-160)
+    turtle.write(
+        "Percentage of games won if you switch always, never, or randomly",
+        False, "center", ("Arial", 10, "normal")
+        )
+
+main()</pre>
+                    </div>
+                </div>
+                
+                <div class="projecti4 mb-3">
+                    <h1> Birthday Probability </h1>
+                    <li> Using Python to calculate the number of people that needs to be in the same room for the probability of two people having the same birthday to be more than 0.5 </li>
+                    <li> Winter Quarter Freshman Year </li>
+                    <button class="collapsible look-code">Look at Code</button>
+                    <div class="code icode4">
+                        <pre>
+    # File: bday.py
+    #
+    # Natheethorn Teacharuangchit, ECS 36A, Winter 2019
+    # This program calculates how many people must be in a room
+    # so that the probability of two of them having the same birthday is 0.5
+    #
+
+    #Answers: It takes at least 23 or 24 people for the probability to be greater
+    # than 0.5, depending on the randoms
+    # : It takes at least 41 or 42 people for the probability to be greater than
+    # 0.9, depending on the randoms
+
+    #import this module to use randint()
+    import random
+
+    # runs the test 5000 times and count how many times does the onetest()
+    # function returns true, then return the amount of Trues
+    #
+    def probab(count):
+        #set counter equals to 0
+        dup_count = 0
+        #runs the test 5000 times
+        for i in range(5000):
+            test = onetest(count)
+            #if the function returns true, then add 1 to the counter
+            if test == True:
+                dup_count += 1
+        #return the number from the counter
+        return dup_count
+
+    # create a list of people with their birthdays
+    # then check if there is any duplicates in the list
+    #
+    def onetest(count):
+        #declare bdlst as an empty list
+        bdlst = []
+        #create a list of random numbers from 1-365 for a certain "count"
+        for i in range(count):
+            #add the random number into the list
+            bdlst.append(random.randint(1,366))
+        #return True or False
+        return hasduplicates(bdlst)
+
+    # check whether there is a duplicate in the list or not
+    #
+    def hasduplicates(lst):
+        #if length is not the same then that means there is a duplicate
+        return len(set(lst)) != len(lst)
+
+    #main loop - Assignment doesn't say when to stop, so make it an infinite loop
+    def main():
+        #start the test with 2 people
+        count = 2
+        while True:
+            #call probab() function to get the number of duplicates
+            #then divide it with num in the print statement to get the probability
+            #
+            prob = probab(count)
+            print(
+                "For %d people, the probability of 2 birthdays is %.5f"
+                %(count, (prob/5000))
+                )
+            #keep adding 1 person in every loop
+            count += 1
+            if (prob/5000) >= 0.9:
+                break
+
+    main()
+                        </pre>
+                    </div>
+                </div>
+                
+                <div class="projecti5 mb-3">
+                    <h1> Binary Tree </h1>
+                    <li> Using Binary Tree to count and sort all the words in the file </li>
+                    <li> Winter Quarter Freshman Year </li>
+                    <button class="collapsible look-code">Look at Code</button>
+                    <div class="code icode5">
+                        <pre>
+    import sys
+
+    class Node:
+
+        # create it
+        def __init__(self, data, left= None, right = None):
+            self.data = data
+            self.count = 1
+            self.left = left
+            self.right = right
+
+        # generate a string form
+        def __str__(self):
+            return str(self.data) +" "+ "(" + str(self.count) + ")"
+
+    # A function to insert a new node with the given word
+    #
+    def insert(root, word):
+        # if the tree is empty, return a new node
+        if not root:
+            return Node(word)
+        # if word is the same -> add 1 to the counter
+        elif root.data == word:
+            root.count += 1
+        # Add two blank spaces in front of the line in every recursion
+        #
+        # if word is lesser than root word -> put it left
+        elif word &lt; root.data:
+            root.left = insert(root.left, "  " + str(word))
+        # if word is greater than root word -> put it right
+        else:
+            root.right = insert(root.right, "  " + str(word))
+        return root
+
+    # A function to create a tree from the given list
+    #
+    def create(list_words):
+        # declare root variable as None
+        root = None
+        # go through the list and create word tree
+        for word in list_words:
+            root = insert(root, word)
+        return root
+
+    # A function put all the words in order
+    def inorder(root):
+        if root:
+            inorder(root.left)
+            print (root)
+            inorder(root.right)
+
+    # import Regular Expression
+    import re
+
+    # opens a file
+    #
+    def inFile():
+        # asks user for a file name to analyze
+        try:
+            fileName = input("Enter the file name: ")
+            inFile = open(fileName, "r")
+        # if the file doesn't exist or ctrl+D, then raise error with message
+        # then exit the system
+        except (FileNotFoundError, EOFError) as msg:
+            print("File is not found!", msg)
+            sys.exit()
+
+        # create a string of words
+        list_string = []
+
+        # use RegEx to separate words and put it in the list
+        # if RegEx returns an empty string, don't put it in the list
+        for line in inFile:
+            new_line = re.split("[^0-9a-zA-Z]",line)
+            for word in new_line:
+                if word == "":
+                    continue
+                list_string.append(word)
+        # return the list
+        return list_string
+
+
+    #
+    # Here we use everything - first call the list of words
+    # Then create the root -> then put them in order
+    #
+    list_of_words = inFile()
+    tree = create(list_of_words)
+    inorder(tree)
+                        </pre>
+                    </div>
+                </div>   
+            </div>
+        </div>
+        
+        <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+          coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+              content.style.display = "none";
+            } else {
+              content.style.display = "block";
+            }
+          });
+        }
+        </script>
+    </body>
+</html>    

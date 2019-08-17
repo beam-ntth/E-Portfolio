@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Beam | C </title>
+        <link href="./CSS/c.css" rel="stylesheet" type="text/css">
+        <!-- boot strapcodes -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <div class="row justify-content-right">
+                    <nav class="navbar navbar-expand-lg">
+                        <ul class="navbar-nav">
+                            <li class="nav-item mr-lg-3"><a class="nav-link text-white" href="./index.html"> HOME </a></li>
+                            <li class="nav-item mr-lg-3"><a class="nav-link text-white" href="./experience.html"> EXPERIENCE </a></li>
+                            <li class="nav-item mr-lg-3"><a class="nav-link text-white" href="./cs.html"> CS </a></li>
+                            <li class="nav-item mr-lg-3"><a class="nav-link text-white" href="./golf.html"> GOLF </a></li>
+                            <li class="nav-item mr-lg-3"><a class="nav-link text-white" href="./contact.html"> CONTACT </a></li>    
+                        </ul>        
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <div class="container projects">
+            <button class="collapsible level"> Coming Soon! </button>
+            <div class="difficulty easy">
+                <div class="project1">
+                </div>
+            </div>
+        </div>
+        
+        <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+          coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+              content.style.display = "none";
+            } else {
+              content.style.display = "block";
+            }
+          });
+        }
+        </script>
+    </body>
+</html>
