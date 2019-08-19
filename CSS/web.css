@@ -7,17 +7,12 @@ body
     background-color: black;
 }
 
-body
-{
-    font-family: monospace;
-}
-
 li{
     font-size: 15px;
 }
 
 .navbar li:hover{
-    border: 1px solid white;
+    border: 2.5px solid transparent;
 }
 
 .collapsible{
@@ -48,11 +43,7 @@ li{
     overflow: scroll;
 }
 
-.easy{
-    display: none;
-}
-
-.intermediate{
+.easy, .intermediate{
     display: none;
 }
 
@@ -64,10 +55,6 @@ li{
     color: white;
 }
 
-.project1{
-    
-}
-
 .code{
     font-family: "Courier New", sans-serif;
     padding: 10px;
@@ -76,27 +63,4 @@ li{
     line-height: 1.5;
     margin-top: 20px;
     display: none;
-}
-
-.code1{
-    
-}
-
-.code2{
-    height: 500px;
-    overflow: scroll;
-}
-
-.code3{
-    height: 500px;
-    overflow: scroll;
-}
-
-.icode1{
-    height: 500px;
-    overflow: scroll;
-}
-
-.icode2 pre{
-    border-bottom: 10px solid black;
 }

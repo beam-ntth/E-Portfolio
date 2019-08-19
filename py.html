@@ -25,8 +25,10 @@
             </div>
         </header>
         <div class="container projects mt-3 mb-3">
-            <button class="collapsible level text-left mb-3"> Difficulty Level: Easy </button>
+            <button class="collapsible level text-left mb-3"> Difficulty Level - less than 30 mins </button>
             <div class="difficulty easy">
+<!--                probably too easy, nobody cares-->
+<!--
                 <div class="project1 mb-3">
                     <h1> Convert from Celcius to Ferenheit </h1>
                     <li> Program that accepts an input from the user and convert it to either celcius or farenheit</li>
@@ -44,6 +46,7 @@ celsius = (fahrenheit - 32.0) * 5.0 / 9.0
 print(fahrenheit, "Fahrenheit is", celsius, "Celsius.")</pre>
                     </div>
                 </div>
+-->
                 <div class="project2 mb-3">
                     <h1> Trivial Questions </h1>
                     <li> Shows the questions, take the answers from the user and show the user's score when the game ends </li>
@@ -231,75 +234,6 @@ else:
     print ("Perfect!")</pre>
                     </div>
                 </div>
-                <div class="project3 mb-3">
-                    <h1> Debt Calculator </h1>
-                    <li> Calculate Debt and Interest Rate </li>
-                    <li> First Quarter Freshman Year</li>
-                    <button class="collapsible look-code">Look at Code</button>
-                    <div class="code code3">
-                        <pre>
-#Calculate the amount of debt or interest rate
-
-from inputCheck import canBeFloat #from module inputCheck import function canBeFloat
-
-debt = input("Enter amount of debt:") #string, ask user to input number
-if canBeFloat (debt): #if statement, check if user actually puts in number
-    debt = float(debt) #convert to float if user puts in number
-else: #else, print the following below
-    print ("Bad input, enter a number next time") #print string
-    print ("Press enter to exit") #print string
-    exit () #exit out of program
-rate = input("Enter % interest rate:") #string, ask user to input number
-if canBeFloat (rate): #if statement, check if user actually puts in number
-    rate = float(rate) #convert to float if user puts in number
-else: #else, print the following below
-    print ("Bad input, enter a number next time") #print string
-    print ("Press enter to exit") #print string
-    exit () #exit out of program
-pay = input("Enter monthly payment:") #string, ask user to input number
-if canBeFloat (pay): #if statement, check if user actually puts in number
-    pay = float(pay) #convert to float if user puts in number
-else: #else, print the following below
-    print ("Bad input, enter a number next time.") #print string
-    print ("Press enter to exit") #print string
-    exit () #exit out of program
-if pay &lt;= (rate*100): #if statement, check if the user will pay off the debt eventually
-    print ("You will need to make bigger payments."
-           "\nAt this rate you will never pay off the debt."
-           "\nPress enter to exit") #print string
-    exit () #exit out of program
-
-totalpay = 0 #integer, state the amount of total payment as 0
-interest = (rate/1200)*debt #float, calculate interest
-n = 1 #integer, state that month starts at 1
-balance = debt+interest-pay #float, calculate balance
-while True: #start infinite loop
-    totalpay += pay #float, adding monthly payment to total payment
-    print ("Month =", n) #print string and float
-    print ("Interest this month = %0.2f" %interest) #print string and float
-    print ("Balance going forward = %0.2f" %balance) #print string and float
-    print ("Total payments = %0.2f" %totalpay) #print string and float
-    n += 1 #integer, indicating that month will increase by one every loop
-    interest = (rate/1200)*balance #float, equation to calculate new interest for every
-    if balance &lt; pay: #if statement, find out once balance is less than monthly payment
-        newbalance = balance-balance #float, make balance = 0
-        print ("Month =", n) #print string and float
-        print ("Interest this month = %0.2f" %interest) #print string and float
-        print ("Balance going forward = %0.2f" %newbalance) #print string and float
-        balance += interest #float, add interest for final month to balance in final
-        totalpay += (balance) #float, add payment for final month to total payment
-        print ("Total payments = %0.2f" %totalpay) #print string and float
-        break #loop done   
-    balance = balance+interest-pay #float, equation to calculate new balance for every month
-print ("Press enter to exit") #print string
-exit #exit out of program
-                        </pre>
-                    </div>
-                </div>
-            </div>
-            <br><br>
-            <button class="collapsible level text-left mb-3"> Difficulty Level: Intermediate </button>
-            <div class="difficulty intermediate">
                 <div class="projecti1 mb-3">
                     <h1>Trivial Questions (Edited)</h1>
                     <li>Reduce the codes from 179 lines of code to 72 lines using Dictionary to store the questions and answers</li>
@@ -381,6 +315,76 @@ else:
     print ("Perfect!")</pre>
                     </div>
                 </div>
+                
+                <div class="project3 mb-3">
+                    <h1> Debt Calculator </h1>
+                    <li> Calculate Debt and Interest Rate </li>
+                    <li> First Quarter Freshman Year</li>
+                    <button class="collapsible look-code">Look at Code</button>
+                    <div class="code code3">
+                        <pre>
+#Calculate the amount of debt or interest rate
+
+from inputCheck import canBeFloat #from module inputCheck import function canBeFloat
+
+debt = input("Enter amount of debt:") #string, ask user to input number
+if canBeFloat (debt): #if statement, check if user actually puts in number
+    debt = float(debt) #convert to float if user puts in number
+else: #else, print the following below
+    print ("Bad input, enter a number next time") #print string
+    print ("Press enter to exit") #print string
+    exit () #exit out of program
+rate = input("Enter % interest rate:") #string, ask user to input number
+if canBeFloat (rate): #if statement, check if user actually puts in number
+    rate = float(rate) #convert to float if user puts in number
+else: #else, print the following below
+    print ("Bad input, enter a number next time") #print string
+    print ("Press enter to exit") #print string
+    exit () #exit out of program
+pay = input("Enter monthly payment:") #string, ask user to input number
+if canBeFloat (pay): #if statement, check if user actually puts in number
+    pay = float(pay) #convert to float if user puts in number
+else: #else, print the following below
+    print ("Bad input, enter a number next time.") #print string
+    print ("Press enter to exit") #print string
+    exit () #exit out of program
+if pay &lt;= (rate*100): #if statement, check if the user will pay off the debt eventually
+    print ("You will need to make bigger payments."
+           "\nAt this rate you will never pay off the debt."
+           "\nPress enter to exit") #print string
+    exit () #exit out of program
+
+totalpay = 0 #integer, state the amount of total payment as 0
+interest = (rate/1200)*debt #float, calculate interest
+n = 1 #integer, state that month starts at 1
+balance = debt+interest-pay #float, calculate balance
+while True: #start infinite loop
+    totalpay += pay #float, adding monthly payment to total payment
+    print ("Month =", n) #print string and float
+    print ("Interest this month = %0.2f" %interest) #print string and float
+    print ("Balance going forward = %0.2f" %balance) #print string and float
+    print ("Total payments = %0.2f" %totalpay) #print string and float
+    n += 1 #integer, indicating that month will increase by one every loop
+    interest = (rate/1200)*balance #float, equation to calculate new interest for every
+    if balance &lt; pay: #if statement, find out once balance is less than monthly payment
+        newbalance = balance-balance #float, make balance = 0
+        print ("Month =", n) #print string and float
+        print ("Interest this month = %0.2f" %interest) #print string and float
+        print ("Balance going forward = %0.2f" %newbalance) #print string and float
+        balance += interest #float, add interest for final month to balance in final
+        totalpay += (balance) #float, add payment for final month to total payment
+        print ("Total payments = %0.2f" %totalpay) #print string and float
+        break #loop done   
+    balance = balance+interest-pay #float, equation to calculate new balance for every month
+print ("Press enter to exit") #print string
+exit #exit out of program
+                        </pre>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+            <button class="collapsible level text-left mb-3"> Difficulty Level - less than 1 hour </button>
+            <div class="difficulty intermediate">
                 
                 <div class="projecti2 mb-3">
                     <h1>Top Common Words</h1>

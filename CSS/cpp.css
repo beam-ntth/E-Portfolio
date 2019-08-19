@@ -1,10 +1,10 @@
 body
 {
-    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../images/cpp.jpeg);
+/*    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../images/cpp.jpeg);*/
     height: 100vh;
     background-size: cover;
     background-position: center;
-    background-color: black;
+    background-color: black !important;
 }
 
 body
@@ -21,7 +21,7 @@ h1{
 }
 
 .navbar li:hover{
-    border: 1px solid white;
+    border: 2.5px solid transparent;
 }
 
 

@@ -17,7 +17,7 @@ li{
 }
 
 .navbar li:hover{
-    border: 1px solid white;
+    border: 2.5px solid transparent;
 }
 
 .collapsible{

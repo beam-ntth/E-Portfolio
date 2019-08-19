@@ -25,9 +25,382 @@
             </div>
         </header>
         <div class="container projects mt-3 mb-3">
-            <button class="collapsible level"> Coming Soon! </button>
+            <button class="collapsible level mb-3"> Difficulty Level - less than 1 hour </button>
             <div class="difficulty easy">
-                <div class="project1">
+                <div class="project1 mb-3">
+                    <h1> Complex Multiplication </h1>
+                    <li> Program that multiply complex numbers </li>
+                    <li> Spring Quarter Freshman Year </li>
+                    <button class="collapsible look-code"> complex_mult.c </button>
+                    <div class="code code1">
+                        <h4> complex_mult.c </h4>
+                        <pre>
+#include &lt;stdio.h>
+#include &lt;stdlib.h>
+
+int main(){
+//inputs for the first complex numbers
+char imagChar[256];
+char realChar[256];
+long imagNum;
+long realNum;
+printf("Enter the first complex number in the form ai + b: ");
+//scan for a string of numbers
+scanf(" %[-0-9] i + %[-0-9]", imagChar, realChar);
+//convert the string if imaginary and real numbers to long
+imagNum = atol(imagChar);
+realNum = atol(realChar);
+
+//inputs for the second complex numbers
+char imagCharTwo[256];
+char realCharTwo[256];
+long imagNumTwo;
+long realNumTwo;
+printf("Enter the second complex number in the form ai + b: ");
+//scan for a string of numbers
+scanf(" %[-0-9] i + %[-0-9]", imagCharTwo, realCharTwo);
+//convert the string if imaginary and real numbers to long
+imagNumTwo = atol(imagCharTwo);
+realNumTwo = atol(realCharTwo);
+
+//computes for the result
+long imagResult;
+long realResult;
+//do some calculations and print the numbers about
+imagResult = (realNum*imagNumTwo) + (imagNum*realNumTwo);
+realResult = (imagNum*imagNumTwo*(-1)) + (realNum*realNumTwo);
+printf("(%ldi + %ld) * (%ldi + %ld) = %ldi + %ld\n", imagNum, realNum, imagNumTwo, realNumTwo, imagResult, realResult);
+return 0;
+}</pre>
+                    </div>
+                </div>
+                <div class="project2 mb-3">
+                    <h1> Find Determinant </h1>
+                    <li> This program calculates the determinant of a matrix </li>
+                    <li><a href="https://www.mathsisfun.com/algebra/matrix-determinant.html"> Find out what determinant of matrix means here!</a></li>
+                    <li> Spring Quarter Freshman Year </li>
+                    <button class="collapsible look-code"> main.c </button>
+                    <div class="code code2">
+                        <h4> main.c </h4>
+                        <pre>#include &lt;stdio.h>
+#include &lt;stdlib.h>
+#include "matrix.h"
+
+//---------- check if the input is valid ---------
+int validate_input(int argc, char* argv[], FILE **fp){
+
+    if(argc &lt; 2){
+        exit(0);
+    }
+    else if(argc > 2){
+        exit(0);
+    }
+
+    *fp = fopen(argv[1], "r");
+
+    if(*fp == NULL){
+        exit(0);
+    }
+
+    return 0;
+}
+
+int main (int argc, char* argv[]){
+    int size;
+    FILE *fp;
+    //---------- open the file and check if there is anything in there ----------
+
+    if(validate_input(argc, argv, &amp;fp) == 0){
+        //---------- create matrix and calculate for determinant ----------
+
+        if (fp!=NULL){
+            size = matrixSize(fp);
+            Matrix matrixTable = createMatrix(fp, size);
+            double determinate = calculateMatrix(matrixTable);
+            printf("The determinant is %.2lf.", determinate);
+
+            //---------- free the allocated space --------
+            for (int row = 0; row &lt; matrixTable.size; ++row) {
+                free(matrixTable.matrix[row]);
+            }
+            free(matrixTable.matrix);
+        }
+    }
+    //---------- DONE! ----------
+    return 0;
+}</pre>
+                    </div>
+                    <button class="collapsible look-code"> matrix.c </button>
+                    <div class="code code2">
+                        <h4> matrix.c </h4>
+                        <pre>#include "matrix.h"
+#include "string.h"
+
+//---------- get the size of the matrix ----------
+
+int matrixSize(FILE * fp) {
+    int numRow;
+    int numCol;
+    int matrixSize=0;
+
+    if (fp!=NULL){
+        fscanf(fp,"%d %d",&amp;numRow,&amp;numCol);
+        matrixSize = numRow;
+    }
+
+    return matrixSize;
+}
+
+//---------- create a matrix ----------
+Matrix createMatrix(FILE *fp, int size) {
+
+    //----------- create original matrix ---------
+    Matrix matrixTable;
+    matrixTable.size = size;
+
+    //----------- allocate spaces for original matrix ---------
+    matrixTable.matrix = calloc(size, size* sizeof(*matrixTable.matrix));
+    for (int row = 0; row &lt; size; ++row) {
+        matrixTable.matrix[row] = calloc(size, size* sizeof(*matrixTable.matrix[row]));
+    }
+
+    //----------- end allocate spaces for original matrix ---------
+
+    //---------- copying numbers from text to the original matrix ----------
+    for (int row = 0; row &lt; size; row++) {
+        for (int col = 0; col &lt; size; col++) {
+            double number;
+            fscanf(fp, " %lf", &amp;number);
+            (matrixTable.matrix[row])[col] = number;
+        }
+    }
+    //---------- end copying numbers from text to the original matrix ----------
+
+    return matrixTable;
+}
+
+double calculateMatrix(Matrix matrixTable) {
+    double determinate = 0;
+
+    //--------- base case -------------
+    if (matrixTable.size == 2) {
+        determinate += ((matrixTable.matrix[0][0] * matrixTable.matrix[1][1]) -
+                        (matrixTable.matrix[0][1] * matrixTable.matrix[1][0]));
+        return determinate;
+    //--------- end base case -------------
+
+    //---------- recursion - if the matrix is bigger than 2X2 ----------
+    } else if (matrixTable.size > 2) {
+        //-------------- create smaller Matrix to recurse ------------
+        for (int smallMatrix = 0; smallMatrix &lt; matrixTable.size; ++smallMatrix) {
+
+            //---------- allocate space for the smaller matrix --------------
+
+            Matrix smallTable;
+            smallTable.size = matrixTable.size-1;
+            smallTable.matrix = calloc(smallTable.size, sizeof(*smallTable.matrix));
+            for (int row = 0; row &lt; smallTable.size ; ++row) {
+                smallTable.matrix[row] = calloc(smallTable.size, sizeof(*smallTable.matrix[row]));
+            }
+
+            //---------- end allocating space for the smaller matrix ----------------
+
+            //---------- copying numbers from original matrix to the smaller matrix ----------
+
+            for (int row = 0; row &lt; smallTable.size; ++row) {
+                int smallcol = 0;
+                for (int col = 0; col &lt; matrixTable.size; ++col) {
+                    if (col == smallMatrix){
+                        if (smallcol == 0){
+                            continue;
+                        } else {
+                            continue;
+                        }
+                    } else {
+                        (smallTable.matrix[row])[smallcol] = (matrixTable.matrix[row+1])[col];
+                        smallcol += 1;
+                    }
+                }
+            }
+
+            //---------- end copying numbers from original matrix to the smaller matrix ---------
+
+            //---------- the order of adding matrix is +-+-+- ---------
+            if (smallMatrix%2 == 0){
+                determinate += ((matrixTable.matrix[0])[smallMatrix]*calculateMatrix(smallTable));
+            } else {
+                determinate -= ((matrixTable.matrix[0])[smallMatrix]*calculateMatrix(smallTable));
+            }
+
+            //---------- free the allocated space ------
+            for (int row = 0; row &lt; smallTable.size ; ++row) {
+                free(smallTable.matrix[row]);
+            }
+            free(smallTable.matrix);
+        }
+    }
+    //---------- end recursion - if the matrix is bigger than 2X2 ----------
+
+    return determinate;
+}</pre>
+                    </div>
+                    <button class="collapsible look-code"> matrix.h </button>
+                    <div class="code code2">
+                        <h4> matrix.h </h4>
+                        <pre>#ifndef FINDDETERMINANT_MATRIX_H
+#define FINDDETERMINANT_MATRIX_H
+
+#include &lt;stdio.h>
+#include &lt;stdlib.h>
+
+typedef struct matrixStruct {
+    double** matrix;
+    int size;
+} Matrix;
+
+int matrixSize (FILE * fp);
+Matrix createMatrix(FILE *fp, int size);
+double calculateMatrix(Matrix matrixTable);
+
+#endif //FINDDETERMINANT_MATRIX_H</pre>
+                    </div>
+                </div>
+                <div class="project3 mb-3">
+                    <h1> Readlines </h1>
+                    <li> This program reads every lines from a file, numbers them, then prints out into a console </li>
+                    <li> Spring Quarter Freshman Year </li>
+                    <button class="collapsible look-code"> main.c </button>
+                    <div class="code code3">
+                        <h4> main.c </h4>
+                        <pre>#include &lt;stdio.h>
+    #include &lt;stdlib.h>
+    #include "read_lines.h"
+
+    void print_lines(char** lines, int num_lines){
+    int i;
+    for(i = 0 ; i &lt; num_lines; ++i){
+        printf("%d. %s", i+1, lines[i]);
+    }
+    }
+
+    void free_lines(char** lines, int num_lines){
+    int i;
+
+    for(i = 0 ; i &lt; num_lines; ++i){
+        free(lines[i]);
+    }
+
+    if(lines != NULL &amp;&amp; num_lines > 0){
+        free(lines);
+    }
+
+    }
+
+    FILE* validate_input(int argc, char* argv[]){
+
+    FILE* fp = NULL;
+
+    if(argc &lt; 2){
+        printf("Not enough arguments entered.
+    Ending program.
+    ");
+        exit(0);
+    }
+    else if(argc > 2){
+        printf("Too many arguments entered.
+    Ending program.
+    ");
+        exit(0);
+    }
+
+    fp = fopen(argv[1], "r");
+
+    if(fp == NULL){
+        printf("Unable to open file: %s
+    Ending program.
+    ", argv[1]);
+        exit(0);
+    }
+
+    return fp;
+
+    }
+
+    int main(int argc, char* argv[]){
+    char** lines = NULL;
+    int num_lines = 0;
+    FILE* fp = validate_input(argc, argv);
+    read_lines(fp, &amp;lines, &amp;num_lines);
+    print_lines(lines, num_lines);
+    free_lines(lines, num_lines);
+    fclose(fp);
+
+    return 0;
+    }</pre>
+                    </div>
+                    <button class="collapsible look-code"> readlines.c </button>
+                    <div class="code code3">
+                        <h4> readlines.c </h4>
+                        <pre>#include "read_lines.h"
+
+void read_lines(FILE *fp, char ***lines, int *num_lines) {
+    //while 1 is basically while (True) for C
+    while(1){
+        //everytime the program reads a new line
+        //it will create more memory for that new input
+        (*lines) = realloc((*lines), sizeof(char*)*(*num_lines+1));
+        char* curline = read_line(fp);
+        //if it returns a null character, then I will break out of the loop
+        if (*curline == ' '){
+            break;
+        }
+        //if there is nothing wrong, then I will add it to lines
+        (*lines)[*num_lines] = curline;
+        *num_lines+=1;
+    }
+}
+
+char *read_line(FILE *fp) {
+    //I have ch to check if the next character will be 
+ or EOF or not
+    //before I add it to the string
+    int ch;
+    int i = 0;
+    //I assume that the line will be less than 10000 chars long
+    char* line = calloc(10000, sizeof(char));
+    while(line){
+        ch = fgetc(fp);
+        //if it is 
+ then add it to the end of the string first then break
+        if (ch == '
+'){
+            line[i] = ch;
+            break;
+            //if it is EOF, then just break right away
+        } else if (ch == EOF){
+            break;
+            //if there is nothing wrong, then add it to the line
+        } else {
+            line[i] = ch;
+        }
+        i++;
+    }
+    return line;
+}</pre>
+                    </div>
+                    <button class="collapsible look-code"> readlines.h </button>
+                    <div class="code code3">
+                        <h4> readlines.h </h4>
+                        <pre>#ifndef READ_LINES
+	#define READ_LINES
+	#include &lt;stdio.h>
+	#include &lt;stdlib.h>
+
+#include &lt;string.h>
+	char* read_line(FILE* fp);
+	void read_lines(FILE* fp, char*** lines, int* num_lines);
+#endif</pre>
+                    </div>
                 </div>
             </div>
         </div>

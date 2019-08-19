@@ -1,10 +1,9 @@
 body
 {
-    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../images/c.jpg);
     height: 100vh;
     background-size: cover;
     background-position: center;
-    background-color: black;
+    background-color: black !important;
 }
 
 body
@@ -16,8 +15,12 @@ li{
     font-size: 15px;
 }
 
+h1{
+    font-weight: 300 !important;
+}
+
 .navbar li:hover{
-    border: 1px solid white;
+    border: 2.5px solid transparent;
 }
 
 .collapsible{
@@ -60,15 +63,11 @@ li{
     line-height: 1.5;
 }
 
-.projects{
+.projects {
     color: white;
 }
 
-.project1{
-    
-}
-
-.code{
+.code {
     font-family: "Courier New", sans-serif;
     padding: 10px;
     background-color: white;
@@ -76,27 +75,4 @@ li{
     line-height: 1.5;
     margin-top: 20px;
     display: none;
-}
-
-.code1{
-    
-}
-
-.code2{
-    height: 500px;
-    overflow: scroll;
-}
-
-.code3{
-    height: 500px;
-    overflow: scroll;
-}
-
-.icode1{
-    height: 500px;
-    overflow: scroll;
-}
-
-.icode2 pre{
-    border-bottom: 10px solid black;
 }
