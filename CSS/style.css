@@ -34,6 +34,22 @@ a{
     color: white !important;
 }
 
+.collapsible{
+    font-size: 15px;
+    background: none;
+    color: white;
+    padding: 5px 15px;
+    border: none;
+}
+
+.active, .collapsible:hover{
+    border: 1px solid white;
+}
+
+.update{
+    display: none;
+}
+
 .project0{
     color: white;
     line-height: 1.5;

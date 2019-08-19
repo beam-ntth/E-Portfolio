@@ -11,8 +11,8 @@
     </head>
     <body>
         <header>
-                <nav class="navbar-light navbar navbar-expand-lg">
-                <button class="navbar-toggler bg-white" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            <nav class="navbar-light navbar navbar-expand-lg">
+                <button class="navbar-toggler bg-white mb-3" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                   aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
@@ -26,18 +26,7 @@
                     <li class="nav-item mr-lg-3"><a class="nav-link text-white" href="./contact.html"> CONTACT </a></li>
                   </ul>
                 </div>
-              </nav>
-<!--
-                    <nav class="navbar navbar-expand-lg">
-                        <ul class="navbar-nav">
-                            <li class="nav-item mr-lg-3"><a class="nav-link text-white" href="./index.html"> HOME </a></li>
-                            <li class="nav-item mr-lg-3"><a class="nav-link text-white" href="./experience.html"> EXPERIENCE </a></li>
-                            <li class="nav-item mr-lg-3"><a class="nav-link text-white" href="./cs.html"> CS </a></li>
-                            <li class="nav-item mr-lg-3"><a class="nav-link text-white" href="./golf.html"> GOLF </a></li>
-                            <li class="nav-item mr-lg-3"><a class="nav-link text-white" href="./contact.html"> CONTACT </a></li>    
-                        </ul>        
-                    </nav>
--->
+            </nav>
          </header>
         <div class="open container mt-3 mb-3">
             <div class="row text-white m-3">
@@ -58,6 +47,10 @@
                             <li> Language: html / css </li>
                         </ul>
                     </ul>
+                    <button class="collapsible level mb-2"> Lastest Update - 8/19/2019 </button>
+                    <div class="update">
+                        <li> Include toggle button at the navigation bar for mobile version </li>
+                    </div>
                 </div>
             </div>
             <div class="row project1 m-3">
@@ -72,6 +65,26 @@
                 </div>
             </div>  
         </div>
+        
+        <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+          coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+              content.style.display = "none";
+            } else {
+              content.style.display = "block";
+            }
+          });
+        }
+        </script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     </body>
     
 </html>
