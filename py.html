@@ -238,61 +238,61 @@ else:
                     <button class="collapsible look-code">Look at Code</button>
                     <div class="code code3">
                         <pre>
-    #Calculate the amount of debt or interest rate
+#Calculate the amount of debt or interest rate
 
-    from inputCheck import canBeFloat #from module inputCheck import function canBeFloat
+from inputCheck import canBeFloat #from module inputCheck import function canBeFloat
 
-    debt = input("Enter amount of debt:") #string, ask user to input number
-    if canBeFloat (debt): #if statement, check if user actually puts in number
-        debt = float(debt) #convert to float if user puts in number
-    else: #else, print the following below
-        print ("Bad input, enter a number next time") #print string
-        print ("Press enter to exit") #print string
-        exit () #exit out of program
-    rate = input("Enter % interest rate:") #string, ask user to input number
-    if canBeFloat (rate): #if statement, check if user actually puts in number
-        rate = float(rate) #convert to float if user puts in number
-    else: #else, print the following below
-        print ("Bad input, enter a number next time") #print string
-        print ("Press enter to exit") #print string
-        exit () #exit out of program
-    pay = input("Enter monthly payment:") #string, ask user to input number
-    if canBeFloat (pay): #if statement, check if user actually puts in number
-        pay = float(pay) #convert to float if user puts in number
-    else: #else, print the following below
-        print ("Bad input, enter a number next time.") #print string
-        print ("Press enter to exit") #print string
-        exit () #exit out of program
-    if pay &lt;= (rate*100): #if statement, check if the user will pay off the debt eventually
-        print ("You will need to make bigger payments."
-               "\nAt this rate you will never pay off the debt."
-               "\nPress enter to exit") #print string
-        exit () #exit out of program
+debt = input("Enter amount of debt:") #string, ask user to input number
+if canBeFloat (debt): #if statement, check if user actually puts in number
+    debt = float(debt) #convert to float if user puts in number
+else: #else, print the following below
+    print ("Bad input, enter a number next time") #print string
+    print ("Press enter to exit") #print string
+    exit () #exit out of program
+rate = input("Enter % interest rate:") #string, ask user to input number
+if canBeFloat (rate): #if statement, check if user actually puts in number
+    rate = float(rate) #convert to float if user puts in number
+else: #else, print the following below
+    print ("Bad input, enter a number next time") #print string
+    print ("Press enter to exit") #print string
+    exit () #exit out of program
+pay = input("Enter monthly payment:") #string, ask user to input number
+if canBeFloat (pay): #if statement, check if user actually puts in number
+    pay = float(pay) #convert to float if user puts in number
+else: #else, print the following below
+    print ("Bad input, enter a number next time.") #print string
+    print ("Press enter to exit") #print string
+    exit () #exit out of program
+if pay &lt;= (rate*100): #if statement, check if the user will pay off the debt eventually
+    print ("You will need to make bigger payments."
+           "\nAt this rate you will never pay off the debt."
+           "\nPress enter to exit") #print string
+    exit () #exit out of program
 
-    totalpay = 0 #integer, state the amount of total payment as 0
-    interest = (rate/1200)*debt #float, calculate interest
-    n = 1 #integer, state that month starts at 1
-    balance = debt+interest-pay #float, calculate balance
-    while True: #start infinite loop
-        totalpay += pay #float, adding monthly payment to total payment
+totalpay = 0 #integer, state the amount of total payment as 0
+interest = (rate/1200)*debt #float, calculate interest
+n = 1 #integer, state that month starts at 1
+balance = debt+interest-pay #float, calculate balance
+while True: #start infinite loop
+    totalpay += pay #float, adding monthly payment to total payment
+    print ("Month =", n) #print string and float
+    print ("Interest this month = %0.2f" %interest) #print string and float
+    print ("Balance going forward = %0.2f" %balance) #print string and float
+    print ("Total payments = %0.2f" %totalpay) #print string and float
+    n += 1 #integer, indicating that month will increase by one every loop
+    interest = (rate/1200)*balance #float, equation to calculate new interest for every
+    if balance &lt; pay: #if statement, find out once balance is less than monthly payment
+        newbalance = balance-balance #float, make balance = 0
         print ("Month =", n) #print string and float
         print ("Interest this month = %0.2f" %interest) #print string and float
-        print ("Balance going forward = %0.2f" %balance) #print string and float
+        print ("Balance going forward = %0.2f" %newbalance) #print string and float
+        balance += interest #float, add interest for final month to balance in final
+        totalpay += (balance) #float, add payment for final month to total payment
         print ("Total payments = %0.2f" %totalpay) #print string and float
-        n += 1 #integer, indicating that month will increase by one every loop
-        interest = (rate/1200)*balance #float, equation to calculate new interest for every
-        if balance &lt; pay: #if statement, find out once balance is less than monthly payment
-            newbalance = balance-balance #float, make balance = 0
-            print ("Month =", n) #print string and float
-            print ("Interest this month = %0.2f" %interest) #print string and float
-            print ("Balance going forward = %0.2f" %newbalance) #print string and float
-            balance += interest #float, add interest for final month to balance in final
-            totalpay += (balance) #float, add payment for final month to total payment
-            print ("Total payments = %0.2f" %totalpay) #print string and float
-            break #loop done   
-        balance = balance+interest-pay #float, equation to calculate new balance for every month
-    print ("Press enter to exit") #print string
-    exit #exit out of program
+        break #loop done   
+    balance = balance+interest-pay #float, equation to calculate new balance for every month
+print ("Press enter to exit") #print string
+exit #exit out of program
                         </pre>
                     </div>
                 </div>
@@ -303,7 +303,7 @@ else:
                 <div class="projecti1 mb-3">
                     <h1>Trivial Questions (Edited)</h1>
                     <li>Reduce the codes from 179 lines of code to 72 lines using Dictionary to store the questions and answers</li>
-                    <li>Dictionary is the best method to use in this problem since it stores everything in hash numbers, so the time complexity is almost O(1) when accessing questions or answers </li>
+                    <li>Dictionary is "probably" the best method to use in this problem since it stores everything in hash numbers, so the time complexity is almost O(1) when accessing questions or answers </li>
                     <li> Summer Freshman Year </li>
                     <button class="collapsible look-code">Look at Code</button>
                     <div class="code icode1">
@@ -825,76 +825,67 @@ main()</pre>
                     <li> Winter Quarter Freshman Year </li>
                     <button class="collapsible look-code">Look at Code</button>
                     <div class="code icode4">
-                        <pre>
-    # File: bday.py
-    #
-    # Natheethorn Teacharuangchit, ECS 36A, Winter 2019
-    # This program calculates how many people must be in a room
-    # so that the probability of two of them having the same birthday is 0.5
-    #
+                        <pre>#Answers: It takes at least 23 or 24 people for the probability to be greater
+# than 0.5, depending on the randoms
+# : It takes at least 41 or 42 people for the probability to be greater than
+# 0.9, depending on the randoms
 
-    #Answers: It takes at least 23 or 24 people for the probability to be greater
-    # than 0.5, depending on the randoms
-    # : It takes at least 41 or 42 people for the probability to be greater than
-    # 0.9, depending on the randoms
+#import this module to use randint()
+import random
 
-    #import this module to use randint()
-    import random
+# runs the test 5000 times and count how many times does the onetest()
+# function returns true, then return the amount of Trues
+#
+def probab(count):
+    #set counter equals to 0
+    dup_count = 0
+    #runs the test 5000 times
+    for i in range(5000):
+        test = onetest(count)
+        #if the function returns true, then add 1 to the counter
+        if test == True:
+            dup_count += 1
+    #return the number from the counter
+    return dup_count
 
-    # runs the test 5000 times and count how many times does the onetest()
-    # function returns true, then return the amount of Trues
-    #
-    def probab(count):
-        #set counter equals to 0
-        dup_count = 0
-        #runs the test 5000 times
-        for i in range(5000):
-            test = onetest(count)
-            #if the function returns true, then add 1 to the counter
-            if test == True:
-                dup_count += 1
-        #return the number from the counter
-        return dup_count
+# create a list of people with their birthdays
+# then check if there is any duplicates in the list
+#
+def onetest(count):
+    #declare bdlst as an empty list
+    bdlst = []
+    #create a list of random numbers from 1-365 for a certain "count"
+    for i in range(count):
+        #add the random number into the list
+        bdlst.append(random.randint(1,366))
+    #return True or False
+    return hasduplicates(bdlst)
 
-    # create a list of people with their birthdays
-    # then check if there is any duplicates in the list
-    #
-    def onetest(count):
-        #declare bdlst as an empty list
-        bdlst = []
-        #create a list of random numbers from 1-365 for a certain "count"
-        for i in range(count):
-            #add the random number into the list
-            bdlst.append(random.randint(1,366))
-        #return True or False
-        return hasduplicates(bdlst)
+# check whether there is a duplicate in the list or not
+#
+def hasduplicates(lst):
+    #if length is not the same then that means there is a duplicate
+    return len(set(lst)) != len(lst)
 
-    # check whether there is a duplicate in the list or not
-    #
-    def hasduplicates(lst):
-        #if length is not the same then that means there is a duplicate
-        return len(set(lst)) != len(lst)
+#main loop - Assignment doesn't say when to stop, so make it an infinite loop
+def main():
+    #start the test with 2 people
+    count = 2
+    while True:
+        #call probab() function to get the number of duplicates
+        #then divide it with num in the print statement to get the probability
+        #
+        prob = probab(count)
+        print(
+            "For %d people, the probability of 2 birthdays is %.5f"
+            %(count, (prob/5000))
+            )
+        #keep adding 1 person in every loop
+        count += 1
+        if (prob/5000) >= 0.9:
+            break
 
-    #main loop - Assignment doesn't say when to stop, so make it an infinite loop
-    def main():
-        #start the test with 2 people
-        count = 2
-        while True:
-            #call probab() function to get the number of duplicates
-            #then divide it with num in the print statement to get the probability
-            #
-            prob = probab(count)
-            print(
-                "For %d people, the probability of 2 birthdays is %.5f"
-                %(count, (prob/5000))
-                )
-            #keep adding 1 person in every loop
-            count += 1
-            if (prob/5000) >= 0.9:
-                break
-
-    main()
-                        </pre>
+main()</pre>
                     </div>
                 </div>
                 

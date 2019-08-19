@@ -7,17 +7,16 @@ body
     background-color: black;
 }
 
-body
-{
-    font-family: monospace;
-}
-
 .navbar li:hover{
     border: 1px solid white;
 }
 
 li{
     font-size: 15px;
+}
+
+h1{
+    font-weight: 300 !important;
 }
 
 .collapsible{
@@ -43,10 +42,8 @@ li{
 }
 
 .difficulty{
-/*    width: 1200px;*/
     height: 600px;
     overflow: scroll;
-/*    margin-bottom: 50px;*/
 }
 
 .easy{
@@ -65,10 +62,6 @@ li{
     color: white;
 }
 
-.project1{
-    
-}
-
 .code{
     font-family: "Courier New", sans-serif;
     padding: 10px;
@@ -79,24 +72,6 @@ li{
     display: none;
 }
 
-.code1{
-    
-}
-
-.code2{
-    height: 500px;
-    overflow: scroll;
-}
-
-.code3{
-    height: 500px;
-    overflow: scroll;
-}
-
-.icode1{
-    height: 500px;
-    overflow: scroll;
-}
 
 .icode2 pre{
     border-bottom: 10px dotted black;

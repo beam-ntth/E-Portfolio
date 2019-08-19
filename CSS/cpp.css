@@ -16,6 +16,10 @@ li{
     font-size: 15px;
 }
 
+h1{
+    font-weight: 300 !important;
+}
+
 .navbar li:hover{
     border: 1px solid white;
 }
@@ -89,28 +93,5 @@ pre{
     color: black;
     line-height: 1.5;
     margin-top: 20px;
-}
-
-.code1{
-    display: none;
-}
-
-.code2{
-    display: none;
-}
-
-.code3{
-    display: none;
-}
-
-.code4{
-    display: none;
-}
-
-.code5{
-    display: none;
-}
-
-.code6{
     display: none;
 }
