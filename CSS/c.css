@@ -29,11 +29,11 @@ h1{
     background: none;
     color: white;
     padding: 5px 15px;
-    border: none;
+    border: 1px solid white;
 }
 
 .active, .collapsible:hover{
-    border: 1px solid white;
+    border: 3px solid transparent;
 }
 
 .look-code{
@@ -51,11 +51,7 @@ h1{
     overflow: scroll;
 }
 
-.easy{
-    display: none;
-}
-
-.intermediate{
+.easy, .intermediate{
     display: none;
 }
 

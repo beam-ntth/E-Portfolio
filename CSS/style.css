@@ -39,11 +39,11 @@ a{
     background: none;
     color: white;
     padding: 5px 15px;
-    border: none;
+    border: 1px solid white;
 }
 
 .active, .collapsible:hover{
-    border: 1px solid white;
+    border: 3px solid transparent;
 }
 
 .update{

@@ -31,11 +31,11 @@ h1{
     background: none;
     color: white;
     padding: 5px 15px;
-    border: none;
+    border: 1px solid white;
 }
 
 .active, .collapsible:hover{
-    border: 1px solid white;
+    border: 3px solid transparent;
 }
 
 .look-code{
@@ -49,25 +49,13 @@ h1{
 }
 
 .difficulty{
-/*    width: 1200px;*/
     height: 600px;
     overflow: scroll;
     margin-bottom: 50px;
+    background: rgba(0,0,0,0.5);
 }
 
-.easy{
-    display: none;
-}
-
-.intermediate{
-    display: none;
-}
-
-.hard{
-    display: none;
-}
-
-.wtf{
+.easy, .intermediate, .hard, .wtf{
     display: none;
 }
 

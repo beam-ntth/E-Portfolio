@@ -23,12 +23,13 @@ h1{
     font-family: "Courier New", sans-serif;
     background: none;
     color: white;
+    padding: 5px 15px;
     font-size: 20px;
-    border: none;
+    border: 1px solid white;
 }
 
 .active, .collapsible:hover{
-    border: 1px solid white;
+    border: 3px solid transparent;
 }
 
 .look-code{
@@ -44,6 +45,7 @@ h1{
 .difficulty{
     height: 600px;
     overflow: scroll;
+    background: rgba(0,0,0,0.5);
 }
 
 .easy{
@@ -60,6 +62,8 @@ h1{
 
 .projects{
     color: white;
+    
+    
 }
 
 .code{
