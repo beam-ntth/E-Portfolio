@@ -9,20 +9,12 @@ body{
     border: 2.5px solid transparent;
 }
 
-.contact-info
-{
-    font-family: "Roboto", sans-serif;
+h1, p{
+    color: white;
+    font-family: "Courier New";
 }
 
 h1
 {
-    color: white;
     text-transform: uppercase;
-    font-family: "Courier New";
-}
-
-p{
-    color: white;
-    text-align: left;
-    font-family: "Courier New";
 }

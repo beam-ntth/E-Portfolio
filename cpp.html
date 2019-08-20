@@ -1348,6 +1348,7 @@
                     </div>
                     <div class="project4 mb-3">
                         <h1> Doubly Linked List </h1>
+                        <li> Created our own doubly linked list!</li>
                         <li> Spring Quarter Freshman Year </li>
                         <button class="collapsible look-code">ConstDoublyLinkedListIterator.h</button>
                         <div class="code code4">
@@ -2245,7 +2246,7 @@
                 <div class="difficulty hard">
                     <div class="project5 mb-3">
                         <h1> ConnectN </h1>
-                        <li> This is basically an adaption of Connect4 game. But we can do more than just 4 rows for this game!</li>
+                        <li> This is basically an adaption of Connect4 game, but we can do more than just a 4X4 table for this game!</li>
                         <li> Spring Quarter Freshman Year </li>
                         <button class="collapsible look-code">Board.cpp</button>
                         <div class="code code5">
@@ -2790,12 +2791,1337 @@
                 <div class="difficulty wtf">
                     <div class="project6 mb-3">
                         <h1> Battleship </h1>
-                        <li> The classic Battleship game with 3 AIs that I've created my own. Cheating AI, Hunt Destroy AI, and Random AI</li>
+                        <li> A classic Battleship game. Players can customize their own board size, ships and ships' size. Players can also choose to play against another human player or play against the 3 AIs that I've created my own -- Cheating AI, Hunt Destroy AI, and Random AI.</li>
                         <li> Spring Quarter Freshman Year (Final Exam Project) </li>
                         <button class="collapsible look-code">Board.cpp</button>
                         <div class="code code6">
                             <h4> Board.cpp </h4>
-                            <pre></pre>
+                            <pre>#include "Board.h"
+#include "ShipPlacement.h"
+
+BattleShip::Board::Board() : starChar('*'){
+
+}
+
+BattleShip::Board::Board(int boardRow, int boardColumn, char starChar) : boardState(boardRow, std::string(boardColumn, starChar)), starChar(starChar) {
+
+}
+
+//returns the size of the vector
+int BattleShip::Board::getNumRows() const{
+    return boardState.size();
+}
+
+//returns the size of the string
+int BattleShip::Board::getNumCols() const{
+    return boardState.at(0).size();
+}
+
+//returns the place on the board
+const char &amp;BattleShip::Board::at(int row, int col) const {
+    return boardState.at(row).at(col);
+}
+
+//getter for the board
+const std::vector&lt;std::string> &amp;BattleShip::Board::getBoard() const {
+    return boardState;
+}
+
+//add the ship on to the board
+void BattleShip::Board::addShip(char ship, ShipPlacement&amp; placement) {
+    if(placement.rowEnd == placement.rowStart){
+        for (int col = placement.colStart; col &lt; placement.colEnd; ++col) {
+            boardState.at(placement.rowStart).at(col) = ship;
+        }
+    } else {
+        for (int row = placement.rowStart; row &lt; placement.rowEnd; ++row) {
+            boardState.at(row).at(placement.colStart) = ship;
+        }
+    }
+
+}
+
+//checks whether the ships are allowed to be there on the board or not
+bool BattleShip::Board::canPlaceShipAt(ShipPlacement &amp;placement) const{
+    return isInBounds(placement) &amp;&amp; isBlankSpace(placement);
+}
+
+//checks whether the ship is in bound or not
+bool BattleShip::Board::isInBounds(ShipPlacement &amp;placement) const{
+    return placement.rowStart >= 0 &amp;&amp; placement.rowStart &lt;= getNumRows()
+           &amp;&amp; placement.rowEnd >= 0 &amp;&amp; placement.rowEnd &lt;= getNumRows()
+           &amp;&amp; placement.colStart >= 0 &amp;&amp; placement.colStart &lt;= getNumCols()
+           &amp;&amp; placement.colEnd >= 0 &amp;&amp; placement.colEnd &lt;= getNumCols();
+}
+
+//checks whether that part of the board is a blank space or not
+bool BattleShip::Board::isBlankSpace(ShipPlacement &amp;placement) const{
+    if (placement.rowStart == placement.rowEnd){
+        for (int col = placement.colStart ; col &lt; placement.colEnd ; ++col) {
+            if (boardState.at(placement.rowStart).at(col) != starChar){
+                return false;
+            }
+
+        }
+    } else {
+        for (int row = placement.rowStart ; row &lt; placement.rowEnd ; ++row) {
+            if (boardState.at(row).at(placement.colStart) != starChar){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+//checks whether the attack is in bound or not
+bool BattleShip::Board::attackIsInBounds(int rowInput, int colInput) const {
+    return rowInput >= 0 &amp;&amp; rowInput &lt; getNumRows() &amp;&amp; colInput >= 0 &amp;&amp; colInput &lt; getNumCols();
+}
+
+//check whether is attack is at the blank space or not
+bool BattleShip::Board::attackIsBlankSpace(int rowInput, int colInput) const {
+    return boardState.at(rowInput).at(colInput) == starChar;
+}
+
+//set the attack on the board
+void BattleShip::Board::setAttack(int row, int col, char val) {
+    boardState.at(row).at(col) = val;
+}
+
+//checks whether there ius still any part of that ship that is on the board or not
+bool BattleShip::Board::checkIfShipDestroyed(char ship) const {
+    for (int row = 0; row &lt; getNumRows(); ++row) {
+        for (int col = 0; col &lt; getNumCols() ; ++col) {
+            if(boardState.at(row).at(col) == ship){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+//checks whether that part of the board has already been a hit or not
+bool BattleShip::Board::attackIsHit(int rowInput, int colInput) const {
+    return boardState.at(rowInput).at(colInput) == 'O' || boardState.at(rowInput).at(colInput) == 'X';
+}</pre>
+                        </div>
+                        <button class="collapsible look-code">Board.h</button>
+                        <div class="code code6">
+                            <h4> Board.h </h4>
+                            <pre>#ifndef BATTLESHIP_BOARD_H
+#define BATTLESHIP_BOARD_H
+
+#include &lt;iostream>
+#include &lt;vector>
+#include &lt;string>
+
+
+namespace BattleShip {
+    class ShipPlacement;
+    class GameAttributes;
+    class Board {
+    public:
+        Board();
+        explicit Board (int boardRow, int boardColumn, char starChar);
+        int getNumRows() const;
+        int getNumCols() const;
+        const char&amp; at(int row, int col) const;
+
+        const std::vector&lt;std::string> &amp;getBoard() const ;
+        bool canPlaceShipAt(ShipPlacement&amp; placement) const;
+        void addShip (char ship, ShipPlacement&amp; placement);
+        bool isInBounds(ShipPlacement &amp;placement) const;
+        bool isBlankSpace(ShipPlacement&amp; placement) const;
+
+        bool attackIsInBounds(int rowInput, int colInput) const;
+        bool attackIsBlankSpace(int rowInput, int colInput) const;
+        bool attackIsHit (int rowInput, int colInput) const;
+        void setAttack(int row, int col, char val);
+
+        bool checkIfShipDestroyed(char ship) const;
+    private:
+        std::vector&lt;std::string> boardState;
+        const char starChar;
+    };
+}
+
+#endif //BATTLESHIP_BOARD_H</pre>
+                        </div>
+                        <button class="collapsible look-code">AiPlayer.cpp</button>
+                        <div class="code code6">
+                            <h4> AiPlayer.cpp </h4>
+                            <pre>#include &lt;sstream>
+#include &lt;ctime>
+#include "Utility.h"
+#include "AiPlayer.h"
+#include "Battleship.h"
+#include "ShipPlacement.h"
+#include "View.h"
+#include "GameAttributes.h"
+
+int BattleShip::AiPlayer::nextAiId = 1;
+std::mt19937 BattleShip::AiPlayer::randomNumberGenerator((time(nullptr)));
+
+
+// 1. initialized player's name
+// 2. Go through place ships loop
+BattleShip::AiPlayer::AiPlayer(const GameAttributes&amp; gameAttributes, View&amp; view) : Player(gameAttributes, view), aiId(AiPlayer::nextAiId) {
+    initializeName();
+    placeShips(gameAttributes.shipHealth, gameAttributes.numOfRows, gameAttributes.numOfCols);
+    nextAiId++;
+}
+
+
+void BattleShip::AiPlayer::placeShips(std::map&lt;char, int> shipHealths, int numOfRows, int numOfcols) {
+  View view;
+  std::vector&lt;char> orientation_choice{'h', 'v'};
+  const int numRows = board.getNumRows(); //get number of rows
+  const int numCols = board.getNumCols(); //get number of columns
+  ShipPlacement placement(*this);
+
+  //go into the loop - placing ships
+  for(const auto&amp; ship : shipHealths) {
+    do {
+      char orientation = *chooseRandom(orientation_choice, randomNumberGenerator);
+      if (orientation == 'h') {
+        placement.rowStart = getRandInt(0, numRows - 1, randomNumberGenerator);
+        placement.colStart = getRandInt(0, numCols - ship.second, randomNumberGenerator);
+        placement.rowEnd = placement.rowStart;
+        placement.colEnd = placement.colStart + ship.second;
+      } else {
+        placement.rowStart = getRandInt(0, numRows - ship.second, randomNumberGenerator);
+        placement.colStart = getRandInt(0, numCols - 1, randomNumberGenerator);
+        placement.rowEnd = placement.rowStart + ship.second;
+        placement.colEnd = placement.colStart;
+      }
+    } while (!board.canPlaceShipAt(placement));
+    board.addShip(ship.first, placement);  //add ships into the board
+    std::cout &lt;&lt; getName() &lt;&lt; "'s Board" &lt;&lt; std::endl;
+    view.showPlacementBoard(board); //show the placement board
+    std::cout &lt;&lt; std::endl;
+  }
+}
+
+void BattleShip::AiPlayer::initializeName() {
+  std::stringstream name;
+  name &lt;&lt; "AI " &lt;&lt; aiId;
+  setName(name.str());
+}
+
+void BattleShip::AiPlayer::seed_random_number_generator(int seed) {
+    AiPlayer::randomNumberGenerator.seed(seed);
+}
+
+void BattleShip::AiPlayer::setName(const std::string&amp; nameStr) {
+    aiStrName = nameStr;
+}
+
+const std::string &amp;BattleShip::AiPlayer::getName() const {
+    return aiStrName;
+}</pre>
+                        </div>
+                        <button class="collapsible look-code">AiPlayer.h</button>
+                        <div class="code code6">
+                            <h4> AiPlayer.h </h4>
+                            <pre>#ifndef BATTLESHIP_AIPLAYER_H
+#define BATTLESHIP_AIPLAYER_H
+
+#include &lt;random>
+#include &lt;map>
+#include "Player.h"
+#include "Board.h"
+
+// AiPlayer class is inherited from the Player's class
+namespace BattleShip {
+    class AiPlayer : public Player {
+    public:
+        AiPlayer(const GameAttributes &amp;gameAttributes, View &amp;view);
+
+        static void seed_random_number_generator(int seed);
+
+        void placeShips(std::map&lt;char, int> shipHealths, int numOfRows, int numOfcols) override;
+
+        void initializeName() override;
+
+        virtual void setName(const std::string &amp;nameStr);
+
+        const std::string &amp;getName() const override;
+
+    protected:
+        static std::mt19937 randomNumberGenerator;
+        std::string aiStrName;
+
+    private:
+        static int nextAiId;
+        const int aiId = 0;
+
+    };
+}
+#endif //BATTLESHIP_AIPLAYER_H
+</pre>
+                        </div>
+                        <button class="collapsible look-code">Attack.cpp</button>
+                        <div class="code code6">
+                            <h4> Attack.cpp </h4>
+                            <pre>#include "Attack.h"
+#include "Player.h"
+
+BattleShip::Attack::Attack(const Player &amp;maker) : maker(maker), row(-99), col(-99), shipHit(0) {
+
+}
+
+//checks whether the attack is valid or not
+bool BattleShip::Attack::isValid(const Board &amp;board, int rowInput, int colInput) {
+    row = rowInput;
+    col = colInput;
+    return board.attackIsInBounds(rowInput, colInput) &amp;&amp; !board.attackIsHit(rowInput, colInput);
+}
+
+//make the attack on the board
+void BattleShip::Attack::make(Board &amp;board, Player &amp;player, Player &amp;opponent) {
+    if (board.attackIsBlankSpace(row, col)){
+        shipHit = -99;
+        board.setAttack(row, col, 'O');
+    } else {
+        shipHit = board.at(row, col);
+        board.setAttack(row, col, 'X');
+    }
+}
+
+//returns the type of ship that got hit
+char BattleShip::Attack::getShipHit() const {
+    return shipHit;
+}</pre>
+                        </div>
+                        <button class="collapsible look-code">Attack.h</button>
+                        <div class="code code6">
+                            <h4> Attack.h </h4>
+                            <pre>#ifndef BATTLESHIP_ATTACK_H
+#define BATTLESHIP_ATTACK_H
+
+
+#include "Board.h"
+
+namespace BattleShip {
+    class Player;
+    class Attack {
+    public:
+        explicit Attack(const Player&amp; maker);
+        bool isValid(const Board &amp;board, int rowInput, int colInput);
+        void make(Board &amp;board, Player &amp;player, Player &amp;opponent);
+
+        const Player&amp; maker;
+        int row, col;
+        char shipHit;
+
+        char getShipHit() const;
+    };
+}
+
+#endif //BATTLESHIP_ATTACK_H</pre>
+                        </div>
+                        <button class="collapsible look-code">Battleship.cpp</button>
+                        <div class="code code6">
+                            <h4> Battleship.cpp </h4>
+                            <pre>#include "Battleship.h"
+#include "HumanPlayer.h"
+#include "CheatingAiPlayer.h"
+#include "RandomAiPlayer.h"
+#include "HuntDestroyAiPlayer.h"
+#include "ShipPlacement.h"
+#include "Board.h"
+
+#include &lt;iostream>
+#include &lt;string>
+
+BattleShip::BattleShip::BattleShip(int boardRow, int boardColumn, std::map&lt;char, int> shipHealths) : gameAttributes(
+        shipHealths, boardRow, boardColumn), boardRow(boardRow), boardCol(boardColumn), playerTurn(-1){
+    addPlayerToGame(2);
+
+}
+
+//add different types of players to the game
+void BattleShip::BattleShip::addPlayerToGame(int numOfPlayers) {
+
+    std::cout &lt;&lt; "What type of game do you want to play?
+1. Human vs Human
+2. Human vs AI
+3. AI vs AI" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Your choice: ";
+    std::cin >> gameType;
+
+    //--------- Human vs Human -------
+
+    if (gameType == 1){
+        for (int i = 0; i &lt; numOfPlayers ; ++i) {
+            players.push_back(std::make_unique&lt;HumanPlayer>(gameAttributes, view));
+        }
+
+    //--------- Human vs AI -------
+
+    } else if (gameType == 2){
+        players.push_back(std::make_unique&lt;HumanPlayer>(gameAttributes, view));
+        int aiType = 0;
+        std::cout &lt;&lt; "What AI do you want?
+1. Cheating AI
+2. Random AI
+3. Hunt Destroy AI" &lt;&lt; std::endl;
+        std::cout &lt;&lt; "Your choice: ";
+        std::cin >> aiType;
+        if (aiType == 1){
+            players.push_back(std::make_unique&lt;CheatingAiPlayer>(gameAttributes, view));
+        } else if (aiType == 2){
+            players.push_back(std::make_unique&lt;RandomAiPlayer>(gameAttributes, view));
+        } else if (aiType == 3){
+            players.push_back(std::make_unique&lt;HuntDestroyAiPlayer>(gameAttributes, view));
+        }
+
+    //--------- AI vs AI -------
+
+    } else if (gameType == 3){
+        for (int i = 0; i &lt; numOfPlayers ; ++i) {
+            int aiType = 0;
+            std::cout &lt;&lt; "What AI do you want?
+1. Cheating AI
+2. Random AI
+3. Hunt Destroy AI" &lt;&lt; std::endl;
+            std::cout &lt;&lt; "Your choice: ";
+            std::cin >> aiType;
+            if (aiType == 1) {
+                players.push_back(std::make_unique&lt;CheatingAiPlayer>(gameAttributes, view));
+            } else if (aiType == 2) {
+                players.push_back(std::make_unique&lt;RandomAiPlayer>(gameAttributes, view));
+            } else if (aiType == 3) {
+                players.push_back(std::make_unique&lt;HuntDestroyAiPlayer>(gameAttributes, view));
+            }
+        }
+    }
+}
+
+
+void BattleShip::BattleShip::play(int hitAllWin) {
+    getStartingPlayer(); //get the starting player
+
+    // while the game is not over -> keep looping
+    while (true){
+        // only print out an extra firing board and placement board for the human player -- professor's output format
+        if(gameType == 1){
+            std::cout &lt;&lt; getCurrentPlayer().getName() &lt;&lt; "'s Firing Board" &lt;&lt; std::endl;
+            view.attackBoardGhostMode(getOpponentPlayer().getBoard());
+            std::cout &lt;&lt; std::endl;
+            std::cout &lt;&lt; std::endl;
+
+            std::cout &lt;&lt; getCurrentPlayer().getName() &lt;&lt; "'s Placement Board" &lt;&lt; std::endl;
+            view.showPlacementBoard(getCurrentPlayer().getBoard());
+
+        } else if (gameType == 2){
+            if(playerTurn%2 == 0){
+                std::cout &lt;&lt; getCurrentPlayer().getName() &lt;&lt; "'s Firing Board" &lt;&lt; std::endl;
+                view.attackBoardGhostMode(getOpponentPlayer().getBoard());
+                std::cout &lt;&lt; std::endl;
+                std::cout &lt;&lt; std::endl;
+
+                std::cout &lt;&lt; getCurrentPlayer().getName() &lt;&lt; "'s Placement Board" &lt;&lt; std::endl;
+                view.showPlacementBoard(getCurrentPlayer().getBoard());
+            }
+        }
+
+        //------------ attack section ---------
+
+        Attack attack = getCurrentPlayer().getAttack(getOpponentPlayer());
+        attack.make(getOpponentPlayer().getBoard(), getCurrentPlayer(), getOpponentPlayer());
+
+        std::cout &lt;&lt; getCurrentPlayer().getName() &lt;&lt; "'s Firing Board" &lt;&lt; std::endl;
+        view.attackBoardGhostMode(getOpponentPlayer().getBoard());
+        std::cout &lt;&lt; std::endl;
+        std::cout &lt;&lt; std::endl;
+
+        std::cout &lt;&lt; getCurrentPlayer().getName() &lt;&lt; "'s Placement Board" &lt;&lt; std::endl;
+        view.showPlacementBoard(getCurrentPlayer().getBoard());
+
+        // if the ship hit is -99 then it didn't hit anything
+        if (attack.getShipHit() == -99){
+            std::cout &lt;&lt; "Missed.";
+            //else print out which ship it hits
+        } else {
+            std::cout &lt;&lt; getCurrentPlayer().getName() &lt;&lt; " hit " &lt;&lt; getOpponentPlayer().getName() &lt;&lt; "'s " &lt;&lt; attack.getShipHit() &lt;&lt; "!" &lt;&lt; std::endl;
+        }
+
+        //check whether that ship got destroyed or not
+        if (attack.getShipHit() != -99){
+            if (getOpponentPlayer().getBoard().checkIfShipDestroyed(attack.getShipHit())){
+                std::cout &lt;&lt; getCurrentPlayer().getName() &lt;&lt; " destroyed " &lt;&lt; getOpponentPlayer().getName() &lt;&lt; "'s " &lt;&lt; attack.getShipHit() &lt;&lt; "!" &lt;&lt; std::endl;
+            }
+        }
+        std::cout &lt;&lt; std::endl;
+
+        //if the game is over -> get out of the loop
+        if (gameOver(hitAllWin)){
+            break;
+        }
+        switchTurn();
+        std::cout &lt;&lt; std::endl;
+    }
+    //print out who won the game
+    declareResults();
+}
+
+//set the starting player to be the player at index 0
+void BattleShip::BattleShip::getStartingPlayer() {
+    playerTurn = 0;
+}
+
+//get the current player as const
+const BattleShip::Player &amp;BattleShip::BattleShip::getCurrentPlayer() const {
+    return *players.at(playerTurn);
+}
+
+//get the current player
+BattleShip::Player &amp;BattleShip::BattleShip::getCurrentPlayer() {
+    return *players.at(playerTurn);
+}
+
+//get the opponent player as const
+const BattleShip::Player &amp;BattleShip::BattleShip::getOpponentPlayer() const {
+    return *players.at((playerTurn+1)%2);
+}
+
+//get the opponent player
+BattleShip::Player &amp;BattleShip::BattleShip::getOpponentPlayer() {
+    return *players.at((playerTurn+1)%2);
+}
+
+
+bool BattleShip::BattleShip::gameOver(int hitAllWin) const {
+    return allGoneWin(hitAllWin);
+}
+
+//checks whether there is the same amount of X on the board as the amount of ships
+bool BattleShip::BattleShip::allGoneWin(int hitAllWin) const {
+    int charCounter = 0;
+    for (int row = 0; row &lt; boardRow ; ++row) {
+        for (int col = 0; col &lt; boardCol ; ++col) {
+            if (getOpponentPlayer().getBoard().at(row, col) == 'X'){
+                charCounter++;
+            }
+        }
+
+    }
+    return charCounter == hitAllWin;
+}
+
+
+void BattleShip::BattleShip::switchTurn() {
+    playerTurn = (playerTurn + 1) % 2;
+}
+
+
+void BattleShip::BattleShip::declareResults() {
+    std::cout &lt;&lt; getCurrentPlayer().getName() &lt;&lt; " won the game!" &lt;&lt; std::endl;
+}
+
+BattleShip::BattleShip::const_iterator BattleShip::BattleShip::begin() const {
+    return gameAttributes.shipHealth.begin();
+}
+
+BattleShip::BattleShip::const_iterator BattleShip::BattleShip::end() const {
+    return gameAttributes.shipHealth.end();
+}
+
+BattleShip::BattleShip::iterator BattleShip::BattleShip::begin() {
+    return gameAttributes.shipHealth.begin();
+}
+
+BattleShip::BattleShip::iterator BattleShip::BattleShip::end() {
+    return gameAttributes.shipHealth.end();
+}</pre>
+                        </div>
+                        <button class="collapsible look-code">Battleship.h</button>
+                        <div class="code code6">
+                            <h4> Battleship.h </h4>
+                            <pre>#ifndef BATTLESHIP_BATTLESHIP_H
+#define BATTLESHIP_BATTLESHIP_H
+
+#include "Player.h"
+#include "Attack.h"
+#include "GameAttributes.h"
+#include "View.h"
+#include &lt;memory>
+#include &lt;map>
+
+namespace BattleShip {
+    class BattleShip {
+        class Board;
+        class View view;
+    public:
+        using iterator = std::map&lt;char, int>::iterator;
+        using const_iterator = std::map&lt;char, int>::const_iterator;
+
+        BattleShip(int boardRow, int boardColumn, std::map&lt;char, int> shipHealths);
+        virtual ~BattleShip() = default;
+        void play(int hitAllWin);
+        void getStartingPlayer();
+
+        const Player&amp; getCurrentPlayer() const;
+        Player&amp; getCurrentPlayer();
+        const Player&amp; getOpponentPlayer() const;
+        Player&amp; getOpponentPlayer();
+
+        bool gameOver(int hitAllWin) const;
+        bool allGoneWin(int hitAllWin) const;
+
+        void switchTurn();
+        void declareResults();
+
+        void addPlayerToGame(int numOfPlayers);
+
+        //----- iterator to go through map of shipHealth -----
+        const_iterator begin() const;
+        const_iterator end() const;
+        iterator begin();
+        iterator end();
+
+
+    private:
+        GameAttributes gameAttributes;
+        int boardRow;
+        int boardCol;
+        std::vector&lt;std::unique_ptr&lt;Player>> players;
+        int playerTurn;
+        int gameType = 0;
+    };
+}
+
+#endif //BATTLESHIP_BATTLESHIP_H</pre>
+                        </div>
+                        <button class="collapsible look-code">CheatingAiPlayer.cpp</button>
+                        <div class="code code6">
+                            <h4> CheatingAiPlayer.cpp </h4>
+                            <pre>#include "CheatingAiPlayer.h"
+
+BattleShip::CheatingAiPlayer::CheatingAiPlayer(const GameAttributes &amp;gameAttributes, View &amp;view) : AiPlayer(gameAttributes, view) {
+
+}
+
+void BattleShip::CheatingAiPlayer::placeShips(std::map&lt;char, int> shipHealths, int numOfRows, int numOfcols) {
+    AiPlayer::placeShips(shipHealths, numOfRows, numOfcols);
+}
+
+void BattleShip::CheatingAiPlayer::initializeName() {
+    AiPlayer::initializeName();
+}
+
+void BattleShip::CheatingAiPlayer::setName(const std::string &amp;nameStr) {
+    AiPlayer::setName(nameStr);
+}
+
+const std::string &amp;BattleShip::CheatingAiPlayer::getName() const {
+    return aiStrName;
+}
+
+//getter for the board
+const BattleShip::Board &amp;BattleShip::CheatingAiPlayer::getBoard() const {
+    return board;
+}
+
+BattleShip::Board &amp;BattleShip::CheatingAiPlayer::getBoard() {
+    return board;
+}
+
+//look at the opponent's board and if there is a ship -> hit the ship
+BattleShip::Attack BattleShip::CheatingAiPlayer::getAttack(Player &amp;opponentPlayer) {
+    Attack cheatingAttack(*this);
+    int rowAttack, colAttack;
+    for (int row = 0; row &lt; opponentPlayer.getBoard().getNumRows() ; ++row) {
+        for (int col = 0; col &lt; opponentPlayer.getBoard().getNumCols() ; ++col) {
+            if(opponentPlayer.getBoard().at(row, col) != '*' &amp;&amp; opponentPlayer.getBoard().at(row, col) != 'O' &amp;&amp; opponentPlayer.getBoard().at(row, col) != 'X'){
+                rowAttack = row;
+                colAttack = col;
+
+                cheatingAttack.isValid(opponentPlayer.getBoard(), rowAttack, colAttack);
+                return cheatingAttack;
+            }
+        }
+    }
+    return cheatingAttack;
+}</pre>
+                        </div>
+                        <button class="collapsible look-code">CheatingAiPlayer.h</button>
+                        <div class="code code6">
+                            <h4> CheatingAiPlayer.h </h4>
+                            <pre>#ifndef BATTLESHIP_CHEATINGAIPLAYER_H
+#define BATTLESHIP_CHEATINGAIPLAYER_H
+
+#include "AiPlayer.h"
+#include "Attack.h"
+
+//CheatingAiPlayer is inherited from the AIPlayer class
+namespace BattleShip {
+    class CheatingAiPlayer : public AiPlayer {
+    public:
+        CheatingAiPlayer(const GameAttributes &amp;gameAttributes, View &amp;view);
+
+        void placeShips(std::map&lt;char, int> shipHealths, int numOfRows, int numOfcols) override;
+
+        Attack getAttack(Player &amp;opponentPlayer) override;
+
+        void initializeName() override;
+
+        void setName(const std::string &amp;nameStr) override;
+
+        const std::string &amp;getName() const override;
+
+        const Board &amp;getBoard() const override;
+
+        Board &amp;getBoard() override;
+
+    };
+}
+
+#endif //BATTLESHIP_CHEATINGAIPLAYER_H</pre>
+                        </div>
+                        <button class="collapsible look-code">GameAttributes.cpp</button>
+                        <div class="code code6">
+                            <h4> GameAttributes.cpp </h4>
+                            <pre>#include "GameAttributes.h"
+
+//just store all things that every players might need
+BattleShip::GameAttributes::GameAttributes(const std::map&lt;char, int> &amp;shipHealth, int numOfRows, int numOfCols)
+: shipHealth(shipHealth), numOfRows(numOfRows), numOfCols(numOfCols) {
+}</pre>
+                        </div>
+                        <button class="collapsible look-code">GameAttributes.h</button>
+                        <div class="code code6">
+                            <h4> GameAttributes.h </h4>
+                            <pre>#ifndef BATTLESHIP_GAMEATTRIBUTES_H
+#define BATTLESHIP_GAMEATTRIBUTES_H
+
+#include &lt;map>
+
+namespace BattleShip {
+    class GameAttributes {
+    public:
+        explicit GameAttributes(const std::map&lt;char, int> &amp;shipHealth, int numOfRows, int numOfCols);
+        std::map&lt;char, int> shipHealth;
+        int numOfRows;
+        int numOfCols;
+    };
+}
+
+#endif //BATTLESHIP_GAMEATTRIBUTES_H</pre>
+                        </div>
+                        <button class="collapsible look-code">HumanPlayer.cpp</button>
+                        <div class="code code6">
+                            <h4> HumanPlayer.cpp </h4>
+                            <pre>#include &lt;iostream>
+#include "GameAttributes.h"
+#include "HumanPlayer.h"
+#include "ShipPlacement.h"
+#include "View.h"
+#include "Battleship.h"
+
+int BattleShip::HumanPlayer::nextHumanId = 1;
+BattleShip::HumanPlayer::HumanPlayer(const GameAttributes &amp;gameAttributes, View &amp;view) : Player(gameAttributes, view), rowInput(gameAttributes.numOfRows), colInput(gameAttributes.numOfCols), orientation(0), humanId(HumanPlayer::nextHumanId) {
+    initializeName();
+    placeShips(gameAttributes.shipHealth, rowInput, colInput);
+    nextHumanId++;
+
+}
+
+void BattleShip::HumanPlayer::initializeName() {
+    std::cout &lt;&lt; "Player " &lt;&lt; humanId &lt;&lt; " please enter your name: ";
+    std::cin >> humanName;
+}
+
+
+void BattleShip::HumanPlayer::placeShips(std::map&lt;char, int> shipHealths, int numOfRows, int numOfcols) {
+    View view;
+    ShipPlacement placement(*this);
+    view.showPlacementBoard(board);
+
+    //---------- asks user for input --------
+    for(const auto&amp; ship : shipHealths) {
+        do {
+            std::cout &lt;&lt; humanName &lt;&lt; ", do you want to place " &lt;&lt; ship.first &lt;&lt; " horizontally or vertically?" &lt;&lt; std::endl;
+            std::cout &lt;&lt; "Enter h for horizontal or v for vertical" &lt;&lt; std::endl;
+            std::cout &lt;&lt; "Your choice: ";
+            std::cin >> orientation;
+            std::cout &lt;&lt; humanName &lt;&lt; ", enter the row and column you want to place " &lt;&lt; ship.first &lt;&lt;
+                      ", which is " &lt;&lt; ship.second &lt;&lt; " long, at with a space in between row and col: ";
+            std::cin >> rowInput >> colInput;
+
+            if (orientation == 'h' || orientation == 'H') {
+                placement.rowStart = rowInput;
+                placement.colStart = colInput;
+                placement.rowEnd = placement.rowStart;
+                placement.colEnd = placement.colStart + ship.second;
+            } else {
+                placement.rowStart = rowInput;
+                placement.colStart = colInput;
+                placement.rowEnd = placement.rowStart + ship.second;
+                placement.colEnd = placement.colStart;
+            }
+        } while (!board.canPlaceShipAt(placement));
+        board.addShip(ship.first, placement); //add the ships on to the board
+        view.showPlacementBoard(board); //show the placement board
+    }
+}
+
+const std::string &amp;BattleShip::HumanPlayer::getName() const {
+    return humanName;
+}
+
+const BattleShip::Board &amp;BattleShip::HumanPlayer::getBoard() const{
+    return board;
+}
+
+BattleShip::Board &amp;BattleShip::HumanPlayer::getBoard() {
+    return board;
+}
+
+//ask the player where they want to hit on the board
+BattleShip::Attack BattleShip::HumanPlayer::getAttack(Player &amp;opponentPlayer) {
+    Attack playerAttack(*this);
+    int rowAttack = -99, colAttack = -99;
+    do{
+        std::cout &lt;&lt; this->getName() &lt;&lt; ", where would you like to fire?" &lt;&lt; std::endl;
+        std::cout &lt;&lt; "Enter your attack coordinate in the form row col: ";
+        std::cin >> rowAttack >> colAttack;
+    } while(!playerAttack.isValid(opponentPlayer.getBoard(), rowAttack, colAttack));
+    return playerAttack;
+}</pre>
+                        </div>
+                        <button class="collapsible look-code">HumanPlayer.h</button>
+                        <div class="code code6">
+                            <h4> HumanPlayer.h </h4>
+                            <pre>#ifndef BATTLESHIP_HUMANPLAYER_H
+#define BATTLESHIP_HUMANPLAYER_H
+
+#include "Player.h"
+#include "Board.h"
+#include &lt;string>
+
+//HumanPlayer class is inherited from Player class
+namespace BattleShip {
+    class HumanPlayer : public Player {
+    public:
+        HumanPlayer(const GameAttributes &amp;gameAttributes, View &amp;view);
+        void placeShips(std::map&lt;char, int> shipHealths, int numOfRows, int numOfcols) override;
+        void initializeName() override;
+
+        const std::string &amp;getName() const override;
+
+        const Board &amp;getBoard() const override;
+
+        Board &amp;getBoard() override;
+
+        Attack getAttack(Player &amp;opponentPlayer) override;
+
+    private:
+        int rowInput;
+        int colInput;
+        char orientation;
+        static int nextHumanId;
+        const int humanId;
+        std::string humanName;
+
+    };
+}
+
+#endif //BATTLESHIP_HUMANPLAYER_H</pre>
+                        </div>
+                        <button class="collapsible look-code">HuntDestroyAiPlayer.cpp</button>
+                        <div class="code code6">
+                            <h4> HuntDestroyAiPlayer.cpp </h4>
+                            <pre>#include &lt;algorithm>
+#include "HuntDestroyAiPlayer.h"
+#include "GameAttributes.h"
+#include "Utility.h"
+
+BattleShip::HuntDestroyAiPlayer::HuntDestroyAiPlayer(const GameAttributes &amp;gameAttributes, View &amp;view) : AiPlayer(gameAttributes, view) {
+    //create the list of all the possible places to hit
+    for (int row = 0; row &lt; gameAttributes.numOfRows; ++row) {
+        for (int col = 0; col &lt; gameAttributes.numOfCols; ++col) {
+            allPlacesToHit.emplace_back(row, col);
+        }
+    }
+}
+
+void BattleShip::HuntDestroyAiPlayer::placeShips(std::map&lt;char, int> shipHealths, int numOfRows, int numOfcols) {
+    AiPlayer::placeShips(shipHealths, numOfRows, numOfcols);
+}
+
+void BattleShip::HuntDestroyAiPlayer::initializeName() {
+    AiPlayer::initializeName();
+}
+
+void BattleShip::HuntDestroyAiPlayer::setName(const std::string &amp;nameStr) {
+    AiPlayer::setName(nameStr);
+}
+
+const std::string &amp;BattleShip::HuntDestroyAiPlayer::getName() const {
+    return aiStrName;
+}
+
+const BattleShip::Board &amp;BattleShip::HuntDestroyAiPlayer::getBoard() const {
+    return board;
+}
+
+BattleShip::Board &amp;BattleShip::HuntDestroyAiPlayer::getBoard() {
+    return board;
+}
+
+BattleShip::Attack BattleShip::HuntDestroyAiPlayer::getAttack(Player &amp;opponentPlayer) {
+    Attack huntDestroyAttack(*this);
+    std::pair&lt;int, int> fire_loc;
+
+
+    //------ still in hunt mode -----
+    if (placesToDestroy.empty()) {
+        auto iterator = chooseRandom(allPlacesToHit, randomNumberGenerator);
+        fire_loc = *iterator;
+        allPlacesToHit.erase(iterator);
+        //if not in hut mode then it is on the destroy mode
+    } else {
+        fire_loc = placesToDestroy.front();
+        placesToDestroy.erase(placesToDestroy.begin());
+    }
+
+    //set the attack's location
+    huntDestroyAttack.row = fire_loc.first;
+    huntDestroyAttack.col = fire_loc.second;
+
+    //if the shot will hit
+    if (opponentPlayer.getBoard().at(huntDestroyAttack.row, huntDestroyAttack.col) != '*' &amp;&amp;
+        opponentPlayer.getBoard().at(huntDestroyAttack.row, huntDestroyAttack.col) != 'X' &amp;&amp;
+        opponentPlayer.getBoard().at(huntDestroyAttack.row, huntDestroyAttack.col) != 'O') {
+
+        //add surrounding locations
+        addSurroundingFireLocations(fire_loc);
+    }
+    return huntDestroyAttack;
+
+}
+
+void BattleShip::HuntDestroyAiPlayer::addSurroundingFireLocations(std::pair&lt;int, int> fire_loc) {
+    std::vector&lt;std::pair&lt;int, int>> surroundingLocations{
+            {fire_loc.first,     fire_loc.second - 1}, //left
+            {fire_loc.first - 1, fire_loc.second}, //up
+            {fire_loc.first,     fire_loc.second + 1}, //right
+            {fire_loc.first + 1, fire_loc.second} //down
+    };
+
+    //add the surrounding locations to the priority list of places to hit
+    for(const auto&amp; loc : surroundingLocations){
+        auto itr = std::find(allPlacesToHit.begin(), allPlacesToHit.end(), loc);
+        if(itr != allPlacesToHit.end()){
+            placesToDestroy.emplace_back(loc);
+            allPlacesToHit.erase(itr);
+        }
+    }
+}</pre>
+                        </div>
+                        <button class="collapsible look-code">HuntDestroyAiPlayer.h</button>
+                        <div class="code code6">
+                            <h4> HuntDestroyAiPlayer.h </h4>
+                            <pre>#ifndef BATTLESHIP_HUNTDESTROYAIPLAYER_H
+#define BATTLESHIP_HUNTDESTROYAIPLAYER_H
+
+#include "AiPlayer.h"
+
+//This class is inherited from the AiPlayer class
+namespace BattleShip {
+    class HuntDestroyAiPlayer : public AiPlayer {
+    public:
+        HuntDestroyAiPlayer(const GameAttributes &amp;gameAttributes, View &amp;view);
+
+        void placeShips(std::map&lt;char, int> shipHealths, int numOfRows, int numOfcols) override;
+
+        void initializeName() override;
+
+        void setName(const std::string &amp;nameStr) override;
+
+        const std::string &amp;getName() const override;
+
+        const Board &amp;getBoard() const override;
+
+        Board &amp;getBoard() override;
+
+        Attack getAttack(Player &amp;opponentPlayer) override;
+
+
+        std::vector&lt;std::pair&lt;int, int>> allPlacesToHit;
+        std::vector&lt;std::pair&lt;int, int>> placesToDestroy;
+
+    protected:
+        virtual void addSurroundingFireLocations(std::pair&lt;int,int>fire_loc);
+
+    };
+}
+
+#endif //BATTLESHIP_HUNTDESTROYAIPLAYER_H</pre>
+                        </div>
+                        <button class="collapsible look-code">Player.cpp</button>
+                        <div class="code code6">
+                            <h4> Player.cpp </h4>
+                            <pre>#include &lt;string>
+#include &lt;algorithm>
+#include "Player.h"
+#include &lt;iostream>
+#include "View.h"
+#include "GameAttributes.h"
+#include "Battleship.h"
+
+BattleShip::Player::Player(const GameAttributes &amp;gameAttributes, View &amp;view) : board(gameAttributes.numOfRows, gameAttributes.numOfCols, '*'), type(0) {
+
+}
+
+const std::string &amp;BattleShip::Player::getName() const {
+    return name;
+}
+
+const BattleShip::Board &amp;BattleShip::Player::getBoard() const {
+    return board;
+}
+
+BattleShip::Player::~Player() = default;</pre>
+                        </div>
+                        <button class="collapsible look-code">Player.h</button>
+                        <div class="code code6">
+                            <h4> Player.h </h4>
+                            <pre>#ifndef BATTLESHIP_PLAYER_H
+#define BATTLESHIP_PLAYER_H
+
+#include &lt;string>
+#include &lt;vector>
+#include &lt;map>
+#include "Board.h"
+
+#include "Attack.h"
+
+
+namespace BattleShip {
+    class GameAttributes;
+    class View;
+    class BattleShip;
+    class Player {
+    public:
+
+        Player(const GameAttributes &amp;gameAttributes, View &amp;view);
+
+        virtual ~Player();
+
+        virtual void initializeName() = 0;
+        virtual void placeShips(std::map&lt;char, int> shipHealths, int numOfRows, int numOfcols) = 0;
+
+        virtual Attack getAttack(Player&amp; opponentPlayer) = 0;
+
+        virtual const std::string &amp;getName() const;
+
+        virtual const Board &amp;getBoard() const ;
+        virtual Board&amp; getBoard() = 0;
+
+    protected:
+        Board board;
+        std::string name;
+        int type;
+    };
+}
+
+#endif //BATTLESHIP_PLAYER_H</pre>
+                        </div>
+                        <button class="collapsible look-code">RandomAiPlayer.cpp</button>
+                        <div class="code code6">
+                            <h4> RandomAiPlayer.cpp </h4>
+                            <pre>#include &lt;vector>
+#include "RandomAiPlayer.h"
+#include "GameAttributes.h"
+#include "Utility.h"
+
+BattleShip::RandomAiPlayer::RandomAiPlayer(const GameAttributes &amp;gameAttributes, View &amp;view) : AiPlayer(gameAttributes, view) {
+    //create the list of all the possible locations to hit on the board
+    for (int row = 0; row &lt; gameAttributes.numOfRows ; ++row) {
+        for (int col = 0; col &lt; gameAttributes.numOfCols; ++col) {
+            allPlacesToHit.emplace_back(row, col);
+        }
+    }
+
+}
+
+void BattleShip::RandomAiPlayer::placeShips(std::map&lt;char, int> shipHealths, int numOfRows, int numOfcols) {
+    AiPlayer::placeShips(shipHealths, numOfRows, numOfcols);
+}
+
+void BattleShip::RandomAiPlayer::initializeName() {
+    AiPlayer::initializeName();
+}
+
+void BattleShip::RandomAiPlayer::setName(const std::string &amp;nameStr) {
+    AiPlayer::setName(nameStr);
+}
+
+const std::string &amp;BattleShip::RandomAiPlayer::getName() const {
+    return aiStrName;
+}
+
+const BattleShip::Board &amp;BattleShip::RandomAiPlayer::getBoard() const {
+    return board;
+}
+
+BattleShip::Board &amp;BattleShip::RandomAiPlayer::getBoard() {
+    return board;
+}
+
+//random choose where to hit from the vector then delete that location from the vector
+BattleShip::Attack BattleShip::RandomAiPlayer::getAttack(Player &amp;opponentPlayer) {
+    Attack randomAttack(*this);
+    int rowAttack, colAttack;
+    auto iterator = chooseRandom(allPlacesToHit, randomNumberGenerator);
+    std::pair &lt;int, int> ranAttack = *iterator;
+    rowAttack = ranAttack.first;
+    colAttack = ranAttack.second;
+    randomAttack.isValid(opponentPlayer.getBoard(), rowAttack, colAttack);
+    allPlacesToHit.erase(iterator);
+    return randomAttack;
+}</pre>
+                        </div>
+                        <button class="collapsible look-code">RandomAiPlayer.h</button>
+                        <div class="code code6">
+                            <h4> RandomAiPlayer.h </h4>
+                            <pre>#ifndef BATTLESHIP_RANDOMAIPLAYER_H
+#define BATTLESHIP_RANDOMAIPLAYER_H
+
+#include &lt;vector>
+#include "AiPlayer.h"
+
+namespace BattleShip {
+    class RandomAiPlayer : public AiPlayer {
+    public:
+        RandomAiPlayer(const GameAttributes &amp;gameAttributes, View &amp;view);
+
+        void placeShips(std::map&lt;char, int> shipHealths, int numOfRows, int numOfcols) override;
+
+        void initializeName() override;
+
+        void setName(const std::string &amp;nameStr) override;
+
+        const std::string &amp;getName() const override;
+
+        const Board &amp;getBoard() const override;
+
+        Board &amp;getBoard() override;
+
+        Attack getAttack(Player &amp;opponentPlayer) override;
+
+        std::vector&lt;std::pair&lt;int, int>> allPlacesToHit;
+
+    };
+}
+
+#endif //BATTLESHIP_RANDOMAIPLAYER_H</pre>
+                        </div>
+                        <button class="collapsible look-code">ShipPlacement.cpp</button>
+                        <div class="code code6">
+                            <h4> ShipPlacement.cpp </h4>
+                            <pre>#include "ShipPlacement.h"
+#include "View.h"
+
+BattleShip::ShipPlacement::ShipPlacement(const Player &amp;maker) : maker(maker), rowStart(-99), rowEnd(-99), colStart(-99), colEnd(-99) {
+
+}</pre>
+                        </div>
+                        <button class="collapsible look-code">ShipPlacement.h</button>
+                        <div class="code code6">
+                            <h4> ShipPlacement.h </h4>
+                            <pre>#ifndef BATTLESHIP_SHIPPLACEMENT_H
+#define BATTLESHIP_SHIPPLACEMENT_H
+
+#include &lt;sstream>
+#include "Player.h"
+#include "View.h"
+
+namespace BattleShip {
+
+    class ShipPlacement {
+    public:
+        explicit ShipPlacement(const Player &amp;maker);
+
+        const Player &amp;maker;
+        int rowStart;
+        int rowEnd;
+        int colStart;
+        int colEnd;
+
+    };
+}
+
+#endif //BATTLESHIP_SHIPPLACEMENT_H</pre>
+                        </div>
+                        <button class="collapsible look-code">Utility.cpp</button>
+                        <div class="code code6">
+                            <h4> Utility.cpp </h4>
+                            <pre>#include "Utility.h"</pre>
+                        </div>
+                        <button class="collapsible look-code">Utility.h</button>
+                        <div class="code code6">
+                            <h4> Utility.h </h4>
+                            <pre>#ifndef BATTLESHIP_UTILITY_H
+#define BATTLESHIP_UTILITY_H
+#include &lt;algorithm>
+#include &lt;iostream>
+#include &lt;stdexcept>
+#include &lt;random>
+namespace BattleShip {
+
+template&lt;typename ValueType, typename ContainerType>
+bool contains(const ValueType&amp; value, const ContainerType&amp; container) {
+  return std::find(container.begin(), container.end(), value) != container.end();
+}
+
+template&lt;typename T>
+void verifiedRead(std::istream&amp; in, T&amp; val) {
+  if (in) {
+    in >> val;
+    if (!in) {
+      throw std::logic_error("Failed to read in value. Value formatted incorrectly");
+    }
+  } else {
+    throw std::logic_error("Failed to read as stream is no longer good.");
+  }
+}
+
+template &lt;typename ContainerType, typename RandomGeneratorType>
+typename ContainerType::const_iterator chooseRandom(const ContainerType&amp; container, RandomGeneratorType&amp; rand_gen){
+  int num_elements = std::distance(container.cbegin(), container.cend());
+  std::uniform_int_distribution&lt;> distribution(0,  num_elements -1);
+  auto itr = container.cbegin();
+  int move_amount = distribution(rand_gen);
+  std::advance(itr, move_amount);
+  return itr;
+}
+
+//get a random number between [min,max]
+template &lt;typename RandomGeneratorType>
+int getRandInt(int min, int max, RandomGeneratorType&amp; generator){
+  std::uniform_int_distribution&lt;> distribution(min, max);
+  return distribution(generator);
+}
+
+}
+
+
+
+#endif //BATTLESHIP_UTILITY_H</pre>
+                        </div>
+                        <button class="collapsible look-code">View.cpp</button>
+                        <div class="code code6">
+                            <h4> View.cpp </h4>
+                            <pre>#include &lt;iostream>
+#include "View.h"
+
+BattleShip::View::View() = default;
+
+//show the placement board
+void BattleShip::View::showPlacementBoard(const Board &amp;board) {
+    std::cout &lt;&lt; "  ";
+    for (int colIndex = 0; colIndex &lt; board.getNumCols() ; ++colIndex) {
+        std::cout &lt;&lt; colIndex &lt;&lt; ' ';
+    }
+    std::cout &lt;&lt; std::endl;
+    int rowIndex = 0;
+    for (const auto&amp; row : board.getBoard()) {
+        std::cout &lt;&lt; rowIndex &lt;&lt; ' ';
+        for (const auto&amp; elem : row){
+            std::cout &lt;&lt; elem &lt;&lt; ' ';
+        }
+        rowIndex++;
+        std::cout &lt;&lt; std::endl;
+    }
+}
+
+//show the opponent's placement board without showing where the ships are
+void BattleShip::View::attackBoardGhostMode(const Board &amp;board) {
+    std::cout &lt;&lt; "  ";
+    for (int colIndex = 0; colIndex &lt; board.getNumCols() ; ++colIndex) {
+        std::cout &lt;&lt; colIndex &lt;&lt; ' ';
+    }
+    std::cout &lt;&lt; std::endl;
+    int rowIndex = 0;
+    for (const auto&amp; row : board.getBoard()) {
+        std::cout &lt;&lt; rowIndex &lt;&lt; ' ';
+        for (const auto&amp; elem : row){
+            if(elem != 'X' &amp;&amp; elem != 'O' &amp;&amp; elem != '*'){
+                std::cout &lt;&lt; '*' &lt;&lt; ' ';
+            } else {
+                std::cout &lt;&lt; elem &lt;&lt; ' ';
+            }
+        }
+        rowIndex++;
+        std::cout &lt;&lt; std::endl;
+    }
+
+}</pre>
+                        </div>
+                        <button class="collapsible look-code">View.h</button>
+                        <div class="code code6">
+                            <h4> View.h </h4>
+                            <pre>#ifndef BATTLESHIP_VIEW_H
+#define BATTLESHIP_VIEW_H
+
+#include "Board.h"
+#include "ShipPlacement.h"
+
+namespace BattleShip {
+    class Board;
+    class View {
+    public:
+        View();
+        void showPlacementBoard(const Board &amp;board);
+        void attackBoardGhostMode(const Board&amp; board);
+
+    };
+}
+
+#endif //BATTLESHIP_VIEW_H</pre>
+                        </div>
+                        <button class="collapsible look-code">main.cpp</button>
+                        <div class="code code6">
+                            <h4> main.cpp </h4>
+                            <pre>#include &lt;iostream>
+#include &lt;fstream>
+#include &lt;map>
+#include "Battleship.h"
+#include "GameAttributes.h"
+#include "AiPlayer.h"
+
+int main(int argc, char** argv){
+    //if the seed is given then seed the random number generator
+    if (argc == 3){
+        BattleShip::AiPlayer::seed_random_number_generator(std::stoi(argv[2]));
+    }
+    std::ifstream configFile(argv[1]);
+    int numRows;
+    int numCols;
+    int numOfShips;
+    int hitAllWin = 0;
+
+    //read in the configuration file
+    configFile >> numRows >> numCols >> numOfShips;
+    std::map&lt;char, int> shipHealth;
+    for (int ship = 0; ship &lt; numOfShips; ++ship) {
+        char shipType;
+        int shipSize;
+        configFile >> shipType >> shipSize;
+        hitAllWin += shipSize;
+        shipHealth.emplace(shipType, shipSize);
+    }
+    //store all the configurations to the gameAttribute class
+    BattleShip::GameAttributes gameAttributes(shipHealth, numRows, numCols);
+    BattleShip::BattleShip battleShip(numRows, numCols, shipHealth);
+    battleShip.play(hitAllWin); //play the game
+    configFile.close();
+    return 0;
+}</pre>
                         </div>
                     </div>
                 </div>
