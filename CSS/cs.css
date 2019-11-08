@@ -1,9 +1,9 @@
 body
 {
-    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../images/cs-page/Coding.jpg);
-    background-size: cover;
-    background-position: center;
-    background-color: black;
+/*    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../images/cs-page/Coding.jpg);*/
+/*    background-size: cover;*/
+/*    background-position: center;*/
+    background-color: black !important;
 }
 
 img{
@@ -40,35 +40,45 @@ h5{
 }
 
 
-/*python paragraph*/
-.python{
+/*all paragraph*/
+.python, .cpp, .c, .html, .sql, .objc {
     font-family: "Courier New";
 }
 
 /*c++ paragraph*/
+/*
 .cpp{
     font-family: "Courier New";
 }
+*/
 
 /*c paragraph*/
+/*
 .c{
     font-family: "Courier New";
 }
+*/
 
 /*html/css paragraph*/
+/*
 .html{
     font-family: "Courier New";
 }
+*/
 
 /*sql paragraph*/
+/*
 .sql {
     font-family: "Courier New";
 }
+*/
 
 /*objective-c paragraph*/
+/*
 .objc{
     font-family: "Courier New";
 }
+*/
 
 p{
     color: white;
